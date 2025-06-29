@@ -1,8 +1,8 @@
 ---
 title: Day10 在 Next.js 安裝 apollo-graphql，串接 WordPress GraphQL API（下）
-description: '在 Next.js 使用 ApolloClient 串接 WordPress GraphQL API，抓取文章列表資料，顯示在部落格首頁'
-slug: '2021-ironman-day10-apollo-graphql-post-list'
-category: 'Frontend'
+description: "在 Next.js 使用 ApolloClient 串接 WordPress GraphQL API，抓取文章列表資料，顯示在部落格首頁"
+slug: "2021-ironman-day10-apollo-graphql-post-list"
+category: "Frontend"
 tags:
   - 13屆IT鐵人賽
   - Next.js
@@ -10,7 +10,7 @@ tags:
   - GraphQL
   - WPGraphQL
   - Apollo
-socialImage: ''
+socialImage: ""
 date: 2022-03-20 15:20
 type: Post
 meta:
@@ -54,9 +54,9 @@ query MyQuery {
 讓我們把這段 query 複製進 Next.js 程式碼裡，我建立了一個 **graphql** 資料夾，用來存放所有 GraphQL query string 和資料型態轉換的邏輯，並在裡面建立了 **allPostsQuery.js**（完整路徑是 /graphql/allPostsQuery.js），內容如下：
 
 ```javascript
-import { gql } from '@apollo/client'
+import { gql } from "@apollo/client";
 
-import discardPTag from '../utils/discardPTag'
+import discardPTag from "../utils/discardPTag";
 
 export const ALL_POSTS_QUERY = gql`
   query allPosts($first: Int!) {
@@ -78,29 +78,29 @@ export const ALL_POSTS_QUERY = gql`
       }
     }
   }
-`
+`;
 
 export const allPostsQueryVars = {
   first: 10,
-}
+};
 
 export const transformAllPostsData = (data) => {
   return (
     data?.posts?.edges
       ?.map((edge) => edge?.node)
       ?.map((post) => ({
-        id: post?.databaseId || '',
-        title: post?.title || '',
-        uri: post?.uri || '',
-        date: post?.date || '',
-        excerpt: discardPTag(post?.excerpt) || '',
+        id: post?.databaseId || "",
+        title: post?.title || "",
+        uri: post?.uri || "",
+        date: post?.date || "",
+        excerpt: discardPTag(post?.excerpt) || "",
         featuredImage: {
-          sourceUrl: post?.featuredImage?.node?.sourceUrl || '',
-          altText: post?.featuredImage?.node?.altText || '',
+          sourceUrl: post?.featuredImage?.node?.sourceUrl || "",
+          altText: post?.featuredImage?.node?.altText || "",
         },
       })) || []
-  )
-}
+  );
+};
 ```
 
 裡面放了從 GraphiQL 複製過來的 query string，並且我額外寫了 transformAllPostsData function，用來在等等將 query 回來的資料轉成用起來舒服的資料格式，把串接介面切乾淨。
@@ -115,29 +115,33 @@ export const transformAllPostsData = (data) => {
  * @returns string
  */
 export default function discardPTag(source) {
-  return source?.slice(3, -4)
+  return source?.slice(3, -4);
 }
 ```
 
 接著在首頁的 **/pages/index.js** 裡，參照 Next.js 官方 [with-apollo](https://github.com/vercel/next.js/blob/canary/examples/with-apollo/pages/index.js) 範例寫法，在最下面新增 getStaticProps function 來在 server side 產生 ApolloClient 並 query GraphQL API，並在 component 內部使用 useQuery 來使用 query 回來的資料，並用剛剛的 transformAllPostsData 轉換資料，存成 allPosts 陣列，並在 render 時用 array.map 產生文章列表，修改完的完整 **index.js** 長這樣：
 
 ```javascript
-import { useMemo } from 'react'
-import Head from 'next/head'
-import Image from 'next/image'
-import Link from 'next/link'
-import { useQuery } from '@apollo/client'
+import { useMemo } from "react";
+import Head from "next/head";
+import Image from "next/image";
+import Link from "next/link";
+import { useQuery } from "@apollo/client";
 
-import styles from '../styles/Home.module.css'
+import styles from "../styles/Home.module.css";
 
-import { initializeApollo, addApolloState } from '../lib/apolloClient'
-import { allPostsQueryVars, ALL_POSTS_QUERY, transformAllPostsData } from '../graphql/allPostsQuery'
+import { initializeApollo, addApolloState } from "../lib/apolloClient";
+import {
+  allPostsQueryVars,
+  ALL_POSTS_QUERY,
+  transformAllPostsData,
+} from "../graphql/allPostsQuery";
 
 export default function Home() {
   const { data } = useQuery(ALL_POSTS_QUERY, {
     variables: allPostsQueryVars,
-  })
-  const allPosts = useMemo(() => transformAllPostsData(data), [data]) || []
+  });
+  const allPosts = useMemo(() => transformAllPostsData(data), [data]) || [];
 
   return (
     <div className={styles.container}>
@@ -168,28 +172,28 @@ export default function Home() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
+          Powered by{" "}
           <span className={styles.logo}>
             <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
           </span>
         </a>
       </footer>
     </div>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const apolloClient = initializeApollo()
+  const apolloClient = initializeApollo();
 
   await apolloClient.query({
     query: ALL_POSTS_QUERY,
     variables: allPostsQueryVars,
-  })
+  });
 
   return addApolloState(apolloClient, {
     props: {},
     revalidate: 1,
-  })
+  });
 }
 ```
 
@@ -227,7 +231,7 @@ export async function getStaticProps() {
 
 ![Imgur](https://i.imgur.com/H4SzW4n.png)
 
-這篇文章的相關改動，可以參照這支 [commit](https://github.com/Kamigami55/oh-so-pro-blog/commit/5b16e328b764a36acfe09eb5d28a64682a24ce10)
+這篇文章的相關改動，可以參照這支 [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/5b16e328b764a36acfe09eb5d28a64682a24ce10)
 
 ## 下一篇
 

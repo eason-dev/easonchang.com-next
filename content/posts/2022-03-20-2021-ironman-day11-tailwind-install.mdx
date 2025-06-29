@@ -1,13 +1,13 @@
 ---
 title: Day11 TailwindCSS 介紹，在 Next.js 專案安裝 TailwindCSS
-description: '安裝 Tailwind CSS 這套 CSS 框架在 Next.js，準備做點簡單切版，美化文章列表的樣式'
-slug: '2021-ironman-day11-tailwind-install'
-category: 'Frontend'
+description: "安裝 Tailwind CSS 這套 CSS 框架在 Next.js，準備做點簡單切版，美化文章列表的樣式"
+slug: "2021-ironman-day11-tailwind-install"
+category: "Frontend"
 tags:
   - 13屆IT鐵人賽
   - Next.js
   - TailwindCSS
-socialImage: ''
+socialImage: ""
 date: 2022-03-20 15:30
 type: Post
 meta:
@@ -82,8 +82,8 @@ yarn add -D tailwindcss@latest postcss@latest autoprefixer@latest
 
 ```javascript
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
+  mode: "jit",
+  purge: ["./src/**/*.{js,ts,jsx,tsx}"],
   // or
   // purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
@@ -92,7 +92,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
 ```
 
 這邊需要注意 purge 參數，這是用來指出你會出現 tailwindcss class name 的檔案有哪些，在 build 到正式環境時，tailwind 會依此來判斷哪些 class 沒被用到，並從最後的 css 檔案刪除，減少 bundle size。
@@ -109,7 +109,7 @@ module.exports = {
     tailwindcss: {},
     autoprefixer: {},
   },
-}
+};
 ```
 
 最後在全站的 **\_app.js** 會 import 的 **globals.css** 或 **index.css** 的最開頭加入以下程式碼：
@@ -138,7 +138,7 @@ tailwind base;
 
 不用擔心，我們下一篇會再把樣式加回來，會這樣是因為 Tailwind 跟 Bootstrap 等框架一樣，都會先 Normalize 瀏覽器預設樣式，把所有樣式的控制權交還給你定義，防止同一個網站在不同裝置看樣式會不同。
 
-以上的程式碼改動可以在這支 [commit](https://github.com/Kamigami55/oh-so-pro-blog/commit/2dcd5d68656c00950fa24351e80535df99695629) 看到。
+以上的程式碼改動可以在這支 [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/2dcd5d68656c00950fa24351e80535df99695629) 看到。
 
 ## 下一篇
 

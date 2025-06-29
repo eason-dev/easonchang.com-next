@@ -9,12 +9,12 @@ type: Post
 isDraft: false
 ---
 
-> This article is also published on [iT邦幫忙 2022 iThome Ironman](https://ithelp.ithome.com.tw/articles/10295154)
+> This article is also published on [iT 邦幫忙 2022 iThome Ironman](https://ithelp.ithome.com.tw/articles/10295154)
 
 In this article, we will introduce how to write articles using Markdown syntax, as well as install Contentlayer to convert Markdown files into articles.
 
 > The complete code changes for this article can be seen here:
-> https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day04-prepare...day05-markdown-contentlayer
+> https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day04-prepare...day05-markdown-contentlayer
 
 ---
 
@@ -48,7 +48,7 @@ A normal paragraph of text, with **bold** and _italics_.
 > ```
 ````
 
-Markdown is very popular among developers, writers, and note-takers. Github's README.md or various comment boxes can use Markdown syntax. The iT邦幫忙 Ironman articles you see now are also written in Markdown. Modern note-taking software like Notion, [Craft](https://obsidian.md/), [Obsidian](https://obsidian.md/), [HackMD](https://hackmd.io/), etc., also support it.
+Markdown is very popular among developers, writers, and note-takers. Github's README.md or various comment boxes can use Markdown syntax. The iT 邦幫忙 Ironman articles you see now are also written in Markdown. Modern note-taking software like Notion, [Craft](https://obsidian.md/), [Obsidian](https://obsidian.md/), [HackMD](https://hackmd.io/), etc., also support it.
 
 The main advantage of writing in Markdown is that it allows us to focus on the content. It provides just the right amount of formatting syntax, not so little that it can't be beautifully typeset, nor so much that we spend too much time dealing with the formatting.
 
@@ -97,9 +97,7 @@ import { withContentlayer } from "next-contentlayer";
 const nextConfig = withContentlayer({
   reactStrictMode: true,
   swcMinify: true,
-  eslint:
-
- {
+  eslint: {
     // Only run ESLint on the 'pages/' and 'components/' directories during production builds (next build)
     dirs: ["pages", "components"],
   },
@@ -137,4 +135,4 @@ This completes the basic setup for Contentlayer. In the next article, we'll disc
 
 ---
 
-> This series of articles are written as part of participating in [iT邦幫忙 2022 iThome Ironman](https://ithelp.ithome.com.tw/articles/10295154), documenting the learning process of Next.js. If you're interested in learning more about web development, feel free to follow this series!
+> This series of articles are written as part of participating in [iT 邦幫忙 2022 iThome Ironman](https://ithelp.ithome.com.tw/articles/10295154), documenting the learning process of Next.js. If you're interested in learning more about web development, feel free to follow this series!

@@ -14,7 +14,7 @@ isDraft: false
 這是本系列最後一篇實作文，最後來實作一個微小但重要的功能：舊路徑轉址！
 
 > 這篇修改的程式碼如下：
-> https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day28-i18next...day29-old-post-path-redirect
+> https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day28-i18next...day29-old-post-path-redirect
 
 ---
 
@@ -98,7 +98,7 @@ export const allRedirects = getAllRedirects();
 ```ts
 // Discard leading and trailing slashes
 export const unifyPath = (path: string): string => {
-  return '/' + path.replace(/\/$/, '').replace(/^\//, '');
+  return "/" + path.replace(/\/$/, "").replace(/^\//, "");
 };
 ```
 
@@ -229,7 +229,7 @@ Content...
 這樣就完成了！使用 `pnpm dev`，瀏覽你設定過的舊路徑，就能看你會直接重導向到正確的文章路徑，依然能順利瀏覽文章！
 
 > 這篇修改的程式碼如下：
-> https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day28-i18next...day29-old-post-path-redirect
+> https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day28-i18next...day29-old-post-path-redirect
 
 ## References
 

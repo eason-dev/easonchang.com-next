@@ -23,7 +23,7 @@ isDraft: false
 
 這篇修改的程式碼如下：
 
-https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day12-basic-index-page-ui...day13-basic-post-page-ui
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day12-basic-index-page-ui...day13-basic-post-page-ui
 
 ---
 
@@ -58,7 +58,7 @@ type Props = {
 
 export default function PageTitle({ children }: Props) {
   return (
-    <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 transition-colors dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl md:leading-14">
+    <h1 className="md:leading-14 text-3xl font-extrabold leading-9 tracking-tight text-gray-900 transition-colors dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-5xl">
       {children}
     </h1>
   );
@@ -109,7 +109,7 @@ export default function PostBody({ children }: Props) {
   return (
     <div
       className={clsx(
-        "prose mx-auto transition-colors dark:prose-dark",
+        "prose dark:prose-dark mx-auto transition-colors",
         styles.postBody
       )}
     >
@@ -201,7 +201,7 @@ export default function PostLayout({
                   </h2>
                   <CustomLink
                     href={prevPost.path}
-                    className="text-primary-500 transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                    className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
                   >
                     ← {prevPost.title}
                   </CustomLink>
@@ -216,7 +216,7 @@ export default function PostLayout({
                   </h2>
                   <CustomLink
                     href={nextPost.path}
-                    className="block text-primary-500 transition-colors hover:text-primary-600 dark:hover:text-primary-400 sm:text-right"
+                    className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 block transition-colors sm:text-right"
                   >
                     {nextPost.title} →
                   </CustomLink>
@@ -348,7 +348,7 @@ http://localhost:3000/posts/markdown-demo
 
 這篇修改的程式碼如下：
 
-https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day12-basic-index-page-ui...day13-basic-post-page-ui
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day12-basic-index-page-ui...day13-basic-post-page-ui
 
 ## References
 

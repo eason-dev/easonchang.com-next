@@ -1,12 +1,12 @@
 ---
 title: 部落格搬遷紀錄，用 Gatsby.js 取代 Hexo
-description: '當完兵過年期間閒的蛋疼，想要嘗試新技術，於是決定用 Gatsby.js 來重架部落格啦！'
-slug: 'migrate-to-gatsby'
+description: "當完兵過年期間閒的蛋疼，想要嘗試新技術，於是決定用 Gatsby.js 來重架部落格啦！"
+slug: "migrate-to-gatsby"
 category: Blog
 tags:
   - Blog
   - Gatsby
-socialImage: '/images/2021-02-13-migrate-to-gatsby/new-blog.png'
+socialImage: "/images/2021-02-13-migrate-to-gatsby/new-blog.png"
 date: 2021-02-13 05:57
 type: Post
 ---
@@ -86,66 +86,66 @@ gatsby develop # 啟動 local server
 再來就是調整細部內容成我想要的樣子，部落格 title、社群連結、網址、Disqus 連結、favicon 等，主要是調整 **config.js**：
 
 ```js
-'use strict'
+"use strict";
 
 module.exports = {
-  url: 'https://www.easonchang.com',
-  pathPrefix: '/',
+  url: "https://www.easonchang.com",
+  pathPrefix: "/",
   title: "Eason's Playground - blog by Eason Chang",
   subtitle: "Let's make something awesome!\n",
-  copyright: '© All rights reserved.',
-  disqusShortname: 'xxxxxxxxxxxxx',
+  copyright: "© All rights reserved.",
+  disqusShortname: "xxxxxxxxxxxxx",
   postsPerPage: 10,
-  googleAnalyticsId: 'G-XXXXXXXXX',
+  googleAnalyticsId: "G-XXXXXXXXX",
   useKatex: false,
   menu: [
     {
-      label: '文章',
-      path: '/',
+      label: "文章",
+      path: "/",
     },
     {
-      label: '關於我',
-      path: '/pages/about',
+      label: "關於我",
+      path: "/pages/about",
     },
     {
-      label: '專案',
-      path: '/pages/projects',
+      label: "專案",
+      path: "/pages/projects",
     },
   ],
   author: {
-    name: 'Eason Chang',
-    photo: '/bio-img.jpeg',
-    bio: 'Hi, I am Eason!',
+    name: "Eason Chang",
+    photo: "/bio-img.jpeg",
+    bio: "Hi, I am Eason!",
     contacts: {
-      email: 'eason@easonchang.com',
-      facebook: 'chang.ying.hsiang',
-      telegram: '',
-      twitter: '',
-      github: 'Kamigami55',
-      rss: '',
-      vkontakte: '',
-      linkedin: 'easonchang101',
-      instagram: '',
-      line: '',
-      gitlab: '',
-      weibo: '',
-      codepen: '',
-      youtube: '',
-      soundcloud: '',
-      medium: '',
+      email: "eason@easonchang.com",
+      facebook: "chang.ying.hsiang",
+      telegram: "",
+      twitter: "",
+      github: "eason-dev",
+      rss: "",
+      vkontakte: "",
+      linkedin: "easonchang101",
+      instagram: "",
+      line: "",
+      gitlab: "",
+      weibo: "",
+      codepen: "",
+      youtube: "",
+      soundcloud: "",
+      medium: "",
     },
   },
-}
+};
 ```
 
 ### 4. 生成靜態頁面再丟上 Github Pages，就算是搬遷完成了
 
-我原本的 Hexo 部落格就是架在 Github Pages 上，repo 是 [Kamigami55/Kamigami55.github.io](https://github.com/Kamigami55/Kamigami55.github.io) ，網址會是 [Kamigami55.github.io](https://Kamigami55.github.io) 。
+我原本的 Hexo 部落格就是架在 Github Pages 上，repo 是 [eason-dev/eason-dev.github.io](https://github.com/eason-dev/eason-dev.github.io) ，網址會是 [eason-dev.github.io](https://eason-dev.github.io) 。
 
 另外原本就還有在 GoDaddy 上買網域指向這個位置，所以部落格最終網址會是
 [https://www.easonchang.com/](https://www.easonchang.com/) 。
 
-而我現在做的動作是把舊 repo 改名封存，重開一個新的 **Kamigami55/Kamigami55.github.io** repo，並把剛剛編輯好的 gatsby 專案 push 到 master branch 存放原始碼。
+而我現在做的動作是把舊 repo 改名封存，重開一個新的 **eason-dev/eason-dev.github.io** repo，並把剛剛編輯好的 gatsby 專案 push 到 master branch 存放原始碼。
 
 然後在終端機執行以下指令，建立新部落格的靜態檔，並會自動 push 到 gh-pages branch。
 
@@ -184,7 +184,7 @@ export type PageContext = {
   hasPrevPage: boolean,
   hasNextPage: boolean,
   postsLimit: number, // <--- add this
-}
+};
 // ...
 ```
 

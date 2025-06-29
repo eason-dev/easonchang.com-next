@@ -1,24 +1,30 @@
 ---
-title: '【100sites #001】Timer'
+title: "【100sites #001】Timer"
 date: 2016-02-12 15:56
 tags: [100sites, Project, Web]
 category: 100sites
-socialImage: 'https://i.imgur.com/7fMXTrA.jpg'
+socialImage: "https://i.imgur.com/7fMXTrA.jpg"
 type: Post
-slug: '100sites-001-timer'
-description: '一個很簡單的倒數計時器。'
+slug: "100sites-001-timer"
+description: "一個很簡單的倒數計時器。"
 redirect_from:
   - /2016/02/12/100sites-001-timer/
 ---
 
 <p>
-  <a href="https://github.com/Kamigami55/100sites/tree/master/001_Timer" target="_blank">
+  <a
+    href="https://github.com/eason-dev/100sites/tree/master/001_Timer"
+    target="_blank"
+  >
     Github
   </a>
 </p>
 
 <p>
-  <a href="http://kamigami55.github.io/100sites/001_Timer/timer.html" target="_blank">
+  <a
+    href="http://kamigami55.github.io/100sites/001_Timer/timer.html"
+    target="_blank"
+  >
     Live Demo
   </a>
 </p>
@@ -27,9 +33,13 @@ redirect_from:
 
 <p>一個很簡單的倒數計時器。</p>
 
-<p>使用了很基本的前端老三套：HTML、CSS、JavaScript，各一個檔案來完成這個計時器。</p>
+<p>
+  使用了很基本的前端老三套：HTML、CSS、JavaScript，各一個檔案來完成這個計時器。
+</p>
 
-<p>關鍵的計時功能由window.setInterval(function, delay)來完成，正常使用沒問題。</p>
+<p>
+  關鍵的計時功能由window.setInterval(function, delay)來完成，正常使用沒問題。
+</p>
 
 <p>
   目前的問題是時間拉長以後就會產生時間誤差，並且當使用者切換到別的頁面後，此時Timer在背景執行，瀏覽器分配給setInterval的資源就會變少，倒數速度就會變非常慢，甚至完全停止，我目前還找不到解決方法。

@@ -1,8 +1,8 @@
 ---
 title: Day9 在 Next.js 安裝 apollo-graphql，串接 WordPress GraphQL API（上）
-description: '在 Next.js 安裝 apollo-graphql package，將用來串接 WordPress 的 GraphQL API'
-slug: '2021-ironman-day9-apollo-graphql-install'
-category: 'Frontend'
+description: "在 Next.js 安裝 apollo-graphql package，將用來串接 WordPress 的 GraphQL API"
+slug: "2021-ironman-day9-apollo-graphql-install"
+category: "Frontend"
 tags:
   - 13屆IT鐵人賽
   - Next.js
@@ -10,7 +10,7 @@ tags:
   - GraphQL
   - WPGraphQL
   - Apollo
-socialImage: ''
+socialImage: ""
 date: 2022-03-20 15:10
 type: Post
 meta:
@@ -43,24 +43,24 @@ yarn add @apollo/client graphql deepmerge lodash
 ```javascript
 // Mainly follow this example
 // https://github.com/vercel/next.js/tree/canary/examples/with-apollo
-import { useMemo } from 'react'
-import { ApolloClient, HttpLink, InMemoryCache } from '@apollo/client'
-import { concatPagination } from '@apollo/client/utilities'
-import merge from 'deepmerge'
-import isEqual from 'lodash/isEqual'
+import { useMemo } from "react";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { concatPagination } from "@apollo/client/utilities";
+import merge from "deepmerge";
+import isEqual from "lodash/isEqual";
 
-import { NEXT_PUBLIC_GRAPHQL_ENDPOINT } from '../constants/envValues'
+import { NEXT_PUBLIC_GRAPHQL_ENDPOINT } from "../constants/envValues";
 
-export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
+export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
 
-let apolloClient
+let apolloClient;
 
 function createApolloClient() {
   return new ApolloClient({
-    ssrMode: typeof window === 'undefined',
+    ssrMode: typeof window === "undefined",
     link: new HttpLink({
       uri: NEXT_PUBLIC_GRAPHQL_ENDPOINT, // Server URL (must be absolute)
-      credentials: 'same-origin', // Additional fetch() options like `credentials` or `headers`
+      credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
     }),
     cache: new InMemoryCache({
       typePolicies: {
@@ -71,70 +71,72 @@ function createApolloClient() {
         },
       },
     }),
-  })
+  });
 }
 
 export function initializeApollo(initialState = null) {
-  const _apolloClient = apolloClient ?? createApolloClient()
+  const _apolloClient = apolloClient ?? createApolloClient();
 
   // If your page has Next.js data fetching methods that use Apollo Client, the initial state
   // gets hydrated here
   if (initialState) {
     // Get existing cache, loaded during client side data fetching
-    const existingCache = _apolloClient.extract()
+    const existingCache = _apolloClient.extract();
 
     // Merge the existing cache into data passed from getStaticProps/getServerSideProps
     const data = merge(initialState, existingCache, {
       // combine arrays using object equality (like in sets)
       arrayMerge: (destinationArray, sourceArray) => [
         ...sourceArray,
-        ...destinationArray.filter((d) => sourceArray.every((s) => !isEqual(d, s))),
+        ...destinationArray.filter((d) =>
+          sourceArray.every((s) => !isEqual(d, s))
+        ),
       ],
-    })
+    });
 
     // Restore the cache with the merged data
-    _apolloClient.cache.restore(data)
+    _apolloClient.cache.restore(data);
   }
   // For SSG and SSR always create a new Apollo Client
-  if (typeof window === 'undefined') return _apolloClient
+  if (typeof window === "undefined") return _apolloClient;
   // Create the Apollo Client once in the client
-  if (!apolloClient) apolloClient = _apolloClient
+  if (!apolloClient) apolloClient = _apolloClient;
 
-  return _apolloClient
+  return _apolloClient;
 }
 
 export function addApolloState(client, pageProps) {
   if (pageProps?.props) {
-    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract()
+    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
   }
 
-  return pageProps
+  return pageProps;
 }
 
 export function useApollo(pageProps) {
-  const state = pageProps[APOLLO_STATE_PROP_NAME]
-  const store = useMemo(() => initializeApollo(state), [state])
-  return store
+  const state = pageProps[APOLLO_STATE_PROP_NAME];
+  const store = useMemo(() => initializeApollo(state), [state]);
+  return store;
 }
 ```
 
 接著修改 **/pages/\_app.js**，用剛剛的 useApollo 以及 @apollo/client package 提供的 ApolloProvider 包住整個 Next.js app，這樣之後才能在各個 page 或 component 內呼叫 GraphQL API：
 
 ```javascript
-import { ApolloProvider } from '@apollo/client'
+import { ApolloProvider } from "@apollo/client";
 
-import { useApollo } from '../lib/apolloClient'
+import { useApollo } from "../lib/apolloClient";
 
-import '../styles/globals.css'
+import "../styles/globals.css";
 
 export default function App({ Component, pageProps }) {
-  const apolloClient = useApollo(pageProps)
+  const apolloClient = useApollo(pageProps);
 
   return (
     <ApolloProvider client={apolloClient}>
       <Component {...pageProps} />
     </ApolloProvider>
-  )
+  );
 }
 ```
 
@@ -145,7 +147,8 @@ export default function App({ Component, pageProps }) {
 我習慣將環境變數集中到一支 JavaScript 檔案，集中 export 出去，這樣方便我們一眼看出專案有哪些環境變數，在這裡我們建立 **/constants/envValues.js**：
 
 ```javascript
-export const NEXT_PUBLIC_GRAPHQL_ENDPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT
+export const NEXT_PUBLIC_GRAPHQL_ENDPOINT =
+  process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
 ```
 
 再來在 Next.js local 開發過程，環境變數設定通常是用建立**環境變數檔**方式設定的，啟動 Next.js dev server 時會自動來讀取特定名稱的檔案，通常叫做 **.env.local**，所以讓我們建立 **/.env.local**，後面 endpoint 網址替換成你自己的網址，通常用 WPGraphQL 啟用的話都會是在你的 WordPress domain 裡的 /graphql 路徑：
@@ -158,6 +161,6 @@ NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://xxxxxx.mybluehost.me/graphql
 
 到此我們成功在 Next.js 安裝 ApolloClient 了，不過還沒完，下一篇文章我們會繼續使用剛安裝的 ApolloClient 從 WordPress 抓取文章資料，在首頁顯示文章列表！
 
-關於這篇文章的改動可以參考這支 [commit](https://github.com/Kamigami55/oh-so-pro-blog/commit/be0fc629e5e67d97ef68856c7540cb5bcb82e80f)
+關於這篇文章的改動可以參考這支 [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/be0fc629e5e67d97ef68856c7540cb5bcb82e80f)
 
 > 本文同步發佈在 [iT 邦幫忙 2021 iThome 鐵人賽](https://ithelp.ithome.com.tw/articles/10270795)

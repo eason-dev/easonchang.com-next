@@ -1,19 +1,19 @@
 ---
-title: '【100sites #005】Drawer'
+title: "【100sites #005】Drawer"
 date: 2016-02-15 17:49
 tags: [100sites, Project, Web]
 category: 100sites
-socialImage: 'https://i.imgur.com/k5wMk9z.jpg'
+socialImage: "https://i.imgur.com/k5wMk9z.jpg"
 type: Post
-slug: '100sites-005-drawer'
-description: ''
+slug: "100sites-005-drawer"
+description: ""
 redirect_from:
   - /2016/02/15/100sites-005-drawer/
 ---
 
 # Drawer - 簡單抽數字
 
-[Github](https://github.com/Kamigami55/100sites/tree/gh-pages/005_Drawer)
+[Github](https://github.com/eason-dev/100sites/tree/gh-pages/005_Drawer)
 
 [Live Demo](http://kamigami55.github.io/100sites/005_Drawer/)
 
@@ -56,8 +56,20 @@ redirect_from:
         <h1>Drawer!</h1>
         <h2>Pick One:</h2>
         <div class="form-inline">
-          From <input type="number" class="form-control" id="minimum" placeholder="Minimum" /> To
-          <input type="number" class="form-control" id="maximum" placeholder="Maximum" />
+          From
+          <input
+            type="number"
+            class="form-control"
+            id="minimum"
+            placeholder="Minimum"
+          />
+          To
+          <input
+            type="number"
+            class="form-control"
+            id="maximum"
+            placeholder="Maximum"
+          />
           <button class="btn btn-primary" id="pickone">Pick one!</button>
           <div class="panel panel-info" id="result-panel">
             <div class="panel-body" id="result-body">
@@ -74,42 +86,42 @@ redirect_from:
 
 ```javascript drawer.js
 $(document).ready(function () {
-  pickone_btn = $('#pickone')
-  result_panel = $('#result-panel') // style of result panel, used to change result panel style
-  result_body = $('#result-body') // body of result panel, used to display result
-  max_fld = $('#maximum') // maximum input field
-  min_fld = $('#minimum') // minimum input field
+  pickone_btn = $("#pickone");
+  result_panel = $("#result-panel"); // style of result panel, used to change result panel style
+  result_body = $("#result-body"); // body of result panel, used to display result
+  max_fld = $("#maximum"); // maximum input field
+  min_fld = $("#minimum"); // minimum input field
 
   pickone_btn.click(function () {
-    var min = parseInt(min_fld.val())
-    var max = parseInt(max_fld.val())
+    var min = parseInt(min_fld.val());
+    var max = parseInt(max_fld.val());
 
     // if the input is invalid (empty or not number)
     if (isNaN(min) || isNaN(max)) {
-      result_body.html('I need both MIN and MAX!')
+      result_body.html("I need both MIN and MAX!");
       // set style to danger(red)
-      result_panel.addClass('panel-danger')
-      result_panel.removeClass('panel-info')
-      result_panel.removeClass('panel-success')
-      return
+      result_panel.addClass("panel-danger");
+      result_panel.removeClass("panel-info");
+      result_panel.removeClass("panel-success");
+      return;
     }
 
     if (min > max) {
       // interchange min & max
-      var tmp = min
-      min = max
-      max = tmp
+      var tmp = min;
+      min = max;
+      max = tmp;
       // interchange value of input fields
-      max_fld.val(max)
-      min_fld.val(min)
+      max_fld.val(max);
+      min_fld.val(min);
     }
 
-    var result = Math.floor(Math.random() * (max - min + 1) + min)
-    result_body.html('You got <b>' + result + '</b> !')
+    var result = Math.floor(Math.random() * (max - min + 1) + min);
+    result_body.html("You got <b>" + result + "</b> !");
     // set style to success(green)
-    result_panel.addClass('panel-success')
-    result_panel.removeClass('panel-info')
-    result_panel.removeClass('panel-danger')
-  })
-})
+    result_panel.addClass("panel-success");
+    result_panel.removeClass("panel-info");
+    result_panel.removeClass("panel-danger");
+  });
+});
 ```

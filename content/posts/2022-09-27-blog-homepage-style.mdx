@@ -23,7 +23,7 @@ isDraft: false
 
 這篇修改的程式碼如下：
 
-https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day11-basic-site-ui...day12-basic-index-page-ui
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day11-basic-site-ui...day12-basic-index-page-ui
 
 ---
 
@@ -91,7 +91,7 @@ export default function PostList({ posts = [] }: Props) {
                       {title}
                     </h3>
                   </div>
-                  <div className="prose prose-sm max-w-none text-gray-500 transition-colors dark:text-gray-400 md:prose-base">
+                  <div className="prose prose-sm md:prose-base max-w-none text-gray-500 transition-colors dark:text-gray-400">
                     {description}
                   </div>
                 </div>
@@ -141,7 +141,7 @@ const Home: NextPage<Props> = ({ posts }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <div className="prose my-12 space-y-2 transition-colors dark:prose-dark md:prose-lg md:space-y-5">
+      <div className="prose dark:prose-dark md:prose-lg my-12 space-y-2 transition-colors md:space-y-5">
         <h1 className="text-center sm:text-left">Hey，I am Iron Man ?</h1>
         <p>我是 Tony Stark，不是 Stank！</p>
         <p>老子很有錢，拯救過很多次世界。</p>
@@ -149,7 +149,7 @@ const Home: NextPage<Props> = ({ posts }) => {
       </div>
 
       <div className="my-4 divide-y divide-gray-200 transition-colors dark:divide-gray-700">
-        <div className="prose prose-lg my-8 dark:prose-dark">
+        <div className="prose prose-lg dark:prose-dark my-8">
           <h2>最新文章</h2>
         </div>
 
@@ -174,7 +174,7 @@ export default Home;
 
 這篇修改的程式碼如下：
 
-https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day11-basic-site-ui...day12-basic-index-page-ui
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day11-basic-site-ui...day12-basic-index-page-ui
 
 ## References
 

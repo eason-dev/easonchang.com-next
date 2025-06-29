@@ -1,12 +1,12 @@
 ---
-title: '【100sites #011】LifeGame，生命遊戲模擬無限的可能性'
+title: "【100sites #011】LifeGame，生命遊戲模擬無限的可能性"
 date: 2016-03-28 03:54
 tags: [100sites, Project, P5js, LifeGame, Web]
 category: 100sites
-socialImage: 'https://i.imgur.com/pZmuBeF.jpg'
+socialImage: "https://i.imgur.com/pZmuBeF.jpg"
 type: Post
-slug: '100sites-011-lifegame'
-description: ''
+slug: "100sites-011-lifegame"
+description: ""
 redirect_from:
   - /2016/03/28/100sites-011-lifegame/
 ---
@@ -15,7 +15,7 @@ redirect_from:
 
 [點我玩生命遊戲線上 demo](http://kamigami55.github.io/100sites/011_LifeGame/)
 
-[點我查看 Github 原始碼](https://github.com/Kamigami55/100sites/tree/gh-pages/011_LifeGame)
+[點我查看 Github 原始碼](https://github.com/eason-dev/100sites/tree/gh-pages/011_LifeGame)
 
 - ENTER：暫停
 - 滑鼠左鍵：放置或刪除細胞
@@ -74,177 +74,177 @@ body {
 ```
 
 ```javascript lifegame.js
-var SIZE = 20
+var SIZE = 20;
 var oldMap = [],
   newMap = [],
   num_x = 0,
   num_y = 0,
   paused = false,
-  frameCount = 0
-var pauseButton
+  frameCount = 0;
+var pauseButton;
 
 function setup() {
-  createCanvas(windowWidth, windowHeight)
-  frameRate(30)
+  createCanvas(windowWidth, windowHeight);
+  frameRate(30);
 
   // init map
-  num_x = windowWidth / SIZE
-  num_y = windowHeight / SIZE
+  num_x = windowWidth / SIZE;
+  num_y = windowHeight / SIZE;
   for (var i = 0; i < num_x; ++i) {
-    oldMap.push([])
-    newMap.push([])
+    oldMap.push([]);
+    newMap.push([]);
     for (var j = 0; j < num_y; ++j) {
-      oldMap[i].push(false)
-      newMap[i].push(false)
+      oldMap[i].push(false);
+      newMap[i].push(false);
     }
   }
-  loadDefaultMap()
+  loadDefaultMap();
 
   // init pause button
-  pauseButton = createButton('Pause')
-  pauseButton.size(80, 30)
-  pauseButton.position(windowWidth / 2 - 40, windowHeight - 40)
-  pauseButton.mousePressed(togglePauseSimulate)
+  pauseButton = createButton("Pause");
+  pauseButton.size(80, 30);
+  pauseButton.position(windowWidth / 2 - 40, windowHeight - 40);
+  pauseButton.mousePressed(togglePauseSimulate);
 }
 
 function draw() {
   // fresh map every 5 frames
   if (!paused) {
     if (frameCount % 5 == 0) {
-      freshMap()
+      freshMap();
     }
   }
   // increase frame count
-  ++frameCount
+  ++frameCount;
   if (frameCount >= 30) {
-    frameCount = 0
+    frameCount = 0;
   }
 
-  drawMap()
+  drawMap();
 }
 
 // default map: a blink unit at top left corner
 function loadDefaultMap() {
-  oldMap[1][1] = true
-  oldMap[1][2] = true
-  oldMap[1][3] = true
+  oldMap[1][1] = true;
+  oldMap[1][2] = true;
+  oldMap[1][3] = true;
 }
 
 function drawMap() {
-  background(0)
+  background(0);
   // draw grid
-  stroke(30)
+  stroke(30);
   for (var i = 0; i < num_x; ++i) {
-    line(i * SIZE, 0, i * SIZE, windowHeight)
+    line(i * SIZE, 0, i * SIZE, windowHeight);
   }
   for (var i = 0; i < num_y; ++i) {
-    line(0, i * SIZE, windowWidth, i * SIZE)
+    line(0, i * SIZE, windowWidth, i * SIZE);
   }
-  fill(255)
+  fill(255);
   // draw cells
   for (var i = 0; i < num_x; ++i) {
     for (var j = 0; j < num_y; ++j) {
       if (oldMap[i][j]) {
-        rect(i * SIZE, j * SIZE, SIZE, SIZE)
+        rect(i * SIZE, j * SIZE, SIZE, SIZE);
       }
     }
   }
   // draw mouse cell
-  fill(color('rgba(100,100,100,0.5)'))
-  var mouseCellX = int(mouseX / SIZE)
-  var mouseCellY = int(mouseY / SIZE)
-  rect(mouseCellX * SIZE, mouseCellY * SIZE, SIZE, SIZE)
+  fill(color("rgba(100,100,100,0.5)"));
+  var mouseCellX = int(mouseX / SIZE);
+  var mouseCellY = int(mouseY / SIZE);
+  rect(mouseCellX * SIZE, mouseCellY * SIZE, SIZE, SIZE);
 }
 
 // press ENTER to pause simulate
 function keyPressed() {
   if (keyCode == ENTER) {
-    togglePauseSimulate()
+    togglePauseSimulate();
   }
 }
 
 // press mouse to add or remove cell
 function mousePressed() {
-  var mouseCellX = int(mouseX / SIZE)
-  var mouseCellY = int(mouseY / SIZE)
-  oldMap[mouseCellX][mouseCellY] = !oldMap[mouseCellX][mouseCellY]
+  var mouseCellX = int(mouseX / SIZE);
+  var mouseCellY = int(mouseY / SIZE);
+  oldMap[mouseCellX][mouseCellY] = !oldMap[mouseCellX][mouseCellY];
 }
 
 function togglePauseSimulate() {
   if (paused) {
-    paused = false
+    paused = false;
   } else {
-    paused = true
+    paused = true;
   }
 }
 
 // count how many neighbors there are of a cell
 function neighbors(xpos, ypos) {
-  var total = 0
+  var total = 0;
   // four corners
   if (xpos != 0 && ypos != 0) {
     if (oldMap[xpos - 1][ypos - 1]) {
-      ++total
+      ++total;
     }
   }
   if (xpos != 0 && ypos != num_y - 1) {
     if (oldMap[xpos - 1][ypos + 1]) {
-      ++total
+      ++total;
     }
   }
   if (xpos != num_x - 1 && ypos != 0) {
     if (oldMap[xpos + 1][ypos - 1]) {
-      ++total
+      ++total;
     }
   }
   if (xpos != num_x - 1 && ypos != num_y - 1) {
     if (oldMap[xpos + 1][ypos + 1]) {
-      ++total
+      ++total;
     }
   }
   // left and right
   if (xpos != 0) {
     if (oldMap[xpos - 1][ypos]) {
-      ++total
+      ++total;
     }
   }
   if (xpos != num_x - 1) {
     if (oldMap[xpos + 1][ypos]) {
-      ++total
+      ++total;
     }
   }
   if (ypos != 0) {
     if (oldMap[xpos][ypos - 1]) {
-      ++total
+      ++total;
     }
   }
   if (ypos != num_y - 1) {
     if (oldMap[xpos][ypos + 1]) {
-      ++total
+      ++total;
     }
   }
-  return total
+  return total;
 }
 
 // calculate the next map according to the Life Game rule
 function freshMap() {
   for (var i = 0; i < num_x; ++i) {
     for (var j = 0; j < num_y; ++j) {
-      var neighbor_count = neighbors(i, j)
+      var neighbor_count = neighbors(i, j);
       if (neighbor_count <= 1 || neighbor_count >= 4) {
-        newMap[i][j] = false
+        newMap[i][j] = false;
       } else if (neighbor_count === 2) {
-        newMap[i][j] = oldMap[i][j]
+        newMap[i][j] = oldMap[i][j];
       } else {
         // neighbor_count === 3
-        newMap[i][j] = true
+        newMap[i][j] = true;
       }
     }
   }
 
   for (var i = 0; i < num_x; ++i) {
     for (var j = 0; j < num_y; ++j) {
-      oldMap[i][j] = newMap[i][j]
+      oldMap[i][j] = newMap[i][j];
     }
   }
 }

@@ -26,12 +26,12 @@ isDraft: false
 
 ## 如何查看上一篇的程式碼，和這篇修改的部分
 
-這系列程式碼我都有放在 Github 上的 [Kamigami55/nextjs-tailwind-contentlayer-blog-starter](https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter) repo 裡。
+這系列程式碼我都有放在 Github 上的 [eason-dev/nextjs-tailwind-contentlayer-blog-starter](https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter) repo 裡。
 
 每一篇有寫 code 的文章，都會附上下面這種連結：
 
 > 這篇改動的完整程式碼如下：
-> https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day02-init-nextjs...day04-prepare
+> https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day02-init-nextjs...day04-prepare
 
 點開會看到下圖畫面，是文章對應的所有程式碼改動：
 
@@ -43,9 +43,9 @@ isDraft: false
 
 branch 順序遵照了 30 天系列文章順序，每篇文章實作完，都有一支對應 branch，標出當天文章最終成果。
 
-像是 [Day2 建立 Next.js 專案](posts/frontend-intro-create-nextjs) 做完後的階段性成果，可以看 [day02-init-nextjs](https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/tree/day02-init-nextjs) branch。
+像是 [Day2 建立 Next.js 專案](posts/frontend-intro-create-nextjs) 做完後的階段性成果，可以看 [day02-init-nextjs](https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/tree/day02-init-nextjs) branch。
 
-而今天這篇 Day4 則在 [day04-prepare](https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/tree/day04-prepare) branch。
+而今天這篇 Day4 則在 [day04-prepare](https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/tree/day04-prepare) branch。
 
 上圖畫面中看到的是 Day4（compare）相較於 Day2（base）的差異，也就是今天文章有修改的部分（跳過 Day3 是因為 Day3 沒改東西）。
 
@@ -60,7 +60,7 @@ branch 順序遵照了 30 天系列文章順序，每篇文章實作完，都有
 回到正題，首先我們來為上一篇的全新 Next.js 專案做基礎設定，讓後續開發體驗更流暢、專案結構更易讀。
 
 > 這篇改動的完整程式碼如下：
-> https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day02-init-nextjs...day04-prepare
+> https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day02-init-nextjs...day04-prepare
 
 ## 新增 .nvmrc 鎖定專案 Node.js 版本
 
@@ -90,7 +90,7 @@ v16.17.0
 
 需要長期維護或多人協作的專案，強烈建議把他們都裝起來，保持程式碼品質。
 
-他們各自都有設定檔能依照需求調整，這裡我會導入 [eslint-config-eason](https://github.com/Kamigami55/eslint-config-eason) 這套我用了許久的 ESLint、Prettier 設定。
+他們各自都有設定檔能依照需求調整，這裡我會導入 [eslint-config-eason](https://github.com/eason-dev/eslint-config-eason) 這套我用了許久的 ESLint、Prettier 設定。
 
 輸入指令安裝它，這會一次安裝很多套件：
 
@@ -359,6 +359,6 @@ import styles from "@/styles/Home.module.css";
 - 設定 Absolute Import
 
 > 這篇改動的完整程式碼如下：
-> https://github.com/Kamigami55/nextjs-tailwind-contentlayer-blog-starter/compare/day02-init-nextjs...day04-prepare
+> https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day02-init-nextjs...day04-prepare
 
 下一篇我們將來介紹如何使用 Markdown 寫作，並加入第一個核心功能 Contentlayer，幫我們將 Markdown 轉換成 Next.js 能處理的文章！

@@ -1,21 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable react/jsx-key */
-import { GetStaticProps } from 'next';
-import { Trans, useTranslation } from 'next-i18next';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { GetStaticProps } from "next";
+import { Trans, useTranslation } from "next-i18next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
-import CustomLink from '@/components/CustomLink';
+import CustomLink from "@/components/CustomLink";
 import {
   getCommandPalettePosts,
   PostForCommandPalette,
-} from '@/components/organisms/CommandPalette/getCommandPalettePosts';
-import { useCommandPalettePostActions } from '@/components/organisms/CommandPalette/useCommandPalettePostActions';
-import PostList from '@/components/organisms/PostList';
-import { PostForPostList } from '@/components/organisms/PostList/PostList';
-import { PageSEO } from '@/components/SEO';
-import siteMetadata from '@/data/siteMetadata';
-import { allPostsOfLocaleNewToOld } from '@/lib/contentLayerAdapter';
-import generateRSS from '@/lib/utils/generateRSS';
+} from "@/components/organisms/CommandPalette/getCommandPalettePosts";
+import { useCommandPalettePostActions } from "@/components/organisms/CommandPalette/useCommandPalettePostActions";
+import PostList from "@/components/organisms/PostList";
+import { PostForPostList } from "@/components/organisms/PostList/PostList";
+import { PageSEO } from "@/components/SEO";
+import siteMetadata from "@/data/siteMetadata";
+import { allPostsOfLocaleNewToOld } from "@/lib/contentLayerAdapter";
+import generateRSS from "@/lib/utils/generateRSS";
 
 const MAX_DISPLAY = 10;
 
@@ -37,7 +37,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
 
   return {
     props: {
-      ...(await serverSideTranslations(locale, ['indexPage', 'common'])),
+      ...(await serverSideTranslations(locale, ["indexPage", "common"])),
       posts,
       commandPalettePosts,
     },
@@ -50,7 +50,7 @@ type Props = {
 };
 
 export default function Index({ posts, commandPalettePosts }: Props) {
-  const { t } = useTranslation(['indexPage', 'common']);
+  const { t } = useTranslation(["indexPage", "common"]);
   useCommandPalettePostActions(commandPalettePosts);
 
   return (
@@ -61,7 +61,7 @@ export default function Index({ posts, commandPalettePosts }: Props) {
       />
 
       <div className="prose my-12 max-w-none space-y-2 transition-colors dark:prose-dark md:space-y-5 md:prose-lg">
-        <h1 className="text-center sm:text-left">{t('intro-title')}</h1>
+        <h1 className="text-center sm:text-left">{t("intro-title")}</h1>
         <p>
           <Trans
             i18nKey="intro-1"
@@ -95,7 +95,7 @@ export default function Index({ posts, commandPalettePosts }: Props) {
                 rel="noreferrer"
               />,
               <a
-                href="https://github.com/Kamigami55"
+                href="https://github.com/eason-dev"
                 target="_blank"
                 rel="noreferrer"
               />,
@@ -116,7 +116,7 @@ export default function Index({ posts, commandPalettePosts }: Props) {
 
       <div className="my-4 divide-y divide-gray-200 transition-colors dark:divide-gray-700">
         <div className="prose prose-lg my-8 dark:prose-dark">
-          <h2>{t('latest-posts')}</h2>
+          <h2>{t("latest-posts")}</h2>
         </div>
 
         <PostList posts={posts} />
@@ -128,7 +128,7 @@ export default function Index({ posts, commandPalettePosts }: Props) {
           className="text-primary-500 transition-colors hover:text-primary-600 dark:hover:text-primary-400"
           aria-label="all posts"
         >
-          {t('view-all', { ns: 'common' })} &rarr;
+          {t("view-all", { ns: "common" })} &rarr;
         </CustomLink>
       </div>
     </>

@@ -1,13 +1,13 @@
 ---
 title: Day12 用 TailwindCSS 切版部落格首頁，顯示 WordPress 文章列表
-description: '使用 Tailwind CSS 做點簡單切版，美化文章列表的樣式！'
-slug: '2021-ironman-day12-tailwind-layout'
-category: 'Frontend'
+description: "使用 Tailwind CSS 做點簡單切版，美化文章列表的樣式！"
+slug: "2021-ironman-day12-tailwind-layout"
+category: "Frontend"
 tags:
   - 13屆IT鐵人賽
   - Next.js
   - TailwindCSS
-socialImage: ''
+socialImage: ""
 date: 2022-03-20 15:40
 type: Post
 meta:
@@ -38,7 +38,7 @@ meta:
 
 ### 前置說明
 
-這篇的完整程式碼改動可以在這個 [commit](https://github.com/Kamigami55/oh-so-pro-blog/commit/35046f8472592c65f490a805a79f84f854f8866a) 看到。
+這篇的完整程式碼改動可以在這個 [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/35046f8472592c65f490a805a79f84f854f8866a) 看到。
 
 而我在自己的 oh-so-pro-blog 範例專案有先做一些影響檔案架構的設計與改動，包含：
 
@@ -54,49 +54,53 @@ meta:
 首先是首頁進入點 **/src/pages/index.js**，精簡了 return 區塊，將全站 Layout 和首頁樣式 IndexPage 獨立成 component，完整 code 如下：
 
 ```javascript {1,3-4} showLineNumbers
-import { useMemo } from 'react'
-import { useQuery } from '@apollo/client'
+import { useMemo } from "react";
+import { useQuery } from "@apollo/client";
 
-import { initializeApollo, addApolloState } from '@/lib/apolloClient'
-import { allPostsQueryVars, ALL_POSTS_QUERY, transformAllPostsData } from '@/graphql/allPostsQuery'
-import Layout from '@/components/layout'
-import IndexPage from '@/components/templates/IndexPage'
+import { initializeApollo, addApolloState } from "@/lib/apolloClient";
+import {
+  allPostsQueryVars,
+  ALL_POSTS_QUERY,
+  transformAllPostsData,
+} from "@/graphql/allPostsQuery";
+import Layout from "@/components/layout";
+import IndexPage from "@/components/templates/IndexPage";
 
 export default function Home() {
   const { data } = useQuery(ALL_POSTS_QUERY, {
     variables: allPostsQueryVars,
-  })
-  const allPosts = useMemo(() => transformAllPostsData(data), [data]) || []
+  });
+  const allPosts = useMemo(() => transformAllPostsData(data), [data]) || [];
 
   return (
     <Layout>
       <IndexPage posts={allPosts} />
     </Layout>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const apolloClient = initializeApollo()
+  const apolloClient = initializeApollo();
 
   await apolloClient.query({
     query: ALL_POSTS_QUERY,
     variables: allPostsQueryVars,
-  })
+  });
 
   return addApolloState(apolloClient, {
     props: {},
     revalidate: 1,
-  })
+  });
 }
 ```
 
 接著先看 **/src/components/layout.js**，這將來會是全站各頁面共通的 layout，完整 code 如下：
 
 ```javascript
-import Head from 'next/head'
+import Head from "next/head";
 
-import Footer from '@/components/organisms/footer'
-import Meta from '@/components/meta'
+import Footer from "@/components/organisms/footer";
+import Meta from "@/components/meta";
 
 export default function Layout({ children }) {
   return (
@@ -109,14 +113,14 @@ export default function Layout({ children }) {
       </div>
       <Footer />
     </>
-  )
+  );
 }
 ```
 
 layout 裡面的 Footer 則在 **/src/components/organisms/Footer.js**：
 
 ```javascript
-import Container from '@/components/molecules/Container'
+import Container from "@/components/molecules/Container";
 
 export default function Footer() {
   return (
@@ -129,7 +133,7 @@ export default function Footer() {
         </div>
       </Container>
     </footer>
-  )
+  );
 }
 ```
 
@@ -137,21 +141,21 @@ Footer 用到的 Container 則在 **/src/components/molecules/Container.js**：
 
 ```javascript
 export default function Container({ children }) {
-  return <div className="mx-auto w-full max-w-7xl px-5">{children}</div>
+  return <div className="mx-auto w-full max-w-7xl px-5">{children}</div>;
 }
 ```
 
 共用 Layout 到此全部實作完畢，接著實際進到首頁的內容，**/src/components/templates/IndexPage.js**：
 
 ```javascript
-import Container from '@/components/molecules/Container'
-import Intro from '@/components/molecules/Intro'
-import HeroPost from '@/components/organisms/HeroPost'
-import PostList from '@/components/organisms/PostList'
+import Container from "@/components/molecules/Container";
+import Intro from "@/components/molecules/Intro";
+import HeroPost from "@/components/organisms/HeroPost";
+import PostList from "@/components/organisms/PostList";
 
 export default function IndexPage({ posts }) {
-  const heroPost = posts?.[0]
-  const morePosts = posts?.slice(1) || []
+  const heroPost = posts?.[0];
+  const morePosts = posts?.slice(1) || [];
 
   return (
     <Container>
@@ -167,7 +171,7 @@ export default function IndexPage({ posts }) {
       )}
       {morePosts.length > 0 && <PostList posts={morePosts} />}
     </Container>
-  )
+  );
 }
 ```
 
@@ -184,26 +188,28 @@ export default function Intro() {
         A pro blog for productive professional programmers
       </h4>
     </section>
-  )
+  );
 }
 ```
 
 **/src/components/organisms/HeroPost.js**：
 
 ```javascript
-import Link from 'next/link'
+import Link from "next/link";
 
-import CoverImage from '@/components/atoms/CoverImage/CoverImage'
-import Date from '@/components/atoms/Date/Date'
+import CoverImage from "@/components/atoms/CoverImage/CoverImage";
+import Date from "@/components/atoms/Date/Date";
 export default function HeroPost({ title, featuredImage, date, excerpt, uri }) {
   return (
     <section>
       <div className="mb-8 md:mb-16">
-        {featuredImage && <CoverImage title={title} featuredImage={featuredImage} uri={uri} />}
+        {featuredImage && (
+          <CoverImage title={title} featuredImage={featuredImage} uri={uri} />
+        )}
       </div>
       <div className="mb-20 gap-4 md:mb-28 md:grid md:grid-cols-2">
         <div>
-          <h3 className="line-clamp-3 mb-4 text-4xl leading-tight lg:text-6xl">
+          <h3 className="mb-4 text-4xl leading-tight line-clamp-3 lg:text-6xl">
             <Link href={uri}>
               <a className="hover:underline">{title}</a>
             </Link>
@@ -213,22 +219,22 @@ export default function HeroPost({ title, featuredImage, date, excerpt, uri }) {
           </div>
         </div>
         <div>
-          <p className="line-clamp-6 mb-4 text-lg leading-relaxed">{excerpt}</p>
+          <p className="mb-4 text-lg leading-relaxed line-clamp-6">{excerpt}</p>
         </div>
       </div>
     </section>
-  )
+  );
 }
 ```
 
 **/src/components/atoms/CoverImage.js**：
 
 ```javascript
-import Image from 'next/image'
-import Link from 'next/link'
+import Image from "next/image";
+import Link from "next/link";
 
 export default function CoverImage({ featuredImage, uri }) {
-  if (!uri || !featuredImage?.sourceUrl) return null
+  if (!uri || !featuredImage?.sourceUrl) return null;
 
   return (
     <div className="aspect-w-16 aspect-h-9 w-full sm:mx-0">
@@ -244,28 +250,28 @@ export default function CoverImage({ featuredImage, uri }) {
         </a>
       </Link>
     </div>
-  )
+  );
 }
 ```
 
 **/src/components/atoms/Date.js**：
 
 ```javascript
-import { parseISO, format } from 'date-fns'
+import { parseISO, format } from "date-fns";
 
 export default function Date({ dateString }) {
-  if (!dateString) return null
+  if (!dateString) return null;
 
-  const date = parseISO(dateString)
+  const date = parseISO(dateString);
 
-  return <time dateTime={dateString}>{format(date, 'LLLL	d, yyyy')}</time>
+  return <time dateTime={dateString}>{format(date, "LLLL	d, yyyy")}</time>;
 }
 ```
 
 **/src/components/organisms/PostList.js**：
 
 ```javascript
-import PostPreview from '@/components/organisms/PostPreview'
+import PostPreview from "@/components/organisms/PostPreview";
 
 export default function PostList({ posts }) {
   return (
@@ -286,25 +292,33 @@ export default function PostList({ posts }) {
         ))}
       </div>
     </section>
-  )
+  );
 }
 ```
 
 **/src/components/organisms/PostPreview.js**：
 
 ```javascript
-import Link from 'next/link'
+import Link from "next/link";
 
-import CoverImage from '@/components/atoms/CoverImage'
-import Date from '@/components/atoms/Date'
+import CoverImage from "@/components/atoms/CoverImage";
+import Date from "@/components/atoms/Date";
 
-export default function PostPreview({ title, featuredImage, date, excerpt, uri }) {
+export default function PostPreview({
+  title,
+  featuredImage,
+  date,
+  excerpt,
+  uri,
+}) {
   return (
     <div>
       <div className="mb-5">
-        {featuredImage && <CoverImage title={title} featuredImage={featuredImage} uri={uri} />}
+        {featuredImage && (
+          <CoverImage title={title} featuredImage={featuredImage} uri={uri} />
+        )}
       </div>
-      <h3 className="line-clamp-3 mb-3 text-3xl leading-snug">
+      <h3 className="mb-3 text-3xl leading-snug line-clamp-3">
         <Link href={uri}>
           <a className="hover:underline">{title}</a>
         </Link>
@@ -312,9 +326,9 @@ export default function PostPreview({ title, featuredImage, date, excerpt, uri }
       <div className="mb-4 text-lg">
         <Date dateString={date} />
       </div>
-      <p className="line-clamp-5 mb-4 text-lg leading-relaxed">{excerpt}</p>
+      <p className="mb-4 text-lg leading-relaxed line-clamp-5">{excerpt}</p>
     </div>
-  )
+  );
 }
 ```
 
@@ -339,17 +353,17 @@ yarn add @tailwindcss/line-clamp
 
 ```javascript
 module.exports = {
-  mode: 'jit',
-  purge: ['./src/**/*.{js,ts,jsx,tsx}'],
+  mode: "jit",
+  purge: ["./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {},
   variants: {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/line-clamp'), // <=== Add this
+    require("@tailwindcss/line-clamp"), // <=== Add this
   ],
-}
+};
 ```
 
 安裝完就會多出 `line-clamp-3`、`line-clamp-5` 等等的 class 可以直接套用了，非常方便！
@@ -368,10 +382,10 @@ yarn add @tailwindcss/aspect-ratio
 module.exports = {
   // ...
   plugins: [
-    require('@tailwindcss/line-clamp'),
-    require('@tailwindcss/aspect-ratio'), // <=== Add this
+    require("@tailwindcss/line-clamp"),
+    require("@tailwindcss/aspect-ratio"), // <=== Add this
   ],
-}
+};
 ```
 
 安裝完後一樣會多 class 可以用，像是 `aspect-w-16 aspect-h-9` 可以指定長寬比為 16:9。
@@ -385,7 +399,7 @@ aspect-ratio plugin 相關連結：
 
 最後再次執行 `yarn dev`，應該就會看到首頁變得比較漂亮了！恭喜你！
 
-這篇的完整程式碼改動可以在這個 [commit](https://github.com/Kamigami55/oh-so-pro-blog/commit/35046f8472592c65f490a805a79f84f854f8866a) 看到。
+這篇的完整程式碼改動可以在這個 [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/35046f8472592c65f490a805a79f84f854f8866a) 看到。
 
 今天我們成功使用 TailwindCSS 完成首頁文章列表的切版了，下一篇我們會繼續切版文章內頁！
 
