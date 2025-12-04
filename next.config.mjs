@@ -25,11 +25,23 @@ export default withContentlayer({
   i18n,
   images: {
     formats: ['image/avif', 'image/webp'],
-    domains: [
-      'imgur.com',
-      'i.imgur.com',
-      'img.youtube.com',
-      'i.creativecommons.org',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'imgur.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.imgur.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'img.youtube.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'i.creativecommons.org',
+      },
     ],
   },
   webpack: (config) => {
