@@ -68,7 +68,10 @@
       "fsevents",
       "protobufjs",
       "sharp"
-    ]
+    ],
+    "overrides": {
+      "estree-util-value-to-estree": "^3.3.3"
+    }
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
