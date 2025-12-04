@@ -39,7 +39,7 @@
     "i18next": "^22.4.9",
     "image-size": "^1.0.2",
     "kbar": "0.1.0-beta.40",
-    "next": "^13.1.6",
+    "next": "^14.2.32",
     "next-contentlayer": "^0.3.0",
     "next-i18next": "^13.1.4",
     "next-themes": "^0.2.1",
@@ -54,9 +54,21 @@
     "rehype-prism-plus": "^1.5.1",
     "rehype-slug": "^5.1.0",
     "remark-gfm": "^3.0.1",
-    "sharp": "^0.31.3",
+    "sharp": "^0.32.6",
     "smoothscroll-polyfill": "^0.4.4",
     "unist-util-visit": "^4.1.2"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "contentlayer",
+      "core-js",
+      "core-js-pure",
+      "esbuild",
+      "fsevents",
+      "protobufjs",
+      "sharp"
+    ]
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
