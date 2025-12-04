@@ -70,7 +70,13 @@
       "sharp"
     ],
     "overrides": {
-      "estree-util-value-to-estree": "^3.3.3"
+      "estree-util-value-to-estree": "^3.3.3",
+      "trim": "^0.0.3",
+      "trim-newlines": "^3.0.1",
+      "webpack-dev-middleware": "^5.3.4",
+      "braces": "^3.0.3",
+      "micromatch": "^4.0.8",
+      "postcss": "^8.4.31"
     }
   },
   "devDependencies": {
