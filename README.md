@@ -8,7 +8,7 @@ Visit: [https://easonchang.com/](https://easonchang.com/)
 
 ## Features
 
-- Next.js 12
+- Next.js 14
 - ContentLayer (loading local MDX files)
 - TailwindCSS
 - Atomic design project structure
