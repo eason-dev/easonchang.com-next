@@ -1,0 +1,222 @@
+---
+title: "FocusZone - 結合 AI 干擾偵測的 Vision OS 專注應用"
+description: "使用 FocusZone 在沉浸式環境中保持專注，這是一款為 Apple Vision Pro 設計的 Vision OS 應用，具備番茄鐘計時器和 AI 干擾偵測"
+slug: "focuszone"
+language: zh-TW
+socialImage: "/images/projects/focuszone.png"
+date: 2025-01-26
+type: Post
+isDraft: false
+---
+
+![FocusZone - Vision OS 專注應用](/images/projects/focuszone.png)
+
+## 專案簡介
+
+**FocusZone** 是專為 Apple Vision Pro 設計的創新生產力應用程式。利用空間計算技術，創造沉浸式專注環境，並透過 AI 偵測干擾因素，幫助你保持專注。
+
+我與 [Carol Hsiao](https://carolhsiao.webflow.io/) 共同創造了這個專案，她設計了優雅的空間 UI/UX 介面。這是我們對空間計算生產力未來的探索。
+
+## Demo & 程式碼
+
+FocusZone 適用於 Vision OS：
+
+- **原始碼：**[github.com/eason-dev/FocusZone](https://github.com/eason-dev/FocusZone)
+- **平台：**Apple Vision Pro（Vision OS 2.0+）
+
+## 為什麼我們要打造 FocusZone
+
+當 Apple Vision Pro 發布時，我們立即看到它在**專注工作**方面的潛力：
+
+- **沉浸式環境：**阻擋實體干擾
+- **空間計算：**在 3D 空間中自然地定位工作
+- **豐富感測器：**相機、麥克風、眼動追蹤提供情境感知
+
+但傳統的生產力應用程式並非為空間計算設計。我們想打造一個能夠：
+
+- **運用 Vision Pro 的獨特能力**
+- **主動偵測干擾** 使用 AI
+- **保持專注** 而不會造成干擾
+- **尊重自然工作模式**
+
+這就是為什麼我們打造 FocusZone - 為空間計算重新想像的生產力。
+
+## 核心功能
+
+### 番茄工作法計時器
+經典時間管理技巧在空間環境中實現。看見計時器漂浮在沉浸空間中，始終可見但絕不干擾。
+
+### 智慧干擾偵測
+AI 偵測三種類型的干擾：
+
+**手機出現：**當你的 iPhone 在專注時段進入視野時，FocusZone 溫和提醒你保持專注。
+
+**噪音：**突然的噪音峰值會打斷專注，觸發意識警報。
+
+**頭部移動：**過度的頭部轉動或四處張望表示注意力渙散。
+
+### 自訂沉浸空間
+多種環境選擇，創造理想工作氛圍：
+- 極簡虛空以達到最大專注
+- 自然環境（森林、海灘、山脈）
+- 有助專注的抽象圖案
+- 你創建的自訂空間
+
+### 實時提醒
+偵測到干擾時的溫和提醒。不是懲罰 - 只是將意識帶回你的工作。
+
+### 分析儀表板
+隨時間追蹤專注時間和干擾模式。了解什麼打斷你的專注，並優化環境。
+
+## FocusZone 背後的哲學
+
+FocusZone 建立在幾個關於專注和注意力的關鍵洞察上：
+
+### 意識而非懲罰
+我們不會因為分心而羞辱你。我們溫和地將意識帶回你專注的意圖。
+
+### 情境感知智慧
+相同的行為在某個情境下可能是干擾，在另一個情境下則是必要的。FocusZone 學習你的模式。
+
+### 空間計算優勢
+Vision Pro 的感測器為我們提供前所未有的工作環境情境。我們負責任地使用這些資料。
+
+### 可持續專注
+長時間專注並不總是更好。FocusZone 鼓勵定期休息和可持續的工作模式。
+
+## FocusZone 如何運作
+
+### 1. 選擇環境
+選擇有助於專注的沉浸空間。實驗找出最適合你工作類型的環境。
+
+### 2. 設定專注時段
+使用番茄鐘計時器（25 分鐘工作，5 分鐘休息）或自訂間隔。
+
+### 3. AI 監控情境
+FocusZone 的 AI 觀察干擾訊號：
+- 視野中的手機
+- 環境中的噪音
+- 過度的頭部移動模式
+
+### 4. 溫和提醒
+如果偵測到干擾，你會得到微妙的提醒 - 溫和的光暈、柔和的聲音或簡短訊息。
+
+### 5. 分析與改進
+每次時段後，看見專注和干擾的模式。相應調整環境和習慣。
+
+## 技術架構
+
+FocusZone 運用尖端的 Vision OS 能力：
+
+- [Vision OS 2](https://developer.apple.com/visionos/)：Apple 的空間計算平台
+- [SwiftUI](https://developer.apple.com/xcode/swiftui/)：現代宣告式 UI 框架
+- [RealityKit](https://developer.apple.com/augmented-reality/realitykit/)：3D 渲染和物理
+- [ARKit](https://developer.apple.com/augmented-reality/arkit/)：空間感知和追蹤
+- [Create ML](https://developer.apple.com/machine-learning/create-ml/)：裝置上機器學習
+- [Core ML](https://developer.apple.com/documentation/coreml)：ML 模型執行
+
+### 技術亮點
+
+**裝置上 AI：**所有干擾偵測都在 Vision Pro 本地執行。你的工作情境永遠不會離開裝置。
+
+**空間音訊：**計時器警報的 3D 位置音訊不會打破沉浸感。
+
+**眼動追蹤：**可選的注意力監控以了解專注深度（隱私優先，資料保留在本地）。
+
+**手勢：**使用 Vision Pro 的手部追蹤進行自然互動。不需控制器。
+
+**高效效能：**優化為在背景執行而不會耗盡電池或影響其他應用程式。
+
+## FocusZone 的製作過程
+
+### 設計流程
+
+Carol 設計空間 UI 時仔細注意：
+
+**非干擾存在：**需要時可見計時器和控制，不需要時透明。
+
+**空間人體工學：**元素定位在舒適的觀看角度以供長時間使用。
+
+**視覺層次：**專注計時器突出，次要控制可存取但不分散注意力。
+
+**沉浸式環境：**有助專注的空間，不會變得無聊或過度刺激。
+
+### 開發挑戰
+
+為 Vision OS 開發讓我們學到很多：
+
+**空間 UI 範式：**傳統的 2D UI 模式在 3D 空間中並不總是有效。
+
+**沉浸中的效能：**在執行 AI 模型的同時保持流暢的幀率需要優化。
+
+**隱私優先 AI：**所有處理都在裝置上進行。更具挑戰性但對信任至關重要。
+
+**自然互動：**手勢需要感覺直覺，而不是令人沮喪。
+
+**測試：**有限的 Vision Pro 硬體存取使迭代變慢。
+
+## 隱私與倫理
+
+FocusZone 認真對待隱私：
+
+- **裝置上處理：**所有 AI 在本地執行，不傳送到伺服器
+- **不錄製：**我們不錄製或儲存影片/音訊
+- **使用者控制：**你決定監控哪些干擾
+- **透明行為：**清楚回饋 FocusZone 正在做什麼
+- **資料所有權：**你的分析資料保留在裝置上
+
+## FocusZone 適合誰？
+
+FocusZone 完美適合：
+
+- **知識工作者：**進行深度工作的開發者、作家、設計師
+- **學生：**在沉浸式、無干擾環境中學習
+- **遠端工作者：**在家創造專注區域
+- **Vision Pro 早期採用者：**探索空間計算中的生產力
+- **任何尋求專注的人：**認真管理注意力的人
+
+## FocusZone 的獨特之處
+
+與傳統專注應用程式不同：
+
+- **空間計算原生：**專為 Vision OS 打造，而非移植
+- **主動偵測：**AI 在干擾使你脫軌之前捕捉它們
+- **情境感知：**了解你的環境，而非僅僅時間
+- **預設沉浸式：**運用 Vision Pro 的獨特能力
+- **隱私優先：**所有處理在裝置上
+
+## 未來願景
+
+我們正在探索：
+
+- **多人專注時段：**在共享沉浸空間中協作
+- **智慧環境調整：**AI 根據工作類型建議最佳環境
+- **日曆整合：**為深度工作區塊自動專注時段
+- **生物回饋：**可選的心率監控以優化休息時機
+- **習慣養成：**長期專注習慣培養
+
+## 開始使用
+
+FocusZone 在 GitHub 上可用：
+
+造訪 [github.com/eason-dev/FocusZone](https://github.com/eason-dev/FocusZone)
+
+需求：Apple Vision Pro 搭配 Vision OS 2.0 或更新版本
+
+## 結語
+
+打造 FocusZone 是一段通往生產力未來的令人難以置信的旅程。空間計算為我們如何管理注意力和創造專注工作環境開啟了全新的可能性。
+
+我們相信 Vision Pro 和空間計算將從根本上改變我們的工作方式。FocusZone 是我們對那個未來的早期探索。
+
+如果你有 Vision Pro 並試用 FocusZone，我們很想聽聽你的回饋！在 GitHub 開 issue 或在下方留言。
+
+## 參考資料
+
+這個專案的靈感和先行作品：
+
+- [Deep Work 深度工作力 by Cal Newport](https://www.calnewport.com/books/deep-work/) - 專注哲學
+- [Forest 專注森林](https://www.forestapp.cc/) - 手機專注封鎖
+- [Freedom 自由](https://freedom.to/) - 干擾封鎖
+- [Apple Vision Pro 人機介面指南](https://developer.apple.com/design/human-interface-guidelines/designing-for-visionos)
+- [RealityKit 文件](https://developer.apple.com/documentation/realitykit)

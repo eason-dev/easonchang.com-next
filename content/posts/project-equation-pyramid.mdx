@@ -1,0 +1,182 @@
+---
+title: "Equation Pyramid - 靈感來自《惡魔計劃》的數學解謎遊戲"
+description: "用 Equation Pyramid 挑戰你的數學技能，這是一款受 Netflix《惡魔計劃》啟發的互動式 3D 解謎遊戲"
+slug: "equation-pyramid"
+language: zh-TW
+socialImage: "/images/projects/equation-pyramid.jpg"
+date: 2025-01-26
+type: Post
+isDraft: false
+---
+
+![Equation Pyramid - 數字金字塔遊戲](/images/projects/equation-pyramid.jpg)
+
+## 專案簡介
+
+**Equation Pyramid** 是一款互動式數學解謎遊戲，靈感源自 Netflix 實境秀《惡魔計劃》第二季。挑戰你的數學技能與策略思維，在有限的數字中找出正確的數學等式。
+
+我與 [Carol Hsiao](https://carolhsiao.webflow.io/) 共同創造了這個專案，結合遊戲設計與現代網頁技術，將這款令人上癮的解謎遊戲帶到瀏覽器中。
+
+## Demo & 程式碼
+
+Equation Pyramid 是一個開源專案：
+
+- **立即遊玩：**[equation-pyramid.vercel.app](https://equation-pyramid.vercel.app)
+- **原始碼：**[github.com/eason-dev/equation-pyramid](https://github.com/eason-dev/equation-pyramid)
+
+## 為什麼我們要打造 Equation Pyramid
+
+在看完 Netflix 上的《惡魔計劃》第二季後，我們對 Equation Pyramid 遊戲著迷了。這個概念太棒了：
+
+- **簡單規則：**使用數字組成有效的數學等式
+- **策略深度：**相同數字有多種排列方式
+- **上癮挑戰：**容易學習，難以精通
+
+但沒有地方可以在線上玩。所以我們決定自己打造一個。
+
+我們想創造一個版本，能夠：
+- **捕捉精髓** 原始遊戲的本質
+- **在瀏覽器運作** - 不需下載
+- **看起來美觀** 用 3D 視覺化
+- **開源** 讓其他人可以學習和改進
+
+## 遊戲特色
+
+### 策略挑戰
+運用加減乘除四則運算，排列出正確等式。每個數字的位置都很重要！
+
+### 多種難度
+從簡單到困難的解謎挑戰。從簡單開始，逐步進階。
+
+### 即時驗證
+自動檢查等式是否正確。立即獲得解答的回饋。
+
+### 3D 金字塔視覺效果
+引人入勝的 3D 視覺化增添遊戲興奮感。看著金字塔隨著你的解謎而活起來。
+
+### 開源專案
+完整程式碼公開在 GitHub。適合學習 React Three Fiber 和遊戲邏輯。
+
+## 如何遊玩
+
+1. **從數字開始：**你會得到一組數字來使用
+2. **組成等式：**放置數字來創造有效的數學等式
+3. **遵循規則：**每個等式必須在數學上正確
+4. **完成金字塔：**填滿所有位置即獲勝
+5. **嘗試不同策略：**可能存在多種解法！
+
+### 遊戲規則
+
+- 使用基本運算：+、-、×、÷
+- 每個等式必須在數學上有效
+- 從左到右計算（無運算符優先權）
+- 所有位置必須正確填滿
+
+## 技術架構
+
+我們使用尖端網頁技術打造 Equation Pyramid：
+
+- [Next.js](https://nextjs.org/)：React 框架，實現最佳效能
+- [TypeScript](https://www.typescriptlang.org/)：型別安全的遊戲邏輯
+- [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/)：在 React 中進行 3D 渲染
+- [Three.js](https://threejs.org/)：WebGL 3D 圖形引擎
+- [Tailwind CSS](https://tailwindcss.com/)：現代、響應式的樣式
+- [Vercel](https://vercel.com/)：快速、全球部署
+
+### 技術亮點
+
+**3D 視覺化：**React Three Fiber 讓在 React 中創造互動式 3D 體驗變得簡單。金字塔會旋轉並回應使用者互動。
+
+**遊戲邏輯：**複雜的驗證系統確保等式在數學上正確，同時處理邊界情況和多個解法路徑。
+
+**響應式設計：**在桌面、平板和手機上運作。為手機遊玩提供觸控友善的控制。
+
+**效能：**優化的渲染和狀態管理，即使在行動裝置上也能流暢達到 60fps 遊玩。
+
+## Equation Pyramid 的製作過程
+
+### 設計流程
+
+Carol 設計了整個遊戲體驗：
+- **視覺風格：**乾淨、現代的介面不會分散遊玩注意力
+- **使用者流程：**直覺的控制感覺自然
+- **難度曲線：**逐漸增加挑戰以保持玩家參與
+- **回饋系統：**清晰的視覺回饋顯示正確和錯誤的移動
+
+### 開發挑戰
+
+打造數學解謎遊戲讓我們學到很多：
+
+**等式驗證：**必須處理所有邊界情況 - 除以零、運算順序、浮點數精度。
+
+**3D 效能：**在行動裝置上平衡視覺吸引力與效能需要仔細優化。
+
+**遊戲狀態管理：**追蹤所有可能的移動和解法路徑需要仔細的架構。
+
+**使用者體驗：**讓複雜的數學變得平易近人和有趣需要許多次迭代。
+
+## 玩家評價
+
+> 「令人上癮！停不下來想打破最佳時間。」
+>
+> — 測試玩家
+
+> 「練習心算的好方法。我的孩子也超愛！」
+>
+> — 家長玩家
+
+> 「3D 視覺化很美。讓解謎活了起來。」
+>
+> — 遊戲愛好者
+
+## 開源哲學
+
+我們讓 Equation Pyramid 開源是因為：
+
+- **從真實程式碼學習：**看看我們如何在 React 中實現 3D 遊戲
+- **社群改進：**其他人可以添加功能和修復錯誤
+- **教育價值：**學習 React Three Fiber 的完美專案
+- **回饋社群：**我們從開源學習，現在我們貢獻
+
+歡迎：
+- 如果喜歡就給個星星
+- 報告錯誤或請求功能
+- 提交改進的 Pull Request
+- Fork 它並製作自己的版本
+
+## 未來計畫
+
+我們正在考慮添加：
+- **多人模式：**與朋友競速
+- **每日挑戰：**每天新解謎
+- **排行榜：**競爭最快解題時間
+- **自訂解謎：**創造並分享自己的挑戰
+- **成就系統：**解鎖里程碑獎勵
+
+想幫忙嗎？查看 GitHub issues 並貢獻！
+
+## 立即試玩
+
+準備好測試你的數學技能了嗎？
+
+立即在 [equation-pyramid.vercel.app](https://equation-pyramid.vercel.app) 遊玩
+
+不需下載 - 直接在瀏覽器中運作！
+
+## 結語
+
+打造 Equation Pyramid 是一個有趣的週末專案，最後變成我們真正引以為傲的東西。它結合了我們對解謎遊戲、數學和現代網頁技術的熱愛。
+
+我們希望你喜歡玩它，就像我們喜歡打造它一樣！
+
+如果你有回饋、發現錯誤或有功能建議，請在 GitHub 開 issue 或在下方留言。
+
+## 參考資料
+
+這個專案的靈感：
+
+- [惡魔計劃 (Netflix)](https://www.netflix.com/title/81654350) - 原始遊戲靈感
+- [React Three Fiber 文件](https://docs.pmnd.rs/react-three-fiber/) - React 中的 3D 渲染
+- [Three.js 範例](https://threejs.org/examples/) - WebGL 靈感
+- [KenKen 解謎](https://www.kenkenpuzzle.com/) - 類似的數學解謎遊戲
+- [24 點遊戲](https://www.4nums.com/game/) - 經典數字解謎
