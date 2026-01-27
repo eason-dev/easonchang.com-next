@@ -1,8 +1,7 @@
 {
   "latest-posts": "Latest Posts",
   "intro-title": "Hey, I'm Eason Chang 👋",
-  "intro-1": "I'm a Fullstack Engineer turned indie maker. I went from building enterprise software at Trend Micro to co-founding Aburi Studio—where we're on a mission to help people achieve financial freedom through better tools.",
-  "intro-2": "Right now, I'm obsessed with one question: \"How can we make financial independence accessible to everyone?\" That's why I built FireFree, CoreHour, and DailyPay—tools that demystify the path to early retirement.",
-  "intro-3": "Here I share what I'm learning about <strong>Software Engineering</strong>, <strong>Product Development</strong>, <strong>Maker Culture</strong>, and <strong>building profitable products</strong>. From Taiwan 🇹🇼, creating from Canada 🇨🇦.",
-  "intro-4": "Feel free to check out my <0>resume</0>, connect with me on <1>LinkedIn</1>, explore my <2>GitHub</2>, follow me on <3>Twitter</3>, or <4>book my time</4> and chat with me!"
+  "intro-1": "I'm a Fullstack Engineer and indie maker. I love building <0>cool stuff</0>! Recently co-founded Aburi Studio with Carol Hsiao, building tools like FireFree, CoreHour, and DailyPay to help people achieve financial freedom.",
+  "intro-2": "Here I write about <strong>Software Engineering</strong>, <strong>Product Development</strong>, <strong>Maker Culture</strong>, and <strong>building profitable products</strong>. From Taiwan 🇹🇼, creating from Canada 🇨🇦.",
+  "intro-3": "Feel free to check out my <0>resume</0>, connect with me on <1>LinkedIn</1>, explore my <2>GitHub</2>, follow me on <3>Twitter</3>, or <4>book my time</4> and chat with me!"
 }

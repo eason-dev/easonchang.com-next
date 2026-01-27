@@ -35,23 +35,9 @@ export const PROJECTS_ZH = <Project[]>[
   // FireFree - FIRE Calculator
   {
     title: "FireFree - 計算你的財務自由之路",
-    description: `
-    <h3>別再猜測。精確知道你何時能退休。</h3>
-    <p>FireFree 是一個全面的 FIRE（財務獨立、提早退休）計算機，將複雜的財務規劃轉化為清晰、可執行的洞察。專為夢想提早退休的人打造，在一個地方追蹤你的整體財務狀況。</p>
-    <h4>你可以做什麼：</h4>
-    <ul>
-      <li><strong>追蹤完整淨資產</strong> — 跨多種貨幣監控儲蓄、投資、債務和實體資產</li>
-      <li><strong>計算 FIRE 退休日期</strong> — 根據真實數字，看見你通往財務獨立的確切路徑</li>
-      <li><strong>視覺化進度</strong> — 即時更新的淨資產趨勢和預測圖表</li>
-      <li><strong>全球通用</strong> — 完整多幣別支援，自動同步匯率</li>
-      <li><strong>立即開始</strong> — 示範模式體驗完整功能，無需註冊</li>
-    </ul>
-    <h4>現代化技術打造：</h4>
-    <p>Next.js 16、Supabase、TypeScript、Turborepo 單一程式庫架構。完整雙語（English/繁體中文）、響應式設計、零知識加密保護你的財務資料。</p>
-    <p><strong>由 Aburi Studio 打造</strong> — 與 Carol Hsiao 共同創造，實現我們讓財務獨立工具普及化的使命。</p>
-    `,
+    description: "全面的 FIRE（財務獨立、提早退休）計算機。追蹤淨資產、計算退休日期、視覺化進度。支援多幣別、零知識加密。與 Carol Hsiao 共同打造，Aburi Studio 出品。",
     links: {
-      post: "",
+      post: "/posts/firefree",
       github: "",
       site: "https://firefree.app",
     },
@@ -64,20 +50,9 @@ export const PROJECTS_ZH = <Project[]>[
   // CoreHour - Time Management
   {
     title: "CoreHour - 專注於真正重要的事",
-    description: `
-    <h3>追蹤時間，倍增影響力</h3>
-    <p>CoreHour 幫助你發現高峰生產力時段，建立真正持久的工作習慣。專為獨立開發者、創客、和想讓每小時都有價值的人打造。</p>
-    <h4>核心功能：</h4>
-    <ul>
-      <li><strong>智慧時間追蹤</strong> — 自動偵測你最有生產力的時段</li>
-      <li><strong>目標導向設計</strong> — 將日常任務與長期目標對齊</li>
-      <li><strong>現金流整合</strong> — 連結時間與收入，做出更好的專案決策</li>
-      <li><strong>習慣養成</strong> — 基於實際生產力數據的可持續例行工作</li>
-    </ul>
-    <p><strong>Aburi Studio 生態系的一部分</strong> — 設計為與 FireFree 和 DailyPay 無縫協作。</p>
-    `,
+    description: "智慧時間追蹤工具，幫助你發現高峰生產力時段。將日常任務與長期目標對齊，連結時間與收入，建立可持續的工作習慣。Aburi Studio 生態系的一部分，與 FireFree 和 DailyPay 無縫協作。",
     links: {
-      post: "",
+      post: "/posts/corehour",
       github: "",
       site: "https://corehour.app",
     },
@@ -90,21 +65,9 @@ export const PROJECTS_ZH = <Project[]>[
   // DailyPay - Daily Financial Tracking
   {
     title: "DailyPay - 即時看見你的金錢流動",
-    description: `
-    <h3>你的財務儀表板，每日更新</h3>
-    <p>DailyPay 提供你財務健康的即時檢視。不用等到月底才發現超支——每天都知道你的財務狀況。</p>
-    <h4>與眾不同之處：</h4>
-    <ul>
-      <li><strong>每日同步</strong> — 從銀行帳戶自動更新</li>
-      <li><strong>視覺清晰</strong> — 用直覺圖表一眼看出消費模式</li>
-      <li><strong>智慧分類</strong> — 聰明分類你的交易記錄</li>
-      <li><strong>FIRE 整合</strong> — 連結 FireFree 追蹤財務獨立進度</li>
-      <li><strong>多帳戶支援</strong> — 統一檢視所有帳戶</li>
-    </ul>
-    <p><strong>由 Aburi Studio 打造</strong> — 完整財務獨立工具套件的一部分。</p>
-    `,
+    description: "每日財務追蹤儀表板，提供財務健康即時檢視。從銀行帳戶自動同步，用直覺圖表呈現消費模式，智慧分類交易記錄。連結 FireFree 追蹤財務獨立進度。由 Aburi Studio 打造，完整財務獨立工具套件的一部分。",
     links: {
-      post: "",
+      post: "/posts/dailypay",
       github: "",
       site: "https://dailypay.aburi.app",
     },
@@ -117,23 +80,9 @@ export const PROJECTS_ZH = <Project[]>[
   // Equation Pyramid - Math Puzzle Game
   {
     title: "Equation Pyramid - 數字金字塔遊戲",
-    description: `
-    <h3>靈感來自 Netflix《惡魔計劃》的數學解謎遊戲</h3>
-    <p>Equation Pyramid 是一款互動式數學解謎遊戲，靈感源自 Netflix 實境秀《惡魔計劃》第二季。挑戰你的數學技能與策略思維，在有限的數字中找出正確的數學等式。</p>
-    <h4>遊戲特色：</h4>
-    <ul>
-      <li><strong>策略挑戰</strong> — 運用加減乘除四則運算，排列出正確等式</li>
-      <li><strong>多種難度</strong> — 從簡單到困難，適合各種程度的玩家</li>
-      <li><strong>即時驗證</strong> — 自動檢查等式是否正確</li>
-      <li><strong>視覺化呈現</strong> — 使用 3D 金字塔視覺效果，增添遊戲趣味</li>
-      <li><strong>開源專案</strong> — 完整程式碼公開在 GitHub</li>
-    </ul>
-    <h4>技術實現：</h4>
-    <p>使用 Next.js、React Three Fiber、Three.js 打造。流暢的 3D 互動體驗，結合現代網頁技術。</p>
-    <p><strong>與 Carol Hsiao 共同創作</strong> — 結合遊戲設計與前端開發專業。</p>
-    `,
+    description: "靈感來自 Netflix《惡魔計劃》的互動式數學解謎遊戲。運用加減乘除四則運算排列出正確等式。使用 Next.js、React Three Fiber、Three.js 打造流暢的 3D 互動體驗。與 Carol Hsiao 共同創作的開源專案。",
     links: {
-      post: "",
+      post: "/posts/equation-pyramid",
       github: "https://github.com/eason-dev/equation-pyramid",
       site: "https://equation-pyramid.vercel.app",
     },
@@ -146,23 +95,9 @@ export const PROJECTS_ZH = <Project[]>[
   // FocusZone - Vision OS Productivity App
   {
     title: "FocusZone - Vision OS 專注生產力應用",
-    description: `
-    <h3>結合番茄鐘與 AI 干擾偵測的空間計算生產力工具</h3>
-    <p>FocusZone 是專為 Apple Vision Pro 設計的創新生產力應用程式。利用空間計算技術，創造沉浸式專注環境，並透過 AI 偵測干擾因素，幫助你保持專注。</p>
-    <h4>核心功能：</h4>
-    <ul>
-      <li><strong>番茄工作法計時器</strong> — 經典時間管理技巧，在空間環境中實現</li>
-      <li><strong>智慧干擾偵測</strong> — AI 偵測手機出現、噪音、頭部移動等干擾</li>
-      <li><strong>自訂沉浸空間</strong> — 多種環境選擇，創造理想工作氛圍</li>
-      <li><strong>實時提醒</strong> — 當偵測到分心時，溫和提醒你回到工作</li>
-      <li><strong>統計分析</strong> — 追蹤專注時間和干擾模式</li>
-    </ul>
-    <h4>技術特點：</h4>
-    <p>使用 Vision OS 2、SwiftUI、RealityKit、ARKit、Create ML 開發。結合機器學習與空間計算技術，打造全新的生產力體驗。</p>
-    <p><strong>與 Carol Hsiao 共同創作</strong> — Carol 負責 UI/UX 設計，打造優雅的空間互動介面。</p>
-    `,
+    description: "專為 Apple Vision Pro 設計的生產力應用。結合番茄工作法計時器與 AI 干擾偵測（手機出現、噪音、頭部移動），創造沉浸式專注環境。使用 Vision OS 2、SwiftUI、RealityKit 開發。與 Carol Hsiao 共同創作。",
     links: {
-      post: "",
+      post: "/posts/focuszone",
       github: "https://github.com/eason-dev/FocusZone",
       site: "",
     },
@@ -366,23 +301,9 @@ export const PROJECTS_EN = <Project[]>[
   // FireFree - FIRE Calculator
   {
     title: "FireFree - Calculate Your Path to Financial Freedom",
-    description: `
-    <h3>Stop Guessing. Know Exactly When You Can Retire.</h3>
-    <p>FireFree is a comprehensive FIRE (Financial Independence, Retire Early) calculator that transforms complex financial planning into clear, actionable insights. Built for anyone dreaming of early retirement, it tracks your entire financial picture in one place.</p>
-    <h4>What You Can Do:</h4>
-    <ul>
-      <li><strong>Track Your Complete Net Worth</strong> — Monitor savings, investments, debts, and real assets across multiple currencies</li>
-      <li><strong>Calculate Your FIRE Date</strong> — See your exact path to financial independence based on your real numbers</li>
-      <li><strong>Visualize Your Progress</strong> — Watch your net worth trends and forecast charts update in real-time</li>
-      <li><strong>Go Global</strong> — Full multi-currency support with automatic exchange rate syncing</li>
-      <li><strong>Start Immediately</strong> — Try the full app in demo mode, no signup required</li>
-    </ul>
-    <h4>Built With Modern Tech:</h4>
-    <p>Next.js 16, Supabase, TypeScript, Turborepo monorepo architecture. Fully bilingual (English/繁體中文) with responsive design and zero-knowledge encryption for your financial data.</p>
-    <p><strong>Built by Aburi Studio</strong> — Co-created with Carol Hsiao as part of our mission to democratize financial independence tools.</p>
-    `,
+    description: "Comprehensive FIRE (Financial Independence, Retire Early) calculator. Track net worth, calculate retirement date, visualize progress. Multi-currency support with zero-knowledge encryption. Co-created with Carol Hsiao, built by Aburi Studio.",
     links: {
-      post: "",
+      post: "/posts/firefree",
       github: "",
       site: "https://firefree.app",
     },
@@ -395,20 +316,9 @@ export const PROJECTS_EN = <Project[]>[
   // CoreHour - Time Management
   {
     title: "CoreHour - Focus on What Truly Matters",
-    description: `
-    <h3>Track Your Time, Multiply Your Impact</h3>
-    <p>CoreHour helps you discover your peak productivity hours and build work habits that actually stick. Built for indie hackers, makers, and anyone who wants to make every hour count.</p>
-    <h4>Key Features:</h4>
-    <ul>
-      <li><strong>Smart Time Tracking</strong> — Automatic detection of your most productive hours</li>
-      <li><strong>Goal-Oriented Design</strong> — Align daily tasks with long-term objectives</li>
-      <li><strong>Cashflow Integration</strong> — Connect time to revenue for better project decisions</li>
-      <li><strong>Habit Building</strong> — Sustainable routines backed by your actual productivity data</li>
-    </ul>
-    <p><strong>Part of the Aburi Studio ecosystem</strong> — Designed to work seamlessly with FireFree and DailyPay.</p>
-    `,
+    description: "Smart time tracking tool that helps you discover peak productivity hours. Align daily tasks with long-term goals, connect time to revenue, build sustainable work habits. Part of the Aburi Studio ecosystem, works seamlessly with FireFree and DailyPay.",
     links: {
-      post: "",
+      post: "/posts/corehour",
       github: "",
       site: "https://corehour.app",
     },
@@ -421,21 +331,9 @@ export const PROJECTS_EN = <Project[]>[
   // DailyPay - Daily Financial Tracking
   {
     title: "DailyPay - See Your Money Move in Real-Time",
-    description: `
-    <h3>Your Financial Dashboard, Updated Daily</h3>
-    <p>DailyPay gives you a real-time view of your financial health. No more waiting until month-end to realize you overspent—know where you stand every single day.</p>
-    <h4>What Makes It Different:</h4>
-    <ul>
-      <li><strong>Daily Sync</strong> — Automatic updates from your bank accounts</li>
-      <li><strong>Visual Clarity</strong> — See spending patterns at a glance with intuitive charts</li>
-      <li><strong>Category Intelligence</strong> — Smart categorization of your transactions</li>
-      <li><strong>FIRE Integration</strong> — Connects with FireFree to track progress toward financial independence</li>
-      <li><strong>Multi-Account Support</strong> — Unified view across all your accounts</li>
-    </ul>
-    <p><strong>Built by Aburi Studio</strong> — Part of our comprehensive suite of financial independence tools.</p>
-    `,
+    description: "Daily financial tracking dashboard with real-time view of financial health. Automatic sync from bank accounts, intuitive charts for spending patterns, smart transaction categorization. Connects with FireFree to track financial independence progress. Built by Aburi Studio.",
     links: {
-      post: "",
+      post: "/posts/dailypay",
       github: "",
       site: "https://dailypay.aburi.app",
     },
@@ -448,23 +346,9 @@ export const PROJECTS_EN = <Project[]>[
   // Equation Pyramid - Math Puzzle Game
   {
     title: "Equation Pyramid - Math Puzzle Game",
-    description: `
-    <h3>A Math Strategy Game Inspired by Netflix's The Devil's Plan</h3>
-    <p>Equation Pyramid is an interactive math puzzle game inspired by Season 2 of Netflix's reality show "The Devil's Plan." Challenge your mathematical skills and strategic thinking by finding the correct equations from a limited set of numbers.</p>
-    <h4>Game Features:</h4>
-    <ul>
-      <li><strong>Strategic Challenge</strong> — Use addition, subtraction, multiplication, and division to form valid equations</li>
-      <li><strong>Multiple Difficulty Levels</strong> — From beginner to expert, suitable for all skill levels</li>
-      <li><strong>Real-time Validation</strong> — Automatic verification of equation correctness</li>
-      <li><strong>Visual 3D Pyramid</strong> — Engaging 3D visualization adds excitement to gameplay</li>
-      <li><strong>Open Source</strong> — Full source code available on GitHub</li>
-    </ul>
-    <h4>Technical Implementation:</h4>
-    <p>Built with Next.js, React Three Fiber, and Three.js. Smooth 3D interactive experience combined with modern web technologies.</p>
-    <p><strong>Co-created with Carol Hsiao</strong> — Combining game design expertise with frontend development skills.</p>
-    `,
+    description: "Interactive math puzzle game inspired by Netflix's The Devil's Plan. Use arithmetic operations to form valid equations. Built with Next.js, React Three Fiber, and Three.js for smooth 3D interactive experience. Co-created with Carol Hsiao as an open source project.",
     links: {
-      post: "",
+      post: "/posts/equation-pyramid",
       github: "https://github.com/eason-dev/equation-pyramid",
       site: "https://equation-pyramid.vercel.app",
     },
@@ -477,23 +361,9 @@ export const PROJECTS_EN = <Project[]>[
   // FocusZone - Vision OS Productivity App
   {
     title: "FocusZone - Vision OS Productivity App",
-    description: `
-    <h3>Pomodoro Timer with AI-Powered Distraction Detection for Spatial Computing</h3>
-    <p>FocusZone is an innovative productivity app designed exclusively for Apple Vision Pro. Leveraging spatial computing technology, it creates an immersive focus environment while using AI to detect distractions and help you stay on task.</p>
-    <h4>Core Features:</h4>
-    <ul>
-      <li><strong>Pomodoro Timer</strong> — Classic time management technique implemented in spatial environment</li>
-      <li><strong>Smart Distraction Detection</strong> — AI detects phone appearance, noise, and head movement</li>
-      <li><strong>Customizable Immersive Spaces</strong> — Multiple environment options to create your ideal work atmosphere</li>
-      <li><strong>Real-time Alerts</strong> — Gentle reminders when distractions are detected</li>
-      <li><strong>Analytics Dashboard</strong> — Track your focus time and distraction patterns</li>
-    </ul>
-    <h4>Technical Highlights:</h4>
-    <p>Developed using Vision OS 2, SwiftUI, RealityKit, ARKit, and Create ML. Combines machine learning with spatial computing to deliver a revolutionary productivity experience.</p>
-    <p><strong>Co-created with Carol Hsiao</strong> — Carol designed the elegant spatial UI/UX interface.</p>
-    `,
+    description: "Productivity app designed for Apple Vision Pro. Combines Pomodoro timer with AI distraction detection (phone appearance, noise, head movement) to create immersive focus environment. Developed using Vision OS 2, SwiftUI, and RealityKit. Co-created with Carol Hsiao.",
     links: {
-      post: "",
+      post: "/posts/focuszone",
       github: "https://github.com/eason-dev/FocusZone",
       site: "",
     },
