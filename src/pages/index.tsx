@@ -100,7 +100,7 @@ export default function Index({ posts, commandPalettePosts }: Props) {
                 rel="noreferrer"
               />,
               <a
-                href="https://twitter.com/EasonChang_me"
+                href="https://x.com/easondev"
                 target="_blank"
                 rel="noreferrer"
               />,
