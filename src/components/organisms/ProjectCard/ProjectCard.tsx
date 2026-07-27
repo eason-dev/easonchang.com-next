@@ -1,5 +1,7 @@
+'use client';
+
 import Image from 'next/image';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 
 import CustomLink from '@/components/CustomLink';
 import { Project } from '@/data/projects';
@@ -15,7 +17,7 @@ export default function ProjectCard({ project }: Props) {
     links: { post, github, site },
     image: { src: imgSrc, alt: imgAlt, placeholder: imgPlaceholder },
   } = project;
-  const { t } = useTranslation(['common']);
+  const t = useTranslations('common');
   const href = post || site || github;
 
   return (

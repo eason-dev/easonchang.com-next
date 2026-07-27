@@ -1,0 +1,39 @@
+{
+  "common": {
+    "view-all": "View all",
+    "copied": "Copied!",
+    "table-of-contents": "Table of contents",
+    "home": "Home",
+    "posts": "Posts",
+    "all-posts": "All Posts",
+    "search": "Search",
+    "search-posts": "Search Posts",
+    "post-search-placeholder": "Search title or description",
+    "next-page": "Next",
+    "previous-page": "Previous",
+    "next-article": "Next Article",
+    "previous-article": "Previous Article",
+    "projects": "Projects",
+    "about": "About",
+    "about-me": "About Me",
+    "about-me-description": "This is Eason Chang's website. You can find my interesting projects, thoughts, learning notes, dev experiences, etc.",
+    "learn-more": "Learn more",
+    "toggle-theme": "Toggle theme",
+    "dark-mode": "Dark mode",
+    "light-mode": "Light mode",
+    "page": "Page",
+    "operation": "Operation",
+    "toggle-language": "Toggle language",
+    "english": "English",
+    "chinese": "中文",
+    "post-locale-not-available-notice": "Currently displaying Chinese version content. This article doesn't have a English version yet. Please stay tuned!"
+  },
+  "indexPage": {
+    "latest-posts": "Latest Posts",
+    "intro-title": "Hey, I am Eason Chang 👋",
+    "intro-1": "I am a Fullstack Developer. I love building <projects>cool stuff</projects>!",
+    "intro-2": "Here I write <posts>posts</posts> about <strong>Software Engineering</strong>, <strong>Web Dev</strong>, <strong>Maker</strong>, and <strong>Productivity</strong>.",
+    "intro-3": "I am from Taiwan 🇹🇼, currently live in Canada 🇨🇦, and actively seeking a job!",
+    "intro-4": "Feel free to check out my <resume>resume</resume>, connect with me on <linkedin>LinkedIn</linkedin>, explore my <github>GitHub</github>, follow me on <twitter>Twitter</twitter>, or <booking>book my time</booking> and chat with me!"
+  }
+}

@@ -1,7 +1,9 @@
 // ref: https://philstainer.io/blog/copy-code-button-markdown
 
+'use client';
+
 import clsx from 'clsx';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
 import { copyToClipboard } from '@/lib/utils/copyToClipboard';
@@ -11,7 +13,7 @@ type Props = React.ComponentPropsWithoutRef<'pre'>;
 
 function CustomPre({ children, className, ...props }: Props) {
   const preRef = useRef<HTMLPreElement>(null);
-  const { t } = useTranslation(['common']);
+  const t = useTranslations('common');
 
   const [copied, setCopied] = useState(false);
 

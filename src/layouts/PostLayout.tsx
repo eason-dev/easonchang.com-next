@@ -1,7 +1,7 @@
-// import Comments from '@/components/comments'
+'use client';
+
 import Giscus from '@giscus/react';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useLocale, useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import Balancer from 'react-wrap-balancer';
 
@@ -9,7 +9,6 @@ import CustomLink from '@/components/CustomLink';
 import PostBody from '@/components/organisms/PostBody';
 import PageTitle from '@/components/PageTitle';
 import ScrollTop from '@/components/ScrollTop';
-import { BlogSEO } from '@/components/SEO';
 import TableOfContents from '@/components/TableOfContents';
 import siteMetadata from '@/data/siteMetadata';
 import formatDate from '@/lib/utils/formatDate';
@@ -19,7 +18,7 @@ export interface PostForPostLayout {
   title: string;
   description: string;
   socialImage: string;
-  body: { raw: string };
+  raw: string;
 }
 
 export type RelatedPostForPostLayout = {
@@ -42,27 +41,14 @@ export default function PostLayout({
   onlyHavePostInAnotherLocale,
   children,
 }: Props) {
-  const {
-    date,
-    title,
-    description,
-    socialImage,
-    body: { raw },
-  } = post;
+  const { date, title, raw } = post;
 
-  const { locale } = useRouter();
-  const { theme } = useTheme();
-  const { t } = useTranslation(['common']);
+  const locale = useLocale();
+  const { resolvedTheme } = useTheme();
+  const t = useTranslations('common');
 
   return (
     <>
-      <BlogSEO
-        postTitle={title}
-        description={description}
-        date={date}
-        socialImage={socialImage}
-      />
-
       <ScrollTop />
 
       <article>
@@ -161,7 +147,7 @@ export default function PostLayout({
                   reactionsEnabled="1"
                   emitMetadata="0"
                   inputPosition="top"
-                  theme={theme === 'dark' ? 'transparent_dark' : 'light'}
+                  theme={resolvedTheme === 'dark' ? 'transparent_dark' : 'light'}
                   lang={locale}
                   loading="lazy"
                 />
