@@ -1,15 +1,271 @@
-@tailwind base;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-/* Write your own custom base styles here */
+/* next-themes toggles the `dark` class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
 
-/* Start purging... */
-@tailwind components;
-/* Stop purging. */
+@theme {
+  --font-sans:
+    var(--font-inter), var(--font-noto-sans-tc), ui-sans-serif, system-ui,
+    sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
 
-/* Write you own custom component styles here */
+  /* Brand palette: teal identity, tuned in oklch for wide-gamut screens */
+  --color-primary-50: oklch(0.984 0.014 180.72);
+  --color-primary-100: oklch(0.953 0.051 180.08);
+  --color-primary-200: oklch(0.91 0.096 180.42);
+  --color-primary-300: oklch(0.855 0.138 181.07);
+  --color-primary-400: oklch(0.777 0.152 181.91);
+  --color-primary-500: oklch(0.704 0.14 182.5);
+  --color-primary-600: oklch(0.6 0.118 184.7);
+  --color-primary-700: oklch(0.511 0.096 186.39);
+  --color-primary-800: oklch(0.437 0.078 188.22);
+  --color-primary-900: oklch(0.386 0.063 188.42);
+  --color-primary-950: oklch(0.277 0.046 192.52);
 
-/* Start purging... */
-@tailwind utilities;
-/* Stop purging. */
+  /* The old design aliased gray -> neutral; keep that mapping */
+  --color-gray-50: oklch(0.985 0 0);
+  --color-gray-100: oklch(0.97 0 0);
+  --color-gray-200: oklch(0.922 0 0);
+  --color-gray-300: oklch(0.87 0 0);
+  --color-gray-400: oklch(0.708 0 0);
+  --color-gray-500: oklch(0.556 0 0);
+  --color-gray-600: oklch(0.439 0 0);
+  --color-gray-700: oklch(0.371 0 0);
+  --color-gray-800: oklch(0.269 0 0);
+  --color-gray-900: oklch(0.205 0 0);
+  --color-gray-950: oklch(0.145 0 0);
 
-/* Your own custom utilities */
+  --animate-aurora: aurora 14s ease-in-out infinite alternate;
+
+  @keyframes aurora {
+    0% {
+      transform: translate3d(-8%, -6%, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(6%, 4%, 0) scale(1.15);
+    }
+    100% {
+      transform: translate3d(-4%, 8%, 0) scale(1.05);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Base
+ * ------------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background: --alpha(var(--color-primary-400) / 30%);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Reusable surfaces
+ * ------------------------------------------------------------------------ */
+
+/* Frosted glass surface used by the header and the command palette */
+@utility glass {
+  background: --alpha(var(--color-white) / 70%);
+  backdrop-filter: blur(12px) saturate(1.4);
+  -webkit-backdrop-filter: blur(12px) saturate(1.4);
+
+  .dark & {
+    background: --alpha(var(--color-gray-950) / 60%);
+  }
+}
+
+/* Bento cards: soft border, subtle inner light, lift on hover */
+@utility bento-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-3xl);
+  border: 1px solid --alpha(var(--color-gray-900) / 8%);
+  background: --alpha(var(--color-white) / 60%);
+  box-shadow: 0 1px 2px --alpha(var(--color-gray-950) / 4%);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s;
+
+  .dark & {
+    border-color: --alpha(var(--color-white) / 8%);
+    background: --alpha(var(--color-gray-900) / 55%);
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px -12px --alpha(var(--color-gray-950) / 25%);
+    border-color: --alpha(var(--color-primary-500) / 35%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+    &:hover {
+      transform: none;
+    }
+  }
+}
+
+/* Cursor-tracking spotlight for post cards; --spotlight-x/y set from JS */
+@utility spotlight-card {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.4s;
+    background: radial-gradient(
+      480px circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%),
+      --alpha(var(--color-primary-500) / 10%),
+      transparent 65%
+    );
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Prose (posts, about page)
+ * ------------------------------------------------------------------------ */
+
+@layer components {
+  .prose {
+    a {
+      color: var(--color-primary-600);
+      text-decoration-color: --alpha(var(--color-primary-500) / 40%);
+      text-underline-offset: 3px;
+      transition:
+        color 0.15s,
+        text-decoration-color 0.15s;
+
+      &:hover {
+        color: var(--color-primary-500);
+        text-decoration-color: var(--color-primary-500);
+      }
+    }
+
+    :where(code):not(:where(pre code)) {
+      background: var(--color-gray-100);
+      color: var(--color-pink-600);
+      padding: 2px 6px;
+      border-radius: var(--radius-md);
+      font-weight: 500;
+    }
+
+    :where(code)::before,
+    :where(code)::after {
+      content: none;
+    }
+
+    img {
+      margin-inline: auto;
+    }
+
+    blockquote {
+      font-style: normal;
+
+      p:first-of-type::before,
+      p:last-of-type::after {
+        content: none;
+      }
+    }
+  }
+
+  .dark .prose {
+    a {
+      color: var(--color-primary-400);
+
+      &:hover {
+        color: var(--color-primary-300);
+      }
+    }
+
+    :where(code):not(:where(pre code)) {
+      background: var(--color-gray-800);
+      color: var(--color-pink-400);
+    }
+  }
+}
+
+/* ---------------------------------------------------------------------------
+ * Code blocks (rehype-pretty-code / Shiki, dual themes)
+ * ------------------------------------------------------------------------ */
+
+.prose pre {
+  border-radius: var(--radius-xl);
+  border: 1px solid --alpha(var(--color-white) / 10%);
+  padding: 1rem 0;
+  overflow-x: auto;
+}
+
+pre [data-line] {
+  padding-inline: 1rem;
+}
+
+/* Shiki emits colors for both themes as CSS vars; switch by class on <html> */
+[data-rehype-pretty-code-figure] span {
+  color: var(--shiki-light);
+}
+
+.dark [data-rehype-pretty-code-figure] span {
+  color: var(--shiki-dark);
+}
+
+[data-rehype-pretty-code-figure] {
+  pre,
+  code {
+    background: var(--shiki-light-bg);
+  }
+}
+
+.dark [data-rehype-pretty-code-figure] {
+  pre,
+  code {
+    background: var(--shiki-dark-bg);
+  }
+}
+
+[data-rehype-pretty-code-title] {
+  display: block;
+  width: fit-content;
+  margin-bottom: -0.5rem;
+  padding: 0.375rem 1rem;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  background: var(--color-gray-200);
+  color: var(--color-gray-700);
+  font-size: var(--text-xs);
+  font-family: var(--font-mono);
+}
+
+.dark [data-rehype-pretty-code-title] {
+  background: var(--color-gray-800);
+  color: var(--color-gray-300);
+}
+
+[data-highlighted-line] {
+  background: --alpha(var(--color-primary-500) / 12%);
+  border-left: 2px solid var(--color-primary-500);
+  padding-inline-start: calc(1rem - 2px);
+}
+
+/* ---------------------------------------------------------------------------
+ * View transitions: gentle cross-fade between pages
+ * ------------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 0.18s;
+  }
+}

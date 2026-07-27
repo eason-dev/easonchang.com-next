@@ -1,10 +1,8 @@
 import '@/styles/index.css';
-import '@/styles/prism-dracula.css';
-import '@/styles/prism-plus.css';
 
 import { Analytics } from '@vercel/analytics/next';
 import type { Metadata, Viewport } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, Noto_Sans_TC } from 'next/font/google';
 import { notFound } from 'next/navigation';
 import Script from 'next/script';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
@@ -23,6 +21,15 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-inter',
+});
+
+// CJK fonts ship as unicode-range slices; browsers fetch only what a page
+// uses, so preloading every slice would be counterproductive.
+const notoSansTC = Noto_Sans_TC({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-noto-sans-tc',
+  preload: false,
 });
 
 export function generateStaticParams() {
@@ -122,8 +129,12 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
   }));
 
   return (
-    <html lang={locale} suppressHydrationWarning className={inter.variable}>
-      <body className="overflow-x-hidden bg-white text-black antialiased transition-colors dark:bg-gray-900 dark:text-white">
+    <html
+      lang={locale}
+      suppressHydrationWarning
+      className={`${inter.variable} ${notoSansTC.variable}`}
+    >
+      <body className="overflow-x-hidden bg-white text-gray-950 antialiased transition-colors dark:bg-gray-950 dark:text-white">
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
             <CommandPalette posts={commandPalettePosts}>
