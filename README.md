@@ -1,54 +1,40 @@
-# easonchang.com-next
+# easonchang.com
 
 ![Blog homepage](./docs/readme-cover.jpg)
 
-Eason Chang's brand new personal blog
+Eason Chang's personal blog — bilingual (English / 繁體中文), statically generated, AI-readable.
 
 Visit: [https://easonchang.com/](https://easonchang.com/)
 
-## Features
+## Stack
 
-- Next.js 14
-- ContentLayer (loading local MDX files)
-- TailwindCSS
-- Atomic design project structure
-- Storybook
-- Absolute import
-- Hygen as code generator
-- Eslint, Prettier
-- Husky, lint-staged pre-commit hook
-- `pnpm` as package manager
+- **Next.js 16** (App Router, React Server Components, Turbopack)
+- **React 19** + **TypeScript** (strict)
+- **Content Collections** — type-safe MDX content with zod schemas
+- **next-intl** — `en` (unprefixed) + `zh-TW` locales with hreflang alternates
+- **Tailwind CSS 4** — CSS-first config, oklch design tokens, dark mode
+- **Shiki** (rehype-pretty-code) — dual-theme syntax highlighting
+- **cmdk** command palette (⌘K) + **Motion** micro-interactions
+- **Biome** — lint + format, wired into pre-commit (husky + lint-staged)
+- **Vitest** unit tests + **Playwright** smoke tests
+- **Storybook 10** (Vite builder) component workshop
+- Feeds (`/feed.xml`, `/atom.xml`, `/feed.json`), `sitemap.xml`, `robots.txt`, and OG images (`/api/og`, with Traditional Chinese font) generated from code
+- AI-readable: [`/llms.txt`](https://easonchang.com/llms.txt), [`/llms-full.txt`](https://easonchang.com/llms-full.txt), and raw markdown for every post by appending `.md` to its URL
 
 ## Commands
 
-### Start local dev server
-
 ```bash
-pnpm dev
+pnpm install        # pnpm only (preinstall blocks npm/yarn)
+pnpm dev            # dev server at http://localhost:3000
+pnpm build          # production build (all pages statically generated)
+pnpm lint           # Biome check (lint + format)
+pnpm test           # Vitest unit tests
+pnpm test:e2e       # Playwright smoke tests (needs a prior build)
+pnpm storybook      # Storybook at http://localhost:6006
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Writing
 
-### Start Storybook component dev environment
+Posts live in `content/posts/*.mdx` with frontmatter (`title`, `slug`, `date`, `description`, `socialImage`, `language`, optional `redirect_from`). A post can exist in one or both languages; versions pair up by `slug`.
 
-```bash
-pnpm storybook
-```
-
-This command will open [http://localhost:6006](http://localhost:6006) for you, this is where you can see storybook
-
-### Generate new component scaffold
-
-```bash
-pnpm new-component
-```
-
-This calls hygen to generate new component with basic file structures, including its JS file and stories.js file
-
-You will be prompted to select component type (atoms, molecules, organisms, templates), and then input component name
-
-### Generate new post
-
-```bash
-pnpm new-post
-```
+See [AGENTS.md](./AGENTS.md) for the full content model and architecture notes, and [docs/MODERNIZATION_PLAN.md](./docs/MODERNIZATION_PLAN.md) for how this stack came to be.

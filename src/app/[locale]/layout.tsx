@@ -1,6 +1,7 @@
 import '@/styles/index.css';
 
 import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import type { Metadata, Viewport } from 'next';
 import { Inter, Noto_Sans_TC } from 'next/font/google';
 import { notFound } from 'next/navigation';
@@ -100,7 +101,7 @@ export async function generateMetadata({
         },
       ],
     },
-    manifest: '/favicons/site.webmanifest',
+    manifest: '/manifest.webmanifest',
     other: {
       'msapplication-TileColor': '#000000',
     },
@@ -181,6 +182,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
         </NextIntlClientProvider>
 
         <Analytics />
+        <SpeedInsights />
 
         {NEXT_PUBLIC_GOOGLE_ANALYTICS && (
           <>

@@ -28,6 +28,7 @@
     "@giscus/react": "^3.1.0",
     "@heroicons/react": "^2.0.14",
     "@vercel/analytics": "^1.2.2",
+    "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "feed": "^4.2.2",
@@ -49,22 +50,9 @@
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",
-      "core-js",
-      "core-js-pure",
       "esbuild",
-      "fsevents",
-      "protobufjs",
       "sharp"
-    ],
-    "overrides": {
-      "estree-util-value-to-estree": "^3.3.3",
-      "trim": "^0.0.3",
-      "trim-newlines": "^3.0.1",
-      "webpack-dev-middleware": "^5.3.4",
-      "braces": "^3.0.3",
-      "micromatch": "^4.0.8",
-      "postcss": "^8.4.31"
-    }
+    ]
   },
   "devDependencies": {
     "@biomejs/biome": "^2.5.5",

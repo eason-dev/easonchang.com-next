@@ -23,7 +23,8 @@ Personal bilingual blog of Eason Chang, deployed on Vercel at https://easonchang
   - A post exists once per language; the same `slug` may appear in both `en` and `zh-TW` files. Posts pair up across locales by slug.
 - **i18n**: locales `en` (default, unprefixed URLs) and `zh-TW` (`/zh-TW/...` prefix). URL structure is load-bearing SEO — preserve `/posts/[slug]`, locale prefixes, and all `redirect_from` 301s.
 - **URL contract**: `docs/url-baseline.txt` snapshots the published sitemap — any routing change must keep every URL there resolving (200, intentional redirect, or the two legacy `/404` artifacts which correctly return 404).
-- Comments via Giscus, dynamic OG images, dark mode via next-themes, ⌘K command palette.
+- Comments via Giscus, dynamic OG images, dark mode via next-themes, ⌘K command palette (cmdk).
+- **AI-readable endpoints**: `/llms.txt`, `/llms-full.txt`, and `/posts/<slug>.md` raw-markdown routes (rewritten in `src/proxy.ts`). Keep these in sync with any content-model change.
 
 ## Conventions
 
