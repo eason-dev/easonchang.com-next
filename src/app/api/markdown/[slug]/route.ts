@@ -1,0 +1,39 @@
+import type { NextRequest } from 'next/server';
+
+import { allPostsNewToOld } from '@/lib/content';
+import { localizedUrl } from '@/lib/seo';
+
+// Serves the raw markdown of a post. Reached via /posts/<slug>.md
+// (and /zh-TW/posts/<slug>.md), rewritten here by src/proxy.ts so agents
+// and LLMs can skip HTML parsing entirely.
+export async function GET(
+  request: NextRequest,
+  { params }: { params: Promise<{ slug: string }> }
+) {
+  const { slug } = await params;
+  const locale = request.nextUrl.searchParams.get('locale') ?? 'en';
+
+  const candidates = allPostsNewToOld.filter((post) => post.slug === slug);
+  if (candidates.length === 0) {
+    return new Response('Not found', { status: 404 });
+  }
+  const post =
+    candidates.find((candidate) => candidate.language === locale) ??
+    candidates[0];
+
+  const body = `# ${post.title}
+
+- Canonical: ${localizedUrl(post.language, post.path)}
+- Date: ${post.date}
+- Language: ${post.language}
+${post.description ? `- Description: ${post.description}\n` : ''}
+${post.raw.trim()}
+`;
+
+  return new Response(body, {
+    headers: {
+      'Content-Type': 'text/markdown; charset=utf-8',
+      'Cache-Control': 'public, max-age=3600, s-maxage=86400',
+    },
+  });
+}

@@ -52,12 +52,26 @@ test.describe('meta routes', () => {
     '/feed.json',
     '/sitemap.xml',
     '/robots.txt',
+    '/llms.txt',
+    '/llms-full.txt',
   ]) {
     test(`serves ${path}`, async ({ request }) => {
       const response = await request.get(path);
       expect(response.status()).toBe(200);
     });
   }
+
+  test('serves raw markdown for posts', async ({ request }) => {
+    const response = await request.get('/zh-TW/posts/less-but-better.md');
+    expect(response.status()).toBe(200);
+    expect(response.headers()['content-type']).toContain('text/markdown');
+    expect(await response.text()).toContain('少，但是更好');
+  });
+
+  test('404s raw markdown for unknown posts', async ({ request }) => {
+    const response = await request.get('/posts/not-a-real-post.md');
+    expect(response.status()).toBe(404);
+  });
 });
 
 test.describe('not found', () => {
