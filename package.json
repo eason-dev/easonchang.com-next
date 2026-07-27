@@ -2,6 +2,7 @@
   "name": "easonchang.com-next",
   "version": "1.0.0",
   "private": true,
+  "packageManager": "pnpm@10.33.0",
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "dev": "next dev",
@@ -13,12 +14,8 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "new-component": "hygen component new",
-    "new-post": "hygen post new"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "new-post": "hygen post new",
+    "prepare": "husky"
   },
   "lint-staged": {
     "./**/*.{js,jsx,ts,tsx}": [
@@ -114,7 +111,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-tailwindcss": "^3.8.3",
-    "husky": "^8.0.3",
+    "husky": "^9.1.7",
     "hygen": "^6.2.11",
     "lint-staged": "^13.1.0",
     "next-sitemap": "^3.1.49",
