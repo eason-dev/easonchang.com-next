@@ -9,7 +9,7 @@ type PageProps = {
 // Serves legacy URLs declared in frontmatter `redirect_from`; everything else 404s.
 export default async function CatchAllPage({ params }: PageProps) {
   const { rest } = await params;
-  const path = '/' + rest.join('/');
+  const path = `/${rest.join('/')}`;
 
   const matchedRedirectRule = findRedirect(path);
   if (matchedRedirectRule) {

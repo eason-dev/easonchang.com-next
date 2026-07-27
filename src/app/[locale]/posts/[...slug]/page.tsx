@@ -4,6 +4,7 @@ import { notFound, redirect } from 'next/navigation';
 import { setRequestLocale } from 'next-intl/server';
 
 import PageTitle from '@/components/PageTitle';
+import siteMetadata from '@/data/siteMetadata';
 import PostLayout from '@/layouts/PostLayout';
 import {
   allPosts,
@@ -12,12 +13,7 @@ import {
   type Post,
 } from '@/lib/content';
 import mdxComponents from '@/lib/mdxComponents';
-import {
-  buildPageMetadata,
-  getPostOGImage,
-  localizedUrl,
-} from '@/lib/seo';
-import siteMetadata from '@/data/siteMetadata';
+import { buildPageMetadata, getPostOGImage, localizedUrl } from '@/lib/seo';
 
 type PageProps = {
   params: Promise<{ locale: string; slug: string[] }>;
@@ -84,7 +80,7 @@ export default async function PostPage({ params }: PageProps) {
   const fullSlug = slug.join('/');
 
   // Legacy URLs (frontmatter redirect_from and old filename-based slugs).
-  const matchedRedirectRule = findRedirect('/posts/' + fullSlug);
+  const matchedRedirectRule = findRedirect(`/posts/${fullSlug}`);
   if (matchedRedirectRule) {
     redirect(matchedRedirectRule.destination);
   }
@@ -118,7 +114,12 @@ export default async function PostPage({ params }: PageProps) {
       '@id': localizedUrl(locale, post.path),
     },
     headline: `${post.title} - ${siteMetadata.title}`,
-    image: [{ '@type': 'ImageObject', url: getPostOGImage(post.socialImage, post.title, post.description) }],
+    image: [
+      {
+        '@type': 'ImageObject',
+        url: getPostOGImage(post.socialImage, post.title, post.description),
+      },
+    ],
     datePublished: post.date,
     dateModified: post.date,
     author: { '@type': 'Person', name: siteMetadata.author },
@@ -137,6 +138,7 @@ export default async function PostPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD built from trusted frontmatter
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
       <PostLayout

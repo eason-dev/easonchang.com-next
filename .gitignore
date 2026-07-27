@@ -39,8 +39,15 @@ yarn-error.log*
 # GraphQL schema
 schema.graphql
 
-# Chromatic storybook build log
+# Storybook
 build-storybook.log
+storybook-static/
+*storybook.log
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
 
 posts-draft/
 

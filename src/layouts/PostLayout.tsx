@@ -147,7 +147,9 @@ export default function PostLayout({
                   reactionsEnabled="1"
                   emitMetadata="0"
                   inputPosition="top"
-                  theme={resolvedTheme === 'dark' ? 'transparent_dark' : 'light'}
+                  theme={
+                    resolvedTheme === 'dark' ? 'transparent_dark' : 'light'
+                  }
                   lang={locale}
                   loading="lazy"
                 />

@@ -51,7 +51,9 @@ const useIntersectionObserver: UseIntersectionObserverType = (setActiveId) => {
       rootMargin: '0px 0px -70% 0px',
     });
 
-    headingElements.forEach((element) => observer.observe(element));
+    headingElements.forEach((element) => {
+      observer.observe(element);
+    });
 
     return () => observer.disconnect();
   }, [setActiveId]);
@@ -90,10 +92,10 @@ const TableOfContents = ({ source }: Props) => {
         {t('table-of-contents').toUpperCase()}
       </p>
       <div className="flex flex-col items-start justify-start">
-        {headings.map((heading, index) => {
+        {headings.map((heading) => {
           return (
             <button
-              key={index}
+              key={heading.id}
               type="button"
               className={clsx(
                 heading.id === activeId
