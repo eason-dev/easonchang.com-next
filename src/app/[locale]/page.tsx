@@ -11,8 +11,8 @@ import { allPostsOfLocaleNewToOld } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 import formatDate from '@/lib/utils/formatDate';
 
-const MAX_DISPLAY = 5;
-const WRITING_SINCE = 2015;
+const MAX_DISPLAY = 6;
+const FEATURED_PROJECTS = 2;
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -36,14 +36,19 @@ export default async function HomePage({ params }: PageProps) {
   const t = await getTranslations('indexPage');
   const tCommon = await getTranslations('common');
 
-  const posts = allPostsOfLocaleNewToOld(locale);
-  const latestPosts = posts.slice(0, MAX_DISPLAY).map((post) => ({
-    slug: post.slug,
-    date: post.date,
-    title: post.title,
-    path: post.path,
-  }));
-  const featuredProject = (locale === 'en' ? PROJECTS_EN : PROJECTS_ZH)[0];
+  const latestPosts = allPostsOfLocaleNewToOld(locale)
+    .slice(0, MAX_DISPLAY)
+    .map((post) => ({
+      slug: post.slug,
+      date: post.date,
+      title: post.title,
+      description: post.description,
+      path: post.path,
+    }));
+  const featuredProjects = (locale === 'en' ? PROJECTS_EN : PROJECTS_ZH).slice(
+    0,
+    FEATURED_PROJECTS
+  );
 
   const externalLink = (href: string) => {
     const ExternalLink = (chunks: React.ReactNode) => (
@@ -80,7 +85,12 @@ export default async function HomePage({ params }: PageProps) {
                 strong: (chunks) => <strong>{chunks}</strong>,
               })}
             </p>
-            <p>{t('intro-3')}</p>
+            <p>
+              {t.rich('intro-3', {
+                neo: externalLink('https://www.neofinancial.com/'),
+                aburi: externalLink('https://aburistudio.com/'),
+              })}
+            </p>
             <p>
               {t.rich('intro-4', {
                 resume: externalLink(
@@ -100,46 +110,98 @@ export default async function HomePage({ params }: PageProps) {
         </section>
       </FadeIn>
 
-      {/* Stats */}
+      {/* Contact */}
       <FadeIn delay={0.05}>
-        <section className="bento-card flex h-full flex-col justify-between gap-6 p-8">
-          <div>
-            <p className="bg-gradient-to-r from-primary-500 to-primary-700 bg-clip-text text-5xl font-extrabold tracking-tight text-transparent dark:to-primary-300">
-              {posts.length}
-            </p>
-            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-              {t('stats-posts')}
-            </p>
-          </div>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            {t('stats-writing-since')}{' '}
-            <span className="font-semibold text-gray-900 dark:text-gray-100">
-              {WRITING_SINCE}
-            </span>
+        <section className="bento-card flex h-full flex-col gap-5 p-8">
+          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+            {t('contact-title')}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            {t('contact-detail')}
           </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={`mailto:${siteMetadata.email}`}
+              className="rounded-full bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-500"
+            >
+              {t('email-me')}
+            </a>
+            <a
+              href="https://fantastical.app/easonchang/chat"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-gray-900/10 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:border-primary-500/40 hover:text-primary-600 dark:border-white/10 dark:text-gray-200 dark:hover:text-primary-400"
+            >
+              {t('book-time')}
+            </a>
+          </div>
+          <div className="mt-auto flex gap-4 pt-2">
+            <SocialIcon kind="github" href={siteMetadata.github} />
+            <SocialIcon kind="linkedin" href={siteMetadata.linkedin} />
+            <SocialIcon kind="twitter" href={siteMetadata.twitter} />
+            <SocialIcon
+              kind="rss"
+              href={siteMetadata.siteUrl + siteMetadata.rss}
+            />
+          </div>
         </section>
       </FadeIn>
 
-      {/* Command palette hint */}
+      {/* Now building (projects) */}
       <FadeIn delay={0.1}>
-        <section className="bento-card h-full p-8">
-          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
-            {t('command-hint')}
-          </h2>
-          <p className="mt-3 text-gray-600 dark:text-gray-300">
-            {t.rich('command-hint-detail', {
-              kbd: (chunks) => (
-                <kbd className="rounded-md border border-gray-900/10 bg-gray-900/5 px-1.5 py-0.5 font-sans text-sm dark:border-white/10 dark:bg-white/5">
-                  {chunks}
-                </kbd>
-              ),
-            })}
-          </p>
+        <section className="bento-card flex h-full flex-col p-0">
+          <CustomLink
+            href={featuredProjects[0].links.post}
+            aria-label={featuredProjects[0].title}
+            className="relative block aspect-[2/1] w-full overflow-hidden"
+          >
+            <Image
+              src={featuredProjects[0].image.src}
+              alt={featuredProjects[0].image.alt}
+              fill
+              sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
+              className="object-cover transition-transform duration-500 motion-safe:hover:scale-105"
+              placeholder={featuredProjects[0].image.placeholder}
+            />
+          </CustomLink>
+          <div className="flex grow flex-col gap-1 p-6">
+            <div className="flex items-baseline justify-between">
+              <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+                {t('now-building')}
+              </h2>
+              <CustomLink
+                href="/projects"
+                className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+              >
+                {tCommon('view-all')} &rarr;
+              </CustomLink>
+            </div>
+            <ul className="mt-2 divide-y divide-gray-900/5 dark:divide-white/5">
+              {featuredProjects.map((project) => (
+                <li key={project.title}>
+                  <CustomLink
+                    href={project.links.post}
+                    className="group flex items-center justify-between gap-3 py-2.5"
+                  >
+                    <span className="font-medium text-gray-800 transition-colors group-hover:text-primary-600 dark:text-gray-200 dark:group-hover:text-primary-400">
+                      {project.title.split(' - ')[0]}
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      className="text-gray-400 transition-transform group-hover:translate-x-0.5"
+                    >
+                      &rarr;
+                    </span>
+                  </CustomLink>
+                </li>
+              ))}
+            </ul>
+          </div>
         </section>
       </FadeIn>
 
       {/* Latest posts */}
-      <FadeIn delay={0.1} className="md:col-span-2">
+      <FadeIn delay={0.1} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
           <div className="flex items-baseline justify-between">
             <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
@@ -153,80 +215,36 @@ export default async function HomePage({ params }: PageProps) {
               {tCommon('view-all')} &rarr;
             </CustomLink>
           </div>
-          <ul className="mt-4 divide-y divide-gray-900/5 dark:divide-white/5">
+          <ul className="mt-4 grid grid-cols-1 gap-x-8 divide-y divide-gray-900/5 md:grid-cols-2 md:divide-y-0 dark:divide-white/5">
             {latestPosts.map((post) => (
-              <li key={post.slug}>
+              <li
+                key={post.slug}
+                className="md:border-b md:border-gray-900/5 dark:md:border-white/5"
+              >
                 <CustomLink
                   href={post.path}
-                  className="group flex items-baseline justify-between gap-4 py-3"
+                  className="group flex flex-col gap-1 py-3"
                 >
-                  <span className="font-medium text-gray-800 transition-colors group-hover:text-primary-600 dark:text-gray-200 dark:group-hover:text-primary-400">
-                    {post.title}
+                  <span className="flex items-baseline justify-between gap-4">
+                    <span className="font-medium text-gray-800 transition-colors group-hover:text-primary-600 dark:text-gray-200 dark:group-hover:text-primary-400">
+                      {post.title}
+                    </span>
+                    <time
+                      dateTime={post.date}
+                      className="shrink-0 text-sm text-gray-400"
+                    >
+                      {formatDate(post.date, locale)}
+                    </time>
                   </span>
-                  <time
-                    dateTime={post.date}
-                    className="shrink-0 text-sm text-gray-400"
-                  >
-                    {formatDate(post.date, locale)}
-                  </time>
+                  {post.description && (
+                    <span className="line-clamp-1 text-sm text-gray-500 dark:text-gray-400">
+                      {post.description}
+                    </span>
+                  )}
                 </CustomLink>
               </li>
             ))}
           </ul>
-        </section>
-      </FadeIn>
-
-      {/* Featured project */}
-      <FadeIn delay={0.15}>
-        <section className="bento-card h-full">
-          <CustomLink
-            href={
-              featuredProject.links.post ||
-              featuredProject.links.site ||
-              featuredProject.links.github
-            }
-            className="block h-full"
-            aria-label={featuredProject.title}
-          >
-            <div className="relative aspect-video w-full overflow-hidden">
-              <Image
-                src={featuredProject.image.src}
-                alt={featuredProject.image.alt}
-                fill
-                sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                className="object-cover transition-transform duration-500 motion-safe:hover:scale-105"
-                placeholder={featuredProject.image.placeholder}
-              />
-            </div>
-            <div className="p-6">
-              <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
-                {t('featured-project')}
-              </h2>
-              <p className="mt-2 font-semibold text-gray-900 dark:text-gray-100">
-                {featuredProject.title}
-              </p>
-            </div>
-          </CustomLink>
-        </section>
-      </FadeIn>
-
-      {/* Connect */}
-      <FadeIn delay={0.2} className="md:col-span-2 lg:col-span-3">
-        <section className="bento-card flex flex-col items-center gap-4 p-8 text-center">
-          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
-            {t('connect')}
-          </h2>
-          <div className="flex gap-4">
-            <SocialIcon kind="mail" href={`mailto:${siteMetadata.email}`} />
-            <SocialIcon kind="github" href={siteMetadata.github} />
-            <SocialIcon kind="linkedin" href={siteMetadata.linkedin} />
-            <SocialIcon kind="twitter" href={siteMetadata.twitter} />
-            <SocialIcon kind="facebook" href={siteMetadata.facebook} />
-            <SocialIcon
-              kind="rss"
-              href={siteMetadata.siteUrl + siteMetadata.rss}
-            />
-          </div>
         </section>
       </FadeIn>
     </div>

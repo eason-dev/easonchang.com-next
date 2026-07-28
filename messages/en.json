@@ -30,16 +30,15 @@
   },
   "indexPage": {
     "latest-posts": "Latest Posts",
-    "featured-project": "Featured Project",
-    "connect": "Find me around the web",
-    "command-hint": "Quick search",
-    "command-hint-detail": "Press <kbd>⌘K</kbd> anywhere to jump to a post, switch theme, or change language.",
-    "stats-posts": "posts",
-    "stats-writing-since": "writing since",
     "intro-title": "Hey, I am Eason Chang 👋",
     "intro-1": "I am a Fullstack Developer. I love building <projects>cool stuff</projects>!",
     "intro-2": "Here I write <posts>posts</posts> about <strong>Software Engineering</strong>, <strong>Web Dev</strong>, <strong>Maker</strong>, and <strong>Productivity</strong>.",
-    "intro-3": "I am from Taiwan 🇹🇼, currently live in Canada 🇨🇦, and actively seeking a job!",
-    "intro-4": "Feel free to check out my <resume>resume</resume>, connect with me on <linkedin>LinkedIn</linkedin>, explore my <github>GitHub</github>, follow me on <twitter>Twitter</twitter>, or <booking>book my time</booking> and chat with me!"
+    "intro-3": "I am from Taiwan 🇹🇼 and live in Calgary, Canada 🇨🇦. I work as a Software Developer at <neo>Neo Financial</neo>, and build products at <aburi>Aburi Studio</aburi>!",
+    "intro-4": "Feel free to check out my <resume>resume</resume>, connect with me on <linkedin>LinkedIn</linkedin>, explore my <github>GitHub</github>, follow me on <twitter>Twitter</twitter>, or <booking>book my time</booking> and chat with me!",
+    "now-building": "Now Building",
+    "contact-title": "Get in Touch",
+    "contact-detail": "Have a question, an idea, or just want to say hi? My inbox is always open.",
+    "email-me": "Email me",
+    "book-time": "Book a chat"
   }
 }
