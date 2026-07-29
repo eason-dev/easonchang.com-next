@@ -4,35 +4,72 @@ slug: 'corehour'
 date: 2026-07-28
 tags: [Project, Aburi Studio, Productivity, Side Project]
 category: Project
-socialImage: '/images/corehour/corehour-cover.png'
+socialImage: '/images/corehour/corehour-cover-zh-TW.png'
 type: Post
 language: zh-TW
-description: 'CoreHour 是 Aburi Studio 打造的極簡時間箱（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。這篇文章介紹它能做什麼、以及我們為什麼做它。'
+description: 'CoreHour 是我們在 Aburi Studio 打造的極簡時間箱（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。介紹它能做什麼、為什麼做它，以及背後的技術架構。'
 ---
+
+![CoreHour — 做得更少，完成更多](/images/corehour/corehour-cover-zh-TW.png)
+
+## 簡介
 
 這陣子，我和 [Carol](https://www.linkedin.com/company/aburistudio) 一起以 **[Aburi Studio](https://aburistudio.com)** 的名義打造產品——這是我們兩人在加拿大 Calgary 成立的小工作室。第一個想在這裡介紹的產品是 **[CoreHour](https://corehour.app)**：一款圍繞著「80/20 法則」設計的極簡時間箱（Time Boxing）App。
 
-## 問題：瞎忙吃掉你的一天
+它的哲學直接印在官網上：**「Do Less. Achieve More.」**
+
+## Demo
+
+- **官網：** [corehour.app](https://corehour.app)
+- **Web 版：** [app.corehour.app](https://app.corehour.app)，7 天免費試用、不用信用卡
+- **iOS 版：** 上架推廣中，支援繁體中文與英文
+
+## 為什麼我們要開發這個專案
 
 大多數生產力工具都很擅長「收集任務」，卻不擅長告訴你一個更殘酷的事實：不是所有任務都值得你的時間。行程可以排得滿滿的，卻沒完成任何真正重要的事。
 
 帕雷托法則（Pareto Principle）說：大約 20% 的任務，驅動了 80% 的成果。難的是*看見*那 20% 是什麼——並且真的為它保留時間。
 
-## CoreHour 能做什麼
+我們自己就是受害者：待辦清單越長越長，重要的事卻一直卡著。所以 CoreHour 只要求你做三件事：設定焦點、把一天裝進時間盒、追蹤專注時數。
 
-CoreHour 刻意保持簡單，把時間箱方法和「高影響力工作」的視角結合在一起：
+## 主打功能
 
-- **視覺化規劃你的一天**——把任務拖放進時間格，搭配顏色分類，一眼看懂整天的安排。
-- **標記關鍵任務**——把高影響力的任務標記出來，追蹤你的時間花在關鍵工作還是瞎忙上。
-- **從自己的數據中學習**——追蹤時間分配、觀察專注時數，找出你真正效率最高的時段。
-- **不打擾你**——乾淨、細緻的介面，支援明亮與暗黑模式。
+![CoreHour landing page](/images/corehour/corehour-landing-hero.png)
+
+- **視覺化規劃你的一天：** 把任務拖放進 30 分鐘一格的時間軸，搭配顏色分類，一眼看懂整天的安排。支援拖曳圈選、拉伸調整長度、undo/redo。
+- **標記關鍵任務：** 把高影響力的任務標記出來，追蹤你的時間花在關鍵工作還是瞎忙上。
+- **自動衝突處理：** 時間盒重疊時自動截短、切割或合併，不用手動喬位置。
+- **從自己的數據中學習：** 每日專注時數目標、連續紀錄（streak）、一週時間分配分析。
+- **不打擾你：** 乾淨、細緻的介面，支援明亮與暗黑模式。
+
+有個細節我特別喜歡：streak 有三種狀態，不是兩種。因為 CoreHour 是「規劃」工具，合格天數往回也**往前**算——未來的日子可以先排好。今天還沒達標但昨天有守住時，你會處在「規劃中」狀態，介面會提醒你把今天排好，而不是給你看一條斷掉的 streak。
 
 就這樣。沒有繁瑣的專案管理流程，也沒有你永遠用不到的團隊功能。它是為一個人設計的每日規劃工具：就是你。
 
+## 技術架構
+
+![CoreHour 架構圖：Web、手機版與 Supabase，中間是同一個純函式 planner](/images/corehour/corehour-architecture.png)
+
+- [Next.js 16](https://nextjs.org/)：Web 版，搭配 [shadcn/ui](https://ui.shadcn.com/)
+- [Expo](https://expo.dev/)：iOS 版，用 reanimated 做拖曳手勢
+- [Supabase](https://supabase.com/)：Postgres + Auth + RLS，目前累積 87 個 migration
+- [RevenueCat](https://www.revenuecat.com/)：訂閱與免費試用
+- [TanStack Query](https://tanstack.com/query)：optimistic update 的資料層
+
+整個 codebase 的心臟是一個純函式：`planTimeBoxPlacement()`。「放一個時間盒」聽起來簡單，直到它和別的盒子重疊——該移除、截短還是切成兩半？貼著同分類的鄰居時還要自動合併。
+
+Web 版歷史上曾有三份各自實作的這套邏輯，然後它們慢慢長歪。現在只剩一份：吃進當天狀態和一次放置，吐出一串有序的 create / update / delete 操作清單，Web 和手機版都照著同一份計畫執行。
+
+另一個我們很喜歡的決定：訂閱過期後的唯讀模式是寫在 **Postgres 的 row-level security policy** 裡，不只是 UI 擋擋而已。開著 DevTools 的好奇用戶，得到的答案跟乖乖用 UI 的人一樣。
+
+還有一個被工具限制逼出來的好架構：Vitest 解析不了 React Native 的語法，所以手機版強制把所有邏輯（時間軸幾何、訂閱規則、日期數學）放進**不 import React Native 的純模組**，測試放旁邊。一個限制，意外變成我們最喜歡的架構規則。
+
 ## 目前進度
 
-CoreHour 已經上線，網址是 **[corehour.app](https://corehour.app)**，目前處於 Beta 階段——早鳥用戶可以用 Beta 價格鎖定終身折扣。如果你曾對時間箱或 80/20 法則感興趣，非常歡迎你試用，然後告訴我還缺什麼。
+CoreHour 已經上線，網址是 **[corehour.app](https://corehour.app)**，目前處於 Beta 階段——早鳥用戶可以用 Beta 價格鎖定終身折扣，7 天試用不用信用卡。iOS 版正在上架推廣中。
 
-CoreHour 是我們在 Aburi Studio 圍繞「時間與金錢」打造的一系列小工具之一——另外還有 FIRE 計算機 **FireFree**（[介紹文在這](/posts/firefree)）和薪資視覺化工具 **Daily Wage**，之後會再多聊聊。
+如果你曾對時間箱或 80/20 法則感興趣，非常歡迎你試用，然後告訴我還缺什麼。
+
+CoreHour 是我們在 Aburi Studio 圍繞「時間與金錢」打造的一系列工具之一——另外還有 FIRE 財務規劃工具 **FireFree**（[介紹文在這](/posts/firefree)）和薪水即時計算器 **天天開薪**（[介紹文在這](/posts/dailywage)）。
 
 有任何回饋，歡迎在 [X](https://x.com/easondev_tw) 上找我，或直接[寄信給我](mailto:eason@easonchang.com)——每一封我都會看。

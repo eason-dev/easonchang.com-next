@@ -47,7 +47,7 @@ export const PROJECTS_ZH = <Project[]>[
   {
     title: 'FireFree - 財務自由追蹤工具',
     description:
-      '追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。我們先為自己打造、再分享出來的工具。由 Aburi Studio 打造，即將推出。',
+      '不用記帳、不用串接銀行的 FIRE 財務規劃工具：追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。由 Aburi Studio 打造，公開測試中，可直接體驗 Demo。',
     links: {
       post: '/posts/firefree',
       github: '',
@@ -56,6 +56,22 @@ export const PROJECTS_ZH = <Project[]>[
     image: {
       src: '/images/firefree/firefree-cover.png',
       alt: 'FireFree - 財務自由追蹤工具',
+      placeholder: 'empty',
+    },
+  },
+  // DailyWage 天天開薪 (Aburi Studio)
+  {
+    title: '天天開薪 - 即時薪水計算器',
+    description:
+      '每 100 毫秒更新你今天賺到的薪水，像素柯基陪你上班。輕觸把收入分配進存錢目標，桌面小工具持續跳動。免費、無廣告、沒有後端——資料不離開你的手機。由 Aburi Studio 打造。',
+    links: {
+      post: '/posts/dailywage',
+      github: '',
+      site: 'https://dailywage.aburi.app',
+    },
+    image: {
+      src: '/images/dailywage/dailywage-cover-zh-TW.png',
+      alt: '天天開薪 - 即時薪水計算器',
       placeholder: 'empty',
     },
   },
@@ -270,7 +286,7 @@ export const PROJECTS_EN = <Project[]>[
   {
     title: 'FireFree - Track Your Path to Financial Freedom',
     description:
-      'Track your net worth, project your FIRE date, and visualize your journey to financial independence. A tool we built for ourselves first. Built at Aburi Studio, launching soon.',
+      'A FIRE planning app with no expense logging and no bank linking: track your net worth, project your FIRE date, and visualize your journey to financial independence. Built at Aburi Studio, now in public beta with a no-account demo.',
     links: {
       post: '/posts/firefree',
       github: '',
@@ -279,6 +295,22 @@ export const PROJECTS_EN = <Project[]>[
     image: {
       src: '/images/firefree/firefree-cover.png',
       alt: 'FireFree - Track Your Path to Financial Freedom',
+      placeholder: 'empty',
+    },
+  },
+  // DailyWage (Aburi Studio)
+  {
+    title: 'DailyWage - Real-Time Salary Counter',
+    description:
+      'Watch your salary tick up every 100 ms while a pixel corgi keeps you company. Tap to allocate earnings into savings goals; widgets keep counting on your lock screen. Free, no ads, and no backend — your data never leaves your device. Built at Aburi Studio.',
+    links: {
+      post: '/posts/dailywage',
+      github: '',
+      site: 'https://dailywage.aburi.app',
+    },
+    image: {
+      src: '/images/dailywage/dailywage-cover-en.png',
+      alt: 'DailyWage - Real-Time Salary Counter',
       placeholder: 'empty',
     },
   },

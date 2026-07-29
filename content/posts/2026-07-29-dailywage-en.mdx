@@ -1,0 +1,71 @@
+---
+title: 'Building DailyWage: A Real-Time Salary Counter with a Corgi Companion'
+slug: 'dailywage'
+date: 2026-07-29
+tags: [Project, Aburi Studio, iOS, React Native, Side Project]
+category: Project
+socialImage: '/images/dailywage/dailywage-cover-en.png'
+type: Post
+language: en
+description: 'DailyWage is a free iOS app from Aburi Studio that shows your salary ticking up every 100 ms, with a pixel corgi companion, tap-to-save goals, and widgets. No backend — your data never leaves your device.'
+---
+
+![DailyWage — watch your salary tick](/images/dailywage/dailywage-cover-en.png)
+
+## Introduction
+
+**[DailyWage](https://dailywage.aburi.app)** is the third product [Carol](https://www.linkedin.com/company/aburistudio) and I built at **[Aburi Studio](https://aburistudio.com)** — the smallest and most playful one, and weirdly, the one with some of the most interesting engineering.
+
+It answers a question every office worker has asked at 3 p.m. on a Wednesday: "How much have I actually earned *so far today*?" (In Chinese it's called **天天開薪** — a pun on 天天開心, "happy every day".)
+
+## Demo
+
+- **Website:** [dailywage.aburi.app](https://dailywage.aburi.app)
+- **App Store:** [free download](https://apps.apple.com/app/id6758448194) (iOS; Android is on the roadmap)
+- **Languages:** English / Traditional Chinese
+
+## Why we created this project
+
+People work for their goals and dreams, but the daily grind makes it easy to want to give up.
+
+Your salary is a number that appears at the end of the month — too far removed from these three hours this afternoon. What if you could *see* time turning into money, every single second? Would the workday feel a little more worth it?
+
+So we built a small, comforting tool: enter your monthly salary and working hours, and it updates your earnings **every 100 milliseconds**, four decimal places and all, while a pixel-art corgi keeps you company. Outside working hours and on weekends, the corgi sleeps.
+
+## Key Features
+
+![The DailyWage landing page with the corgi and live counter](/images/dailywage/dailywage-landing-hero-en.png)
+
+- **Real-time earnings counter:** ticks every 100 ms, with tabular numerals so digits don't shake, and the screen stays awake while you watch your money grow.
+- **Tap-to-save goals:** create goals — "Trip to Japan", an emergency fund — and tap a card to allocate today's earnings into it, with a Lottie animation and a haptic tick. Long-press to allocate continuously. Completed goals get stamped with a traditional ink-seal animation.
+- **Monthly rhythm:** a monthly progress bar fills as the month goes on, and goals marked as fixed expenses (rent!) reset automatically on the 1st.
+- **Widgets:** today's earnings and monthly progress tick along on your home screen and lock screen — with working, sleeping, and celebrating corgi variants.
+- **100% private:** no accounts, no cloud. All financial data stays on your device, and the app is completely free with no ads.
+
+## Technologies
+
+![DailyWage architecture: an Expo app, on-device storage, widgets — and no backend](/images/dailywage/dailywage-architecture.png)
+
+- [Expo](https://expo.dev/): React Native app with expo-router native tabs
+- [Reanimated](https://docs.swmansion.com/react-native-reanimated/) + [Lottie](https://airbnb.io/lottie/): the flying-money allocation animation and gestures
+- [expo-secure-store](https://docs.expo.dev/versions/latest/sdk/securestore/): primary storage in the iOS Keychain — data survives deleting and reinstalling the app
+- [WidgetKit](https://developer.apple.com/widgets/) (SwiftUI): widgets read shared settings via an App Group and recompute earnings on their own
+- [EAS](https://expo.dev/eas) + release-please: merging a release PR builds and submits to TestFlight automatically
+
+The app **deliberately has no backend**. That's a privacy stance and an engineering constraint at once, and it shaped everything interesting about the project.
+
+The hardest bug in its history was money silently disappearing: v1 stored one running total of unallocated earnings and re-snapshotted it mid-day, which could destroy money carried over from previous days. v2 freezes `previousDaysCarryover` **exactly once at day transition**, and the balance is always carryover + today's earnings − today's allocations. The migration is deliberately conservative: you might briefly see slightly more, but never less.
+
+The widgets never ask the app for numbers: the JS side writes raw settings into the App Group, and the Swift side recomputes earnings on its own timeline. The number on your home screen keeps ticking even if you haven't opened the app in days — at the cost of the salary formula existing twice, once in TypeScript and once in Swift, kept in sync by tests.
+
+My favorite part: you can't QA a "watch your salary all day" app in real time, so dev mode runs the clock at **720×** — a full 24-hour workday plays out in two minutes. It's hidden behind an easter egg (tap the Settings title five times), and release builds force-disable it so the debug flag can never ship.
+
+## Where it's at
+
+DailyWage is [live on the App Store](https://apps.apple.com/app/id6758448194), completely free with no ads, and Android is on the roadmap.
+
+If your workday could use a corgi and a satisfying number going up, give it a try — and if it makes you smile at 3 p.m. on a Wednesday, it did its job.
+
+DailyWage is part of a small family of tools we're building at Aburi Studio around time and money — alongside **CoreHour**, a minimalist time-boxing app ([read about it here](/posts/corehour)), and **FireFree**, a FIRE planning app ([read about it here](/posts/firefree)).
+
+If you have feedback, find me on [X](https://x.com/easondev) or [email me](mailto:eason@easonchang.com) — I read everything.

@@ -1,33 +1,78 @@
 ---
-title: 'FireFree：追蹤你通往財務自由的路'
+title: 'FireFree：告別理財焦慮的 FIRE 財務規劃工具'
 slug: 'firefree'
 date: 2026-07-28
 tags: [Project, Aburi Studio, FIRE, Finance, Side Project]
 category: Project
-socialImage: '/images/firefree/firefree-cover.png'
+socialImage: '/images/firefree/firefree-cover-zh-TW.png'
 type: Post
 language: zh-TW
-description: 'FireFree 是我們在 Aburi Studio 打造的 FIRE 工具：追蹤淨資產、預測你的 FIRE 日期，讓財務自由從模糊的夢想變成具體的計畫。歡迎到 firefree.app 加入等候名單。'
+description: 'FireFree 是我們在 Aburi Studio 打造的 FIRE 財務規劃工具：不用記帳、不用串接銀行，就能追蹤淨資產、預測你達成財務自由的那一天。已開放免費註冊，也可以直接玩 Demo 模式。'
 ---
 
-我們在 **[Aburi Studio](https://aburistudio.com)** 打造的第二個產品，也是和我自己的人生最相關的一個：**[FireFree](https://firefree.app)**，一個幫你追蹤「通往財務自由之路」的工具。
+![FireFree — 告別理財焦慮](/images/firefree/firefree-cover-zh-TW.png)
 
-## 為什麼做 FIRE 工具
+## 簡介
 
-FIRE——*Financial Independence, Retire Early*（財務獨立、提早退休）——在化成數字之前，聽起來像個遙遠的夢。但一旦變成數字，它就成了更有用的東西：一個計畫。你現在擁有多少？成長得多快？照目前的速度，究竟哪一天「工作」可以變成一種選擇？
+我們在 **[Aburi Studio](https://aburistudio.com)** 打造的第二個產品，也是和我自己的人生最相關的一個：**[FireFree](https://firefree.app)**，一個 FIRE（財務獨立、提早退休）財務規劃工具。
 
-FireFree 一開始就是我們自己需要的工具。我和 Carol 一直在規劃自己的財務未來，但試算表能做的有限：它看不出動能，也回答不了唯一真正重要的問題——*什麼時候？* 我們先為自己打造了 FireFree，現在把有用的部分分享出來。
+它想回答一個看似簡單的問題：「照現在這樣過日子，我到底哪一天可以不用再為錢工作？」
 
-## FireFree 能做什麼
+## Demo
 
-- **追蹤淨資產**——你所擁有的一切，一張清楚的全貌。
-- **預測你的 FIRE 日期**——根據你真實的數字，看見何時能實際達到財務獨立。
-- **視覺化整段旅程**——看著自己朝財務自由前進的軌跡，而不是活在一份你不想打開的試算表裡。
+- **官網：** [firefree.app](https://firefree.app)
+- **Demo 模式：** 不用註冊，從官網就能進入完整產品，內建六種財務情境隨你玩
+- **語言：** 繁體中文 / English 完整支援
 
-和 Aburi Studio 的每個產品一樣，我們的目標是「專注的軟體」：把一件事做得簡單而漂亮。
+## 為什麼我們要開發這個專案
+
+FIRE 在化成數字之前，聽起來像個遙遠的夢。但一旦變成數字，它就成了更有用的東西：一個計畫。
+
+我和 [Carol](https://www.linkedin.com/company/aburistudio) 一直在規劃自己的財務未來，但試算表能做的有限：它看不出動能，也回答不了唯一真正重要的問題——*什麼時候？*
+
+我們也發現，對錢的焦慮很少來自「不知道上週二花了多少」，而是來自**看不見未來**。每個月省下幾百塊，卻不知道到底夠不夠退休；打開銀行 App 只有冰冷的餘額，沒有人告訴你這筆錢能撐多久。
+
+所以 FireFree 刻意放棄了兩件事：**不記帳**（每月花幾分鐘更新一次資產就好），**不串接銀行**（數字自己填大概的就行，資料完全屬於你）。換來的是一張未來的地圖。
+
+## 主打功能
+
+![FireFree 儀表板：財務自由進度與資產成長預測曲線](/images/firefree/firefree-demo-dashboard-zh-TW.png)
+
+- **財務自由預測：** 根據收支、資產與負債，套上複利與通膨，畫出淨資產曲線與 FIRE 目標曲線的交會點，直接標出你預計幾歲 FIRE。計算基礎是經典的 4% 法則，倍數、提領率、通膨率全部可調。
+- **不用記帳的資產追蹤：** 存款、投資、實體資產、負債四大類，每筆都有歷史紀錄，看著淨資產慢慢攀升很有成就感。
+- **可以開關的人生目標：** 新增「買房」、「每年一趟大旅行」，在圖表上開開關關，看 FIRE 日期怎麼移動。抽象的取捨變成看得見的曲線。
+- **股價自動同步：** 持股綁定代號（支援美股與台股），每天自動更新市值。
+- **多幣別支援：** USD、TWD、EUR 帳戶通通換算成同一個顯示幣別。
+- **隱私模式：** 點一下眼睛圖示，全 App 金額變成 `$•,•••.••`，開會投影不怕曝光淨資產。
+- **PWA 離線支援：** 在捷運上也打得開儀表板。
+
+## 技術架構
+
+FireFree 住在我們的 TypeScript monorepo 裡，光這條產品線就有 5 個 app、7 個 package：
+
+![FireFree 架構圖：三個 client 共用 shared packages 與 Supabase](/images/firefree/firefree-architecture.png)
+
+- [Next.js 16](https://nextjs.org/)：Web 版與 Landing Page，App Router + PWA
+- [Expo](https://expo.dev/)：iOS 版共用同一套業務邏輯，開發體驗極好
+- [Supabase](https://supabase.com/)：Postgres + Auth + RLS + Edge Functions，一套搞定後端
+- [TanStack Query](https://tanstack.com/query)：資料層加上離線快取
+- [RevenueCat](https://www.revenuecat.com/)：訂閱金流，Web 與 App 共用同一個 entitlement
+- [Tailwind CSS 4](https://tailwindcss.com/)：搭配 shared UI package 與 Storybook
+
+架構上我最滿意的決定，是把所有 FIRE 數學放進 `firefree-core`——一個**零依賴的純 TypeScript package**。Web 和手機版的儀表板背後是同一個 `computeFireOverview()`。
+
+Code review 只需要守一條規則：client 永遠不准自己重算財務數字。「App 和網站顯示的數字不一樣」這種 bug，從結構上就不可能發生。
+
+測試也值得一提：Playwright E2E 跑的是真正的 Next.js app，但 Supabase auth 完全 mock 掉——CI 從頭到尾不碰資料庫。因為 Next.js middleware 會在 server side 驗證 auth，我們做了兩層 mock（server side bypass + 瀏覽器請求攔截），這段之後值得單獨寫一篇。
+
+還有一個小細節：`decimalToPercentString()` 有一條專門的測試，斷言 `0.07 * 100` 顯示成 `7` 而不是 `7.000000000000001`。理財產品只要出現一次浮點數彩蛋，信任感就沒了 😆
 
 ## 目前進度
 
-FireFree 快要完成了。我們正在 **[firefree.app](https://firefree.app)** 收集 Email，免費試用開放時會第一時間通知等候名單。
+FireFree 已經開放免費註冊，目前是公開測試階段——早期加入可以鎖定 Beta 優惠價，也有免費方案可以一直用。iOS 版正在準備上架。
 
-如果你也在想 FIRE 這件事——無論你已經深入研究、還是只想知道自己的「FIRE 數字」——歡迎[加入等候名單](https://firefree.app)，並告訴我你希望這樣的工具能做什麼。如果你更在意每天的時間規劃，也可以看看我們的另一個產品 [CoreHour](/posts/corehour)。
+如果你也在想 FIRE 這件事——無論你已經深入研究、還是只想知道自己的「FIRE 數字」——[直接玩玩 Demo](https://firefree.app) 是最快的方式：不用註冊，選一個財務情境就能體驗完整產品。
+
+FireFree 是我們在 Aburi Studio 圍繞「時間與金錢」打造的一系列工具之一——另外還有極簡時間箱 App **CoreHour**（[介紹文在這](/posts/corehour)）和薪水即時計算器 **天天開薪**（[介紹文在這](/posts/dailywage)）。
+
+有任何回饋，歡迎在 [X](https://x.com/easondev_tw) 上找我，或直接[寄信給我](mailto:eason@easonchang.com)——每一封我都會看。
