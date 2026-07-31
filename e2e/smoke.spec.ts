@@ -45,6 +45,25 @@ test.describe('posts', () => {
   });
 });
 
+test.describe('projects', () => {
+  test('renders project cards with working optimized images', async ({
+    page,
+  }) => {
+    await page.goto('/projects');
+    const firstImage = page.locator('main img').first();
+    await expect(firstImage).toBeVisible();
+
+    // Guard against image-optimizer config regressions (e.g. Next 16
+    // rejecting quality values missing from images.qualities): the image
+    // must actually decode, not just exist in the DOM.
+    await expect
+      .poll(() =>
+        firstImage.evaluate((img) => (img as HTMLImageElement).naturalWidth)
+      )
+      .toBeGreaterThan(0);
+  });
+});
+
 test.describe('meta routes', () => {
   for (const path of [
     '/feed.xml',
