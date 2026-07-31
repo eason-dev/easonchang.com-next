@@ -11,6 +11,9 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Next 16 restricts the optimizer to these quality values (default [75]).
+    // ProjectCard requests quality 30 for its cover thumbnails.
+    qualities: [30, 75],
     remotePatterns: [
       {
         protocol: 'https',
