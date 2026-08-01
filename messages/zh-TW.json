@@ -2,7 +2,7 @@
   "common": {
     "view-all": "查看全部",
     "view-all-posts": "查看全部 {count} 篇文章",
-    "view-all-projects": "全部 {count} 個專案",
+    "view-all-projects": "查看全部 {count} 個專案",
     "series": "系列文章",
     "series-post-count": "共 {count} 篇",
     "copied": "已複製！",

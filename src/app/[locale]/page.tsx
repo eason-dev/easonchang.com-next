@@ -165,7 +165,14 @@ export default async function HomePage({ params }: PageProps) {
       {/* Featured projects */}
       <FadeIn delay={0.15} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
-          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+          <h2 className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-gray-400">
+            <Image
+              src="/images/aburi-studio-logo.png"
+              alt=""
+              width={20}
+              height={20}
+              className="rounded-md"
+            />
             {t('featured-projects')}
           </h2>
           <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -204,9 +211,15 @@ export default async function HomePage({ params }: PageProps) {
             <CustomLink
               href="/projects"
               aria-label="all projects"
-              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
             >
-              {tCommon('view-all-projects', { count: projects.length })} &rarr;
+              {tCommon('view-all-projects', { count: projects.length })}
+              <span
+                aria-hidden="true"
+                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
+              >
+                &rarr;
+              </span>
             </CustomLink>
           </div>
         </section>
@@ -257,9 +270,15 @@ export default async function HomePage({ params }: PageProps) {
             <CustomLink
               href="/posts"
               aria-label="all posts"
-              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
             >
-              {tCommon('view-all-posts', { count: posts.length })} &rarr;
+              {tCommon('view-all-posts', { count: posts.length })}
+              <span
+                aria-hidden="true"
+                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
+              >
+                &rarr;
+              </span>
             </CustomLink>
           </div>
         </section>

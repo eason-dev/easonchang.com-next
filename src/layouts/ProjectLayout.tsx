@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import FadeIn from '@/components/FadeIn';
@@ -35,16 +36,24 @@ export default function ProjectLayout({ projects }: { projects: Project[] }) {
         <section className="py-10">
           <FadeIn>
             <div className="flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+              <h2 className="flex items-center gap-2.5 text-2xl font-bold tracking-tight text-gray-900 dark:text-gray-100">
+                <Image
+                  src="/images/aburi-studio-logo.png"
+                  alt=""
+                  width={32}
+                  height={32}
+                  className="rounded-lg"
+                />
                 {tp('aburi-title')}
               </h2>
               <a
                 href="https://aburistudio.com"
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
               >
-                aburistudio.com ↗
+                aburistudio.com
+                <span aria-hidden="true">↗</span>
               </a>
             </div>
             <p className="mt-2 max-w-2xl text-gray-500 dark:text-gray-400">
