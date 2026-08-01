@@ -90,7 +90,7 @@ export const PROJECTS_ZH = <Project[]>[
       '靈感來自 Netflix《魔鬼的計謀》的數學解謎遊戲：用加減乘除排列出正確的等式。使用 Next.js 與 React Three Fiber 打造 3D 互動體驗，和 Carol 一起創作的開源專案。',
     links: {
       post: '/posts/equation-pyramid',
-      github: 'https://github.com/eason-dev/equation-pyramid',
+      github: 'https://github.com/carolhsiaoo/equation-pyramid',
       site: 'https://equation-pyramid.carolhsiao.com',
     },
     image: {
@@ -376,7 +376,7 @@ export const PROJECTS_EN = <Project[]>[
       "A math puzzle game inspired by Netflix's The Devil's Plan: arrange arithmetic operations to form valid equations. Built with Next.js and React Three Fiber for a 3D interactive experience — an open-source project co-created with Carol.",
     links: {
       post: '/posts/equation-pyramid',
-      github: 'https://github.com/eason-dev/equation-pyramid',
+      github: 'https://github.com/carolhsiaoo/equation-pyramid',
       site: 'https://equation-pyramid.carolhsiao.com',
     },
     image: {
