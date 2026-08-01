@@ -144,14 +144,16 @@ export default async function HomePage({ params }: PageProps) {
               {t('book-time')}
             </a>
           </div>
-          <div className="mt-auto flex gap-4 pt-2">
+          {/* Profiles only — email and booking already have their own buttons
+           * above, and the RSS feed isn't a way to reach me. */}
+          <div className="mt-auto flex flex-wrap gap-3 pt-2">
             <SocialIcon kind="github" href={siteMetadata.github} />
             <SocialIcon kind="linkedin" href={siteMetadata.linkedin} />
             <SocialIcon kind="twitter" href={siteMetadata.twitter} />
-            <SocialIcon
-              kind="rss"
-              href={siteMetadata.siteUrl + siteMetadata.rss}
-            />
+            <SocialIcon kind="threads" href={siteMetadata.threads} />
+            <SocialIcon kind="facebook" href={siteMetadata.facebook} />
+            <SocialIcon kind="instagram" href={siteMetadata.instagram} />
+            <SocialIcon kind="bluesky" href={siteMetadata.bluesky} />
           </div>
         </section>
       </FadeIn>
