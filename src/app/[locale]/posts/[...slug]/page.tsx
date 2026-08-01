@@ -1,7 +1,7 @@
 import { MDXContent } from '@content-collections/mdx/react';
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
-import { setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import PageTitle from '@/components/PageTitle';
 import siteMetadata from '@/data/siteMetadata';
@@ -65,6 +65,13 @@ export async function generateMetadata({
 
   return {
     ...metadata,
+    alternates: {
+      ...metadata.alternates,
+      types: {
+        // Raw markdown variant for agents and LLMs (see /llms.txt).
+        'text/markdown': `${post.path}.md`,
+      },
+    },
     openGraph: {
       ...metadata.openGraph,
       type: 'article',
@@ -106,6 +113,32 @@ export default async function PostPage({ params }: PageProps) {
     );
   }
 
+  const t = await getTranslations({ locale, namespace: 'common' });
+  const breadcrumbData = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: t('home'),
+        item: localizedUrl(locale, '/'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: t('all-posts'),
+        item: localizedUrl(locale, '/posts'),
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: localizedUrl(locale, post.path),
+      },
+    ],
+  };
+
   const structuredData = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -140,6 +173,11 @@ export default async function PostPage({ params }: PageProps) {
         type="application/ld+json"
         // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD built from trusted frontmatter
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <script
+        type="application/ld+json"
+        // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD built from trusted frontmatter
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData) }}
       />
       <PostLayout
         post={{
