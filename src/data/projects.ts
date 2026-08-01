@@ -99,9 +99,9 @@ export const PROJECTS_ZH = <Project[]>[
       placeholder: 'blur',
     },
   },
-  // FocusZone - VisionOS 專注生產力 App
+  // FocusZone - visionOS 專注生產力 App
   {
-    title: 'FocusZone - VisionOS 專注生產力 App',
+    title: 'FocusZone - visionOS 專注生產力 App',
     category: 'side',
     description:
       '為 Apple Vision Pro 設計的生產力 App：結合番茄鐘與 AI 干擾偵測（手機出現、噪音、頭部轉動），打造沉浸式的專注環境。使用 SwiftUI 與 RealityKit 開發，和 Carol 一起創作。',
@@ -112,7 +112,7 @@ export const PROJECTS_ZH = <Project[]>[
     },
     image: {
       src: FocusZoneImg,
-      alt: 'FocusZone - VisionOS 專注生產力 App',
+      alt: 'FocusZone - visionOS 專注生產力 App',
       placeholder: 'blur',
     },
   },
@@ -385,9 +385,9 @@ export const PROJECTS_EN = <Project[]>[
       placeholder: 'blur',
     },
   },
-  // FocusZone - VisionOS Productivity App
+  // FocusZone - visionOS Productivity App
   {
-    title: 'FocusZone - VisionOS Productivity App',
+    title: 'FocusZone - visionOS Productivity App',
     category: 'side',
     description:
       'A productivity app designed for Apple Vision Pro: a Pomodoro timer combined with AI distraction detection (phone appearance, noise, head movement) for an immersive focus environment. Built with SwiftUI and RealityKit, co-created with Carol.',
@@ -398,7 +398,7 @@ export const PROJECTS_EN = <Project[]>[
     },
     image: {
       src: FocusZoneImg,
-      alt: 'FocusZone - VisionOS Productivity App',
+      alt: 'FocusZone - visionOS Productivity App',
       placeholder: 'blur',
     },
   },
