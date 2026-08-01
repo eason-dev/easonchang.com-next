@@ -2,10 +2,11 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+import SocialIcon from '@/components/atoms/SocialIcon';
 import CustomLink from '@/components/CustomLink';
 import FadeIn from '@/components/FadeIn';
 import PostCoverThumb from '@/components/PostCoverThumb';
-import TiltCard from '@/components/TiltCard';
+import PromoCard from '@/components/PromoCard';
 import { PROJECTS_EN, PROJECTS_ZH } from '@/data/projects';
 import siteMetadata from '@/data/siteMetadata';
 import { allPostsOfLocaleNewToOld } from '@/lib/content';
@@ -70,7 +71,7 @@ export default async function HomePage({ params }: PageProps) {
   return (
     <div className="grid grid-cols-1 gap-4 py-10 md:grid-cols-2 md:gap-5 lg:grid-cols-3">
       {/* Hero */}
-      <FadeIn className="md:col-span-2">
+      <FadeIn className="md:col-span-2 lg:row-span-2">
         <section className="bento-card h-full p-8 md:p-10">
           <div
             aria-hidden="true"
@@ -113,9 +114,46 @@ export default async function HomePage({ params }: PageProps) {
         </section>
       </FadeIn>
 
+      {/* Contact */}
+      <FadeIn delay={0.05}>
+        <section className="bento-card flex h-full flex-col gap-5 p-8">
+          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+            {t('contact-title')}
+          </h2>
+          <p className="text-gray-600 dark:text-gray-300">
+            {t('contact-detail')}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href={`mailto:${siteMetadata.email}`}
+              className="rounded-full bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-500"
+            >
+              {t('email-me')}
+            </a>
+            <a
+              href="https://fantastical.app/easonchang/chat"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-gray-900/10 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:border-primary-500/40 hover:text-primary-600 dark:border-white/10 dark:text-gray-200 dark:hover:text-primary-400"
+            >
+              {t('book-time')}
+            </a>
+          </div>
+          <div className="mt-auto flex gap-4 pt-2">
+            <SocialIcon kind="github" href={siteMetadata.github} />
+            <SocialIcon kind="linkedin" href={siteMetadata.linkedin} />
+            <SocialIcon kind="twitter" href={siteMetadata.twitter} />
+            <SocialIcon
+              kind="rss"
+              href={siteMetadata.siteUrl + siteMetadata.rss}
+            />
+          </div>
+        </section>
+      </FadeIn>
+
       {/* Aburi Studio build-in-public card */}
-      <FadeIn delay={0.05} className="md:col-span-2 lg:col-span-1">
-        <TiltCard
+      <FadeIn delay={0.1}>
+        <PromoCard
           title={t('build-in-public')}
           detail={t('build-in-public-detail')}
           cta={t('build-in-public-cta')}
@@ -125,7 +163,7 @@ export default async function HomePage({ params }: PageProps) {
       </FadeIn>
 
       {/* Featured projects */}
-      <FadeIn delay={0.1} className="md:col-span-2 lg:col-span-3">
+      <FadeIn delay={0.15} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
           <div className="flex items-baseline justify-between">
             <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
@@ -175,7 +213,7 @@ export default async function HomePage({ params }: PageProps) {
       </FadeIn>
 
       {/* Latest posts */}
-      <FadeIn delay={0.15} className="md:col-span-2 lg:col-span-3">
+      <FadeIn delay={0.2} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
           <div className="flex items-baseline justify-between">
             <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
