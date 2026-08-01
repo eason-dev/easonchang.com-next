@@ -15,7 +15,7 @@ Personal bilingual blog of Eason Chang, deployed on Vercel at https://easonchang
 ## Architecture
 
 - **Next.js App Router** (`src/app/[locale]/…`) with React Server Components; content in `content/` as MDX, loaded via **Content Collections** (`content-collections.ts`).
-- **i18n via next-intl**: routing in `src/i18n/routing.ts`, locale middleware in `src/proxy.ts`, UI strings in `messages/{en,zh-TW}.json`. Server components use `getTranslations`, client components `useTranslations`. Internal links must use `@/i18n/navigation`'s `Link` (wrapped by `CustomLink`) so locale prefixes stay correct.
+- **i18n via next-intl**: routing in `src/i18n/routing.ts`, locale middleware in `src/proxy.ts`, UI strings in `messages/{en,zh-TW}.json`. Server components use `getTranslations`, client components `useTranslations`. Internal links must use `@/i18n/navigation`'s `Link` (wrapped by `CustomLink`) so locale prefixes stay correct. Social profiles differ per locale (Eason keeps separate Chinese-audience accounts) — always resolve them with `getSocialLinks(locale)` from `src/data/socialLinks.ts`, never hardcode a profile URL; the two About pages are the source of truth and a unit test holds them in sync.
 - **SEO**: Metadata API (`generateMetadata` + helpers in `src/lib/seo.ts`), `src/app/sitemap.ts`, `src/app/robots.ts`, feeds as route handlers (`src/app/feed.xml` etc. via `src/lib/feeds.ts`), OG images at `/api/og` (`next/og`, Noto Sans TC).
 - **Content model** (see `content-collections.ts`):
   - `Post` (`content/posts/**/*.mdx`): frontmatter `title`, `slug`, `date`, `description`, `socialImage` (required); `isDraft`, `language` (`en` | `zh-TW`, default `zh-TW`), `redirect_from` (list of legacy URLs, served as 301 redirects — never break these).

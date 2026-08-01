@@ -10,16 +10,12 @@ const siteMetadata = {
   siteRepo: 'https://github.com/eason-dev/easonchang.com-next',
   siteLogo: '/logo.png',
   socialBanner: '/og-easonchang.png',
+  // Accounts shared by both audiences. The platforms where Eason keeps a
+  // separate Chinese-language account live in `./socialLinks`, keyed by locale.
   email: 'eason@easonchang.com',
   github: 'https://github.com/eason-dev',
-  twitter: 'https://x.com/easondev',
-  twitterID: '@easondev',
-  facebook: 'https://www.facebook.com/easondev',
-  rss: '/feed.xml',
   linkedin: 'https://www.linkedin.com/in/easonchang101',
-  threads: 'https://www.threads.com/@easondev',
-  instagram: 'https://www.instagram.com/easondev',
-  bluesky: 'https://bsky.app/profile/easondev.bsky.social',
+  rss: '/feed.xml',
   locale: 'zh-TW',
   giscusConfig: {
     repo: 'eason-dev/easonchang.com-next' as `${string}/${string}`,

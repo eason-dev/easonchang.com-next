@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 
 import siteMetadata from '@/data/siteMetadata';
+import { getSocialLinks } from '@/data/socialLinks';
 
 export const getPostOGImage = (
   socialImage: string,
@@ -54,6 +55,7 @@ export const buildPageMetadata = ({
   ogImage = siteMetadata.siteUrl + siteMetadata.socialBanner,
 }: PageMetadataInput): Metadata => {
   const url = localizedUrl(locale, path);
+  const { twitterID } = getSocialLinks(locale);
   const fullTitle = title
     ? `${title} - ${siteMetadata.title}`
     : siteMetadata.title;
@@ -75,8 +77,8 @@ export const buildPageMetadata = ({
     },
     twitter: {
       card: 'summary_large_image',
-      site: siteMetadata.twitterID,
-      creator: siteMetadata.twitterID,
+      site: twitterID,
+      creator: twitterID,
       title: fullTitle,
       description,
       images: [ogImage],

@@ -9,6 +9,7 @@ import PostCoverThumb from '@/components/PostCoverThumb';
 import PromoCard from '@/components/PromoCard';
 import { PROJECTS_EN, PROJECTS_ZH } from '@/data/projects';
 import siteMetadata from '@/data/siteMetadata';
+import { getSocialLinks } from '@/data/socialLinks';
 import { allPostsOfLocaleNewToOld } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 import formatDate from '@/lib/utils/formatDate';
@@ -57,6 +58,7 @@ export default async function HomePage({ params }: PageProps) {
     image: post.socialImage,
   }));
   const projects = locale === 'en' ? PROJECTS_EN : PROJECTS_ZH;
+  const social = getSocialLinks(locale);
   const featuredProjects = projects.slice(0, FEATURED_PROJECTS);
 
   const externalLink = (href: string) => {
@@ -105,11 +107,9 @@ export default async function HomePage({ params }: PageProps) {
                 resume: externalLink(
                   'https://drive.google.com/file/d/1-RdgOpRQxKpwLDSpFHWX0rzkCdnquDZG/view'
                 ),
-                linkedin: externalLink(
-                  'https://www.linkedin.com/in/easonchang101/'
-                ),
-                github: externalLink('https://github.com/eason-dev'),
-                twitter: externalLink('https://x.com/easondev'),
+                linkedin: externalLink(social.linkedin),
+                github: externalLink(social.github),
+                twitter: externalLink(social.twitter),
                 booking: externalLink(
                   'https://fantastical.app/easonchang/chat'
                 ),
@@ -130,7 +130,7 @@ export default async function HomePage({ params }: PageProps) {
           </p>
           <div className="flex flex-wrap gap-3">
             <a
-              href={`mailto:${siteMetadata.email}`}
+              href={`mailto:${social.email}`}
               className="rounded-full bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-500"
             >
               {t('email-me')}
@@ -147,13 +147,13 @@ export default async function HomePage({ params }: PageProps) {
           {/* Profiles only — email and booking already have their own buttons
            * above, and the RSS feed isn't a way to reach me. */}
           <div className="mt-auto flex flex-wrap gap-3 pt-2">
-            <SocialIcon kind="github" href={siteMetadata.github} />
-            <SocialIcon kind="linkedin" href={siteMetadata.linkedin} />
-            <SocialIcon kind="twitter" href={siteMetadata.twitter} />
-            <SocialIcon kind="threads" href={siteMetadata.threads} />
-            <SocialIcon kind="facebook" href={siteMetadata.facebook} />
-            <SocialIcon kind="instagram" href={siteMetadata.instagram} />
-            <SocialIcon kind="bluesky" href={siteMetadata.bluesky} />
+            <SocialIcon kind="github" href={social.github} />
+            <SocialIcon kind="linkedin" href={social.linkedin} />
+            <SocialIcon kind="twitter" href={social.twitter} />
+            <SocialIcon kind="threads" href={social.threads} />
+            <SocialIcon kind="facebook" href={social.facebook} />
+            <SocialIcon kind="instagram" href={social.instagram} />
+            <SocialIcon kind="bluesky" href={social.bluesky} />
           </div>
         </section>
       </FadeIn>
