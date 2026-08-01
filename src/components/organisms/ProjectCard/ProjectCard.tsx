@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
+import GithubIcon from '@/components/atoms/SocialIcon/github.svg';
 import CustomLink from '@/components/CustomLink';
 import type { Project } from '@/data/projects';
 
@@ -10,8 +11,8 @@ type Props = {
   project: Project;
 };
 
-const pillClassName =
-  'rounded-full border border-gray-900/10 px-3.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:border-primary-500/30 hover:text-primary-600 dark:border-white/10 dark:text-gray-300 dark:hover:text-primary-400';
+const iconLinkClassName =
+  'rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-900/5 hover:text-primary-600 dark:hover:bg-white/5 dark:hover:text-primary-400';
 
 export default function ProjectCard({ project }: Props) {
   const {
@@ -41,7 +42,7 @@ export default function ProjectCard({ project }: Props) {
         />
       </CustomLink>
       <div className="flex grow flex-col p-6 sm:p-7">
-        <h2 className="text-xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100">
+        <h2 className="text-2xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100">
           <CustomLink
             href={href}
             aria-label={`Link to ${title}`}
@@ -57,32 +58,61 @@ export default function ProjectCard({ project }: Props) {
             __html: description,
           }}
         />
-        <div className="mt-auto flex flex-wrap gap-2 pt-5">
-          {post && (
-            <CustomLink href={post} className={pillClassName}>
-              {t('learn-more')} &rarr;
+        <div className="mt-auto flex items-center justify-between pt-5">
+          {post ? (
+            <CustomLink
+              href={post}
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+            >
+              {t('learn-more')}
+              <span
+                aria-hidden="true"
+                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
+              >
+                &rarr;
+              </span>
             </CustomLink>
+          ) : (
+            <span aria-hidden="true" />
           )}
-          {site && (
-            <a
-              href={site}
-              target="_blank"
-              rel="noreferrer"
-              className={pillClassName}
-            >
-              {t('visit-site')} ↗
-            </a>
-          )}
-          {github && (
-            <a
-              href={github}
-              target="_blank"
-              rel="noreferrer"
-              className={pillClassName}
-            >
-              GitHub ↗
-            </a>
-          )}
+          <div className="flex items-center gap-1">
+            {site && (
+              <a
+                href={site}
+                target="_blank"
+                rel="noreferrer"
+                className={iconLinkClassName}
+              >
+                <span className="sr-only">{`${title} — website`}</span>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.8}
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m-18.432 0A8.959 8.959 0 0 1 3 12c0 .778.099 1.533.284 2.253m0 0A17.919 17.919 0 0 0 12 16.5c3.162 0 6.133-.815 8.716-2.247"
+                  />
+                </svg>
+              </a>
+            )}
+            {github && (
+              <a
+                href={github}
+                target="_blank"
+                rel="noreferrer"
+                className={iconLinkClassName}
+              >
+                <span className="sr-only">{`${title} — GitHub`}</span>
+                <GithubIcon className="h-5 w-5 fill-current" />
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </article>
