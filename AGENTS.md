@@ -31,3 +31,4 @@ Personal bilingual blog of Eason Chang, deployed on Vercel at https://easonchang
 - TypeScript (strict) + Tailwind CSS. Lint/format via Biome (`biome.json`); pre-commit hook runs lint-staged.
 - Never commit generated output: `.next/`, `.contentlayer/`, `public/sitemap*.xml`, `public/robots.txt`, `public/feed.*`, `public/atom.xml`.
 - Modernization roadmap lives in `docs/MODERNIZATION_PLAN.md`; keep it updated as phases land.
+- Agent skills live in `.claude/skills/`: `write-post` (blog posts in Eason's voice — always use it when drafting post content) and `translate-post` (paired-language versions). `CLAUDE.md` carries Claude-specific rules and the definition-of-done command list.
