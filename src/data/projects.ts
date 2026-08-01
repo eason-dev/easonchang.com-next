@@ -1,5 +1,5 @@
 import type { StaticImageData } from 'next/image';
-
+import FocusZoneImg from '../../public/images/focuszone/focuszone-welcome.png';
 import ProductHuntTodayImg from '../../public/images/product-hunt-today/product-hunt-today-tweet.jpg';
 import TaiKerMapImg from '../../public/images/project-taiker-map/taiker-map.png';
 import TimezoneConverterImg from '../../public/images/project-timezone-converter/timezone-converter-screenshot.png';
@@ -7,7 +7,6 @@ import TrendMicroIdProtectionImg from '../../public/images/project-trendmicro-id
 import TrendMicroNewsBlogImg from '../../public/images/project-trendmicro-news-blog/trendmicro-news-blog-homepage.jpg';
 import OneHundredSitesImg from '../../public/images/projects/100sites.png';
 import EquationPyramidImg from '../../public/images/projects/equation-pyramid.jpg';
-import FocusZoneImg from '../../public/images/projects/focuszone.png';
 import ScifiTrophyImg from '../../public/images/projects/scifi-trophy.png';
 import SigmaGoImg from '../../public/images/projects/sigmago.jpg';
 import SmartGlovesImg from '../../public/images/projects/smart-gloves.png';
