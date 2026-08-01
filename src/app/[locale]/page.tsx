@@ -94,7 +94,12 @@ export default async function HomePage({ params }: PageProps) {
                 strong: (chunks) => <strong>{chunks}</strong>,
               })}
             </p>
-            <p>{t('intro-3')}</p>
+            <p>
+              {t.rich('intro-3', {
+                neo: externalLink('https://www.neofinancial.com/'),
+                aburi: externalLink('https://aburistudio.com/'),
+              })}
+            </p>
             <p>
               {t.rich('intro-4', {
                 resume: externalLink(

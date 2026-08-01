@@ -27,6 +27,38 @@ export type Project = {
 };
 
 export const PROJECTS_ZH = <Project[]>[
+  // CoreHour (Aburi Studio)
+  {
+    title: 'CoreHour - 80/20 法則時間箱 App',
+    description:
+      '極簡的時間箱（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。拖放任務到時間格、標記關鍵任務、追蹤專注時數。由 Aburi Studio 打造，目前 Beta 中。',
+    links: {
+      post: '/posts/corehour',
+      github: '',
+      site: 'https://corehour.app',
+    },
+    image: {
+      src: '/images/corehour/corehour-og.png',
+      alt: 'CoreHour - 時間箱 App',
+      placeholder: 'empty',
+    },
+  },
+  // FireFree (Aburi Studio)
+  {
+    title: 'FireFree - 財務自由追蹤工具',
+    description:
+      '追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。我們先為自己打造、再分享出來的工具。由 Aburi Studio 打造，即將推出。',
+    links: {
+      post: '/posts/firefree',
+      github: '',
+      site: 'https://firefree.app',
+    },
+    image: {
+      src: '/images/firefree/firefree-og-zh-TW.png',
+      alt: 'FireFree - 財務自由追蹤工具',
+      placeholder: 'empty',
+    },
+  },
   // Timez - Timezone Converter
   {
     title: 'Timez - Time Zone Converter 時區轉換工具',
@@ -218,6 +250,38 @@ export const PROJECTS_ZH = <Project[]>[
 ];
 
 export const PROJECTS_EN = <Project[]>[
+  // CoreHour (Aburi Studio)
+  {
+    title: 'CoreHour - Time Boxing App for the 80/20 Rule',
+    description:
+      'A minimalist time-boxing app that helps you focus on the 20% of tasks that drive 80% of results. Drag tasks into time slots, mark what is critical, and track your focus hours. Built at Aburi Studio, currently in beta.',
+    links: {
+      post: '/posts/corehour',
+      github: '',
+      site: 'https://corehour.app',
+    },
+    image: {
+      src: '/images/corehour/corehour-og.png',
+      alt: 'CoreHour - Time Boxing App',
+      placeholder: 'empty',
+    },
+  },
+  // FireFree (Aburi Studio)
+  {
+    title: 'FireFree - Track Your Path to Financial Freedom',
+    description:
+      'Track your net worth, project your FIRE date, and visualize your journey to financial independence. A tool we built for ourselves first. Built at Aburi Studio, launching soon.',
+    links: {
+      post: '/posts/firefree',
+      github: '',
+      site: 'https://firefree.app',
+    },
+    image: {
+      src: '/images/firefree/firefree-og-en.png',
+      alt: 'FireFree - Track Your Path to Financial Freedom',
+      placeholder: 'empty',
+    },
+  },
   // Timez - Timezone Converter
   {
     title: 'Timez - Time Zone Converter',
