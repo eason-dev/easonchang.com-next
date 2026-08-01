@@ -90,7 +90,7 @@ export const PROJECTS_ZH = <Project[]>[
     description:
       '靈感來自 Netflix《惡魔計劃》的數學解謎遊戲：用加減乘除排列出正確的等式。使用 Next.js 與 React Three Fiber 打造 3D 互動體驗，和 Carol 一起創作的開源專案。',
     links: {
-      post: '',
+      post: '/posts/equation-pyramid',
       github: 'https://github.com/eason-dev/equation-pyramid',
       site: 'https://equation-pyramid.vercel.app',
     },
@@ -107,7 +107,7 @@ export const PROJECTS_ZH = <Project[]>[
     description:
       '為 Apple Vision Pro 設計的生產力 App：結合番茄鐘與 AI 干擾偵測（手機出現、噪音、頭部轉動），打造沉浸式的專注環境。使用 SwiftUI 與 RealityKit 開發，和 Carol 一起創作。',
     links: {
-      post: '',
+      post: '/posts/focuszone',
       github: 'https://github.com/eason-dev/FocusZone',
       site: '',
     },
@@ -376,7 +376,7 @@ export const PROJECTS_EN = <Project[]>[
     description:
       "A math puzzle game inspired by Netflix's The Devil's Plan: arrange arithmetic operations to form valid equations. Built with Next.js and React Three Fiber for a 3D interactive experience — an open-source project co-created with Carol.",
     links: {
-      post: '',
+      post: '/posts/equation-pyramid',
       github: 'https://github.com/eason-dev/equation-pyramid',
       site: 'https://equation-pyramid.vercel.app',
     },
@@ -393,7 +393,7 @@ export const PROJECTS_EN = <Project[]>[
     description:
       'A productivity app designed for Apple Vision Pro: a Pomodoro timer combined with AI distraction detection (phone appearance, noise, head movement) for an immersive focus environment. Built with SwiftUI and RealityKit, co-created with Carol.',
     links: {
-      post: '',
+      post: '/posts/focuszone',
       github: 'https://github.com/eason-dev/FocusZone',
       site: '',
     },

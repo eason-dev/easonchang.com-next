@@ -99,23 +99,7 @@ export default function ProjectCard({ project, variant = 'featured' }: Props) {
         <div
           className={`mt-auto flex items-center justify-between ${compact ? 'pt-4' : 'pt-5'}`}
         >
-          {post ? (
-            <CustomLink
-              href={post}
-              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
-            >
-              {t('learn-more')}
-              <span
-                aria-hidden="true"
-                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
-              >
-                &rarr;
-              </span>
-            </CustomLink>
-          ) : (
-            <span aria-hidden="true" />
-          )}
-          <div className="flex items-center gap-1">
+          <div className="-ml-2 flex items-center gap-1">
             {site && (
               <a
                 href={site}
@@ -139,6 +123,20 @@ export default function ProjectCard({ project, variant = 'featured' }: Props) {
               </a>
             )}
           </div>
+          {post && (
+            <CustomLink
+              href={post}
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+            >
+              {t('learn-more')}
+              <span
+                aria-hidden="true"
+                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
+              >
+                &rarr;
+              </span>
+            </CustomLink>
+          )}
         </div>
       </div>
     </article>

@@ -1,0 +1,45 @@
+---
+title: 'FocusZone - 結合 AI 干擾偵測的 visionOS 專注 App'
+slug: 'focuszone'
+date: 2025-01-26
+tags: [Project, Productivity, Side Project]
+category: Project
+socialImage: '/images/projects/focuszone.png'
+type: Post
+language: zh-TW
+description: 'FocusZone 是為 Apple Vision Pro 打造的專注生產力 App：番茄鐘搭配 AI 干擾偵測（手機出現、噪音、頭部轉動），在沉浸式空間裡幫你守住專注力。'
+---
+
+![FocusZone - visionOS 專注 App](/images/projects/focuszone.png)
+
+## 簡介
+
+**FocusZone** 是我們為 Apple Vision Pro 打造的專注生產力 App：在沉浸式空間裡跑番茄鐘，並用 AI 偵測干擾，幫你把注意力留在工作上。
+
+這是我和 [Carol](https://carolhsiao.com) 對空間計算（Spatial Computing）的一次探索——她設計了整套空間 UI/UX，我負責 visionOS 上的實作。
+
+## Demo & 程式碼
+
+- **原始碼：** [github.com/eason-dev/FocusZone](https://github.com/eason-dev/FocusZone)
+- **平台：** Apple Vision Pro（visionOS 2）
+
+## 為什麼我們要開發這個專案
+
+Vision Pro 發布時，我們立刻看到它在「專注工作」上的潛力：沉浸式環境天生能擋掉實體干擾，豐富的感測器則能感知你的工作情境。
+
+但傳統的生產力 App 並不是為空間計算設計的。我們想做一個真正發揮 Vision Pro 能力的專注工具——不只是把計時器搬進 3D 空間，而是讓裝置主動幫你發現分心。
+
+## 主打功能
+
+- **空間番茄鐘：** 計時器漂浮在沉浸空間中，隨時看得到、卻不干擾你。
+- **AI 干擾偵測：** 手機出現在視野裡、環境突然出現噪音、頭部頻繁轉動——FocusZone 會溫和提醒你回到工作上，而不是懲罰你。
+- **沉浸式環境：** 從極簡空間到自然場景，挑一個最能讓你進入心流的環境。
+- **專注分析：** 追蹤專注時數與干擾模式，了解到底是什麼打斷了你。
+
+## 技術架構
+
+FocusZone 使用 SwiftUI 與 RealityKit 在 visionOS 2 上開發，干擾偵測直接在裝置上完成，不會把資料傳到任何地方。
+
+## 結語
+
+FocusZone 是一個開源的探索專案，原始碼都在 [GitHub](https://github.com/eason-dev/FocusZone) 上。如果你也有 Vision Pro，或對空間計算的生產力應用感興趣，歡迎翻翻程式碼、開 issue 跟我們聊聊，或直接在下面留言！

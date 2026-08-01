@@ -165,18 +165,9 @@ export default async function HomePage({ params }: PageProps) {
       {/* Featured projects */}
       <FadeIn delay={0.15} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
-          <div className="flex items-baseline justify-between">
-            <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
-              {t('featured-projects')}
-            </h2>
-            <CustomLink
-              href="/projects"
-              aria-label="all projects"
-              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
-            >
-              {tCommon('view-all-projects', { count: projects.length })} &rarr;
-            </CustomLink>
-          </div>
+          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+            {t('featured-projects')}
+          </h2>
           <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project) => (
               <li key={project.title}>
@@ -209,24 +200,24 @@ export default async function HomePage({ params }: PageProps) {
               </li>
             ))}
           </ul>
+          <div className="mt-6 border-t border-gray-900/5 pt-4 text-center dark:border-white/5">
+            <CustomLink
+              href="/projects"
+              aria-label="all projects"
+              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+            >
+              {tCommon('view-all-projects', { count: projects.length })} &rarr;
+            </CustomLink>
+          </div>
         </section>
       </FadeIn>
 
       {/* Latest posts */}
       <FadeIn delay={0.2} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
-          <div className="flex items-baseline justify-between">
-            <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
-              {t('latest-posts')}
-            </h2>
-            <CustomLink
-              href="/posts"
-              aria-label="all posts"
-              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
-            >
-              {tCommon('view-all-posts', { count: posts.length })} &rarr;
-            </CustomLink>
-          </div>
+          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+            {t('latest-posts')}
+          </h2>
           <ul className="mt-2 divide-y divide-gray-900/5 dark:divide-white/5">
             {latestPosts.map((post) => (
               <li key={post.slug}>
@@ -262,6 +253,15 @@ export default async function HomePage({ params }: PageProps) {
               </li>
             ))}
           </ul>
+          <div className="mt-2 border-t border-gray-900/5 pt-4 text-center dark:border-white/5">
+            <CustomLink
+              href="/posts"
+              aria-label="all posts"
+              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+            >
+              {tCommon('view-all-posts', { count: posts.length })} &rarr;
+            </CustomLink>
+          </div>
         </section>
       </FadeIn>
     </div>
