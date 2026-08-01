@@ -1,5 +1,5 @@
 ---
-title: 'FireFree: Tracking the Path to Financial Freedom'
+title: 'FireFree: A FIRE Planning App That Calms Your Money Anxiety'
 slug: 'firefree'
 date: 2026-07-28
 tags: [Project, Aburi Studio, FIRE, Finance, Side Project]
@@ -7,27 +7,52 @@ category: Project
 socialImage: '/images/firefree/firefree-og-en.png'
 type: Post
 language: en
-description: 'FireFree is the FIRE tool we are building at Aburi Studio: track your net worth, project your FIRE date, and watch financial independence become a concrete plan instead of a vague dream. Try it at firefree.app.'
+description: 'FireFree is the FIRE planning app we built at Aburi Studio: no expense logging, no bank linking — just track your net worth and see the day you reach financial freedom. Free to sign up, with a no-account demo mode.'
 ---
 
-The second product we're building at **[Aburi Studio](https://aburistudio.com)** is the one closest to my own life: **[FireFree](https://firefree.app)**, a tool for tracking your path to financial freedom.
+![FireFree — Calm your money anxiety](/images/firefree/firefree-og-en.png)
 
-## Why a FIRE tool
+## Introduction
 
-FIRE — *Financial Independence, Retire Early* — sounds like a dream until you turn it into numbers. Then it becomes something much more useful: a plan. How much do you own? How fast is it growing? At your current pace, when exactly could work become optional?
+The second product we're building at **[Aburi Studio](https://aburistudio.com)** is the one closest to my own life: **[FireFree](https://firefree.app)**, a FIRE (Financial Independence, Retire Early) planning app.
 
-FireFree started as a tool we needed ourselves. [Carol](https://carolhsiao.com) and I have been planning our own financial future, and spreadsheets only take you so far: they don't show momentum, and they don't answer the only question that really matters — *when?* We built FireFree for ourselves first, and now we're sharing what works.
+It answers one deceptively simple question: "If I keep living the way I live now, when can I stop working?"
 
-## What FireFree does
+## Demo
 
-- **Track your net worth** — one clear picture of what you own, kept up to date.
-- **Project your FIRE date** — see when you can realistically reach financial independence, based on your actual numbers.
-- **Visualize the journey** — watch your progress toward financial independence become real over time, instead of living in a spreadsheet you dread opening.
+- **Website:** [firefree.app](https://firefree.app)
+- **Demo mode:** no sign-up needed — enter the full product from the landing page, with six preset financial scenarios to explore
+- **Languages:** full English / Traditional Chinese support
 
-Like everything we make at Aburi Studio, the goal is focused software: one job, done simply and beautifully.
+## Why we created this project
+
+FIRE sounds like a dream until you turn it into numbers. Then it becomes something much more useful: a plan.
+
+[Carol](https://carolhsiao.com) and I have been planning our own financial future, and spreadsheets only take you so far: they don't show momentum, and they don't answer the only question that really matters — *when?*
+
+We also noticed that money anxiety rarely comes from not knowing what you spent last Tuesday. It comes from **not being able to see the future**. You save a few hundred dollars a month with no idea whether it's enough; your banking app shows a cold balance and nothing tells you how long it would last.
+
+So FireFree deliberately rejects two things: **no expense logging** (update your assets once a month, in minutes) and **no bank linking** (enter rough numbers yourself — your data stays yours). What you get in return is a map of your future.
+
+## Key Features
+
+- **FIRE forecast:** your income, expenses, assets, and debts, with compound growth and inflation applied — drawn as the curve where your net worth crosses your FIRE number, with your projected FIRE age on it. Based on the classic 4% rule; multiplier, withdrawal rate, and inflation are all adjustable.
+- **Asset tracking without bookkeeping:** savings, investments, real assets, and debts, each with value history. Watching the curve climb is genuinely satisfying.
+- **Life goals you can toggle:** add "buy a home" or "one big trip a year", flip each goal on and off, and watch your FIRE date shift. Abstract trade-offs become a visible curve.
+- **Automatic stock price sync:** link holdings to tickers (US and Taiwan markets) and daily jobs keep valuations fresh.
+- **Multi-currency:** accounts in USD, TWD, EUR… converted into one display currency.
+- **Privacy mode:** one eye icon turns every amount into `$•,•••.••` — share your screen without sharing your net worth.
+
+## Technologies
+
+FireFree is a Next.js web app — a PWA that works offline — backed by Supabase, and all the FIRE math lives in one shared TypeScript package so every screen shows exactly the same numbers. The deeper engineering stories deserve their own posts someday.
 
 ## Where it's at
 
-FireFree is live at **[firefree.app](https://firefree.app)** — you can even explore the demo without creating an account.
+FireFree is live and open for free sign-ups — there's a free plan you can stay on. An iOS app is in the works.
 
-If FIRE is on your mind — whether you're deep into the movement or just want to know your number — [give it a try](https://firefree.app), and tell me what you'd want such a tool to do. And if daily planning is more your thing, check out our other product [CoreHour](/posts/corehour).
+If FIRE is on your mind — whether you're deep into the movement or just want to know your number — [playing with the demo](https://firefree.app) is the fastest way in: no account, pick a scenario, explore the full product.
+
+FireFree is part of a small family of tools we're building at Aburi Studio around time and money — alongside **CoreHour**, a minimalist time-boxing app ([read about it here](/posts/corehour)), and **DailyWage**, a real-time salary counter ([read about it here](/posts/dailywage)).
+
+If you have feedback, find me on [X](https://x.com/easondev) or [email me](mailto:eason@easonchang.com) — I read everything.

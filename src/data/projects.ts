@@ -29,9 +29,9 @@ export type Project = {
 export const PROJECTS_ZH = <Project[]>[
   // CoreHour (Aburi Studio)
   {
-    title: 'CoreHour - 80/20 法則時間箱 App',
+    title: 'CoreHour - 80/20 法則時間塊 App',
     description:
-      '極簡的時間箱（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。拖放任務到時間格、標記關鍵任務、追蹤專注時數。由 Aburi Studio 打造。',
+      '極簡的時間塊（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。拖放任務到時間格、標記關鍵任務、追蹤專注時數。由 Aburi Studio 打造。',
     links: {
       post: '/posts/corehour',
       github: '',
@@ -39,7 +39,7 @@ export const PROJECTS_ZH = <Project[]>[
     },
     image: {
       src: '/images/corehour/corehour-og.png',
-      alt: 'CoreHour - 時間箱 App',
+      alt: 'CoreHour - 時間塊 App',
       placeholder: 'empty',
     },
   },
@@ -47,7 +47,7 @@ export const PROJECTS_ZH = <Project[]>[
   {
     title: 'FireFree - 財務自由追蹤工具',
     description:
-      '追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。我們先為自己打造、再分享出來的工具。由 Aburi Studio 打造，現已上線。',
+      '不用記帳、不用串接銀行的 FIRE 財務規劃工具：追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。由 Aburi Studio 打造，公開測試中，可直接體驗 Demo。',
     links: {
       post: '/posts/firefree',
       github: '',
@@ -65,7 +65,7 @@ export const PROJECTS_ZH = <Project[]>[
     description:
       '每 100 毫秒更新你今天賺到的薪水，像素柯基陪你上班。輕觸把收入分配進存錢目標，桌面小工具持續跳動。免費、無廣告、沒有後端——資料不離開你的手機。由 Aburi Studio 打造。',
     links: {
-      post: '',
+      post: '/posts/dailywage',
       github: '',
       site: 'https://dailywage.aburi.app',
     },
@@ -286,7 +286,7 @@ export const PROJECTS_EN = <Project[]>[
   {
     title: 'FireFree - Track Your Path to Financial Freedom',
     description:
-      'Track your net worth, project your FIRE date, and visualize your journey to financial independence. A tool we built for ourselves first. Built at Aburi Studio, live now.',
+      'A FIRE planning app with no expense logging and no bank linking: track your net worth, project your FIRE date, and visualize your journey to financial independence. Built at Aburi Studio, live now, with a no-account demo.',
     links: {
       post: '/posts/firefree',
       github: '',
@@ -304,7 +304,7 @@ export const PROJECTS_EN = <Project[]>[
     description:
       'Watch your salary tick up every 100 ms while a pixel corgi keeps you company. Tap to allocate earnings into savings goals; widgets keep counting on your lock screen. Free, no ads, and no backend — your data never leaves your device. Built at Aburi Studio.',
     links: {
-      post: '',
+      post: '/posts/dailywage',
       github: '',
       site: 'https://dailywage.aburi.app',
     },
