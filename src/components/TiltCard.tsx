@@ -10,31 +10,25 @@ import {
 } from 'motion/react';
 import type { PointerEvent } from 'react';
 
-const STACK = [
-  'Next.js 16',
-  'React 19',
-  'Tailwind CSS 4',
-  'TypeScript',
-  'MDX',
-  'Motion',
-];
-
 type Props = {
   title: string;
   detail: string;
-  hint: string;
+  cta: string;
+  href: string;
+  chips: string[];
 };
 
 const SPRING = { stiffness: 160, damping: 18, mass: 0.6 };
 
 /**
  * Pointer-tracking 3D tilt card with a glare highlight that follows the
- * cursor. Falls back to a static card when the user prefers reduced motion.
- * The card is hand-rolled instead of using `bento-card` because that utility
- * sets `overflow: hidden`, which flattens the `preserve-3d` depth of the
- * floating chips.
+ * cursor. The whole card is a link (used to promote Aburi Studio's
+ * build-in-public work). Falls back to a static card when the user prefers
+ * reduced motion. The card is hand-rolled instead of using `bento-card`
+ * because that utility sets `overflow: hidden`, which flattens the
+ * `preserve-3d` depth of the floating chips.
  */
-export default function TiltCard({ title, detail, hint }: Props) {
+export default function TiltCard({ title, detail, cta, href, chips }: Props) {
   const reduceMotion = useReducedMotion();
 
   const pointerX = useMotionValue(0.5);
@@ -68,29 +62,33 @@ export default function TiltCard({ title, detail, hint }: Props) {
         className="my-auto flex flex-wrap gap-2 py-4"
         style={reduceMotion ? undefined : { transform: 'translateZ(40px)' }}
       >
-        {STACK.map((tech) => (
+        {chips.map((chip) => (
           <li
-            key={tech}
+            key={chip}
             className="rounded-full border border-gray-900/10 bg-white/70 px-3 py-1 text-sm font-medium text-gray-700 shadow-sm dark:border-white/10 dark:bg-white/5 dark:text-gray-200"
           >
-            {tech}
+            {chip}
           </li>
         ))}
       </ul>
       <p
-        className="text-sm text-gray-400"
+        className="text-sm font-medium text-primary-600 dark:text-primary-400"
         style={reduceMotion ? undefined : { transform: 'translateZ(20px)' }}
       >
-        {hint}
+        {cta}
       </p>
     </>
   );
 
   const cardClassName =
-    'relative flex h-full flex-col gap-4 rounded-3xl border border-gray-900/10 bg-white/60 p-8 shadow-sm dark:border-white/10 dark:bg-gray-900/55';
+    'relative flex h-full flex-col gap-4 rounded-3xl border border-gray-900/10 bg-white/60 p-8 shadow-sm transition-colors hover:border-primary-500/35 dark:border-white/10 dark:bg-gray-900/55';
 
   if (reduceMotion) {
-    return <section className={cardClassName}>{content}</section>;
+    return (
+      <a href={href} target="_blank" rel="noreferrer" className={cardClassName}>
+        {content}
+      </a>
+    );
   }
 
   return (
@@ -99,7 +97,10 @@ export default function TiltCard({ title, detail, hint }: Props) {
       onPointerMove={handlePointerMove}
       onPointerLeave={resetPointer}
     >
-      <motion.section
+      <motion.a
+        href={href}
+        target="_blank"
+        rel="noreferrer"
         style={{ rotateX, rotateY, transformStyle: 'preserve-3d' }}
         className={cardClassName}
       >
@@ -109,7 +110,7 @@ export default function TiltCard({ title, detail, hint }: Props) {
           className="pointer-events-none absolute inset-0 rounded-[inherit]"
         />
         {content}
-      </motion.section>
+      </motion.a>
     </div>
   );
 }

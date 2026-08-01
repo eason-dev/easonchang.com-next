@@ -35,9 +35,9 @@
   "indexPage": {
     "latest-posts": "Latest Posts",
     "featured-projects": "Featured Projects",
-    "built-with": "Under the hood",
-    "built-with-detail": "This site is rebuilt from the ground up with a modern open-source stack.",
-    "built-with-hint": "Move your cursor around ✨",
+    "build-in-public": "Build in Public",
+    "build-in-public-detail": "I'm building apps in public at Aburi Studio — follow the journey from idea to App Store.",
+    "build-in-public-cta": "Follow along at aburistudio.com →",
     "intro-title": "Hey, I am Eason Chang 👋",
     "intro-1": "I am a Fullstack Developer. I love building <projects>cool stuff</projects>!",
     "intro-2": "Here I write <posts>posts</posts> about <strong>Software Engineering</strong>, <strong>Web Dev</strong>, <strong>Maker</strong>, and <strong>Productivity</strong>.",

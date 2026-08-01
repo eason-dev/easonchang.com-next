@@ -10,7 +10,7 @@ test.describe('home', () => {
     await expect(
       page.getByRole('link', { name: 'all projects' })
     ).toBeVisible();
-    await expect(page.getByText('Under the hood')).toBeVisible();
+    await expect(page.getByText('Build in Public')).toBeVisible();
   });
 
   test('renders the zh-TW homepage', async ({ page }) => {

@@ -35,9 +35,9 @@
   "indexPage": {
     "latest-posts": "最新文章",
     "featured-projects": "精選專案",
-    "built-with": "本站技術",
-    "built-with-detail": "這個網站使用現代開源技術從零重新打造。",
-    "built-with-hint": "移動滑鼠感受一下 ✨",
+    "build-in-public": "Build in Public 公開打造",
+    "build-in-public-detail": "我在 Aburi Studio 公開打造產品，從點子到上架 App Store 的過程全都公開分享。",
+    "build-in-public-cta": "到 aburistudio.com 追蹤進度 →",
     "intro-title": "Hey，我是 Eason Chang 👋",
     "intro-1": "我是一位全端軟體工程師。我喜歡創造<projects>酷東西</projects>！",
     "intro-2": "我在這裡寫了許多<posts>文章</posts>，主題涵蓋<strong>軟體工程</strong>、<strong>網站開發</strong>、<strong>自造者（Maker）</strong>、和<strong>生產力</strong>。",

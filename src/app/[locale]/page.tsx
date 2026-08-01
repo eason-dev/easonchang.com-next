@@ -13,6 +13,7 @@ import formatDate from '@/lib/utils/formatDate';
 
 const MAX_DISPLAY = 6;
 const FEATURED_PROJECTS = 3;
+const ABURI_PRODUCTS = ['CoreHour', 'FireFree', 'DailyWage'];
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -102,12 +103,14 @@ export default async function HomePage({ params }: PageProps) {
         </section>
       </FadeIn>
 
-      {/* Interactive tilt card */}
+      {/* Aburi Studio build-in-public card */}
       <FadeIn delay={0.05} className="md:col-span-2 lg:col-span-1">
         <TiltCard
-          title={t('built-with')}
-          detail={t('built-with-detail')}
-          hint={t('built-with-hint')}
+          title={t('build-in-public')}
+          detail={t('build-in-public-detail')}
+          cta={t('build-in-public-cta')}
+          href="https://aburistudio.com/"
+          chips={ABURI_PRODUCTS}
         />
       </FadeIn>
 
