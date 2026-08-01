@@ -20,7 +20,7 @@ export function buildFeed(): Feed {
     favicon: `${siteMetadata.siteUrl}/favicon.ico`,
     copyright: `Copyright © 2015 - ${new Date().getFullYear()} Eason Chang`,
     feedLinks: {
-      rss2: `${siteMetadata.siteUrl}/feed.xml`,
+      rss: `${siteMetadata.siteUrl}/feed.xml`,
       json: `${siteMetadata.siteUrl}/feed.json`,
       atom: `${siteMetadata.siteUrl}/atom.xml`,
     },
