@@ -7,32 +7,53 @@ category: Project
 socialImage: '/images/corehour/corehour-og.png'
 type: Post
 language: en
-description: 'CoreHour is a minimalist time-boxing app from Aburi Studio that helps you focus on the 20% of tasks that drive 80% of results. Here is what it does, and why we built it.'
+description: 'CoreHour is a minimalist time-boxing app from Aburi Studio that helps you focus on the 20% of tasks that drive 80% of results. What it does, why we built it, and where it's headed.'
 ---
+
+![CoreHour — Do less. Achieve more.](/images/corehour/corehour-og.png)
+
+## Introduction
 
 For the past while, [Carol](https://carolhsiao.com) and I have been building products together under **[Aburi Studio](https://aburistudio.com)**, our two-person studio based in Calgary. The first product I want to introduce here is **[CoreHour](https://corehour.app)** — a minimalist time-boxing app built around one idea: the 80/20 rule.
 
-## The problem: busy work eats your day
+Its philosophy is printed right on the landing page: **"Do Less. Achieve More."**
+
+## Demo
+
+- **Website:** [corehour.app](https://corehour.app)
+- **Web app:** [app.corehour.app](https://app.corehour.app) — 7-day free trial, no credit card
+- **iOS app:** in the works
+
+## Why we created this project
 
 Most productivity tools are great at collecting tasks, and terrible at telling you a harder truth: not all tasks deserve your time. A day can be completely full and still accomplish nothing that matters.
 
 The Pareto principle says roughly 20% of your tasks drive 80% of your results. The hard part is *seeing* which 20% that is — and actually protecting time for it.
 
-## What CoreHour does
+We were our own victims: growing task lists, stalled important work. So CoreHour asks you to do just three things: set your focus, timebox your day, and track your focus hours.
 
-CoreHour is deliberately simple. It combines time boxing with a focus on high-impact work:
+## Key Features
 
-- **Plan your day visually** — drag and drop tasks into time slots, with color-coded categories, so you can see your entire day at a glance.
-- **Mark what's critical** — flag your high-impact tasks, and track how much of your time goes to them versus busy work.
-- **Learn from your own data** — track your time allocation, monitor focus hours, and discover when you actually work best.
-- **Stay out of your way** — a clean, thoughtfully crafted interface with light and dark modes.
+- **Plan your day visually:** drag and drop tasks into a timeline of 30-minute blocks, with color-coded categories, so you can see your entire day at a glance.
+- **Mark what's critical:** flag your high-impact tasks, and track how much of your time goes to them versus busy work.
+- **Automatic conflict handling:** overlapping time boxes get trimmed, split, or merged automatically — no manual shuffling.
+- **Learn from your own data:** a daily focus-hours goal, streaks, and a weekly breakdown of where your hours really went.
+- **Stay out of your way:** a clean, thoughtfully crafted interface with light and dark modes.
+
+One detail I especially like: the streak has three states, not two. Because CoreHour is a *planner*, qualifying days count backwards and **forwards** — future days can already be planned. If today isn't planned yet but yesterday kept the streak alive, you're in a "planning" state and the UI nudges you instead of showing a broken streak.
 
 That's it. No project management ceremony, no team features you'll never use. It's a daily planning tool for one person: you.
 
+## Technologies
+
+Under the hood, CoreHour is a Next.js web app and an Expo-based iOS app sharing one Supabase backend, with subscriptions handled by RevenueCat. I'll save the deeper engineering stories for future posts.
+
 ## Where it's at
 
-CoreHour is live at **[corehour.app](https://corehour.app)**. If time boxing or the 80/20 rule ever appealed to you, I'd love for you to try it and tell me what's missing.
+CoreHour is live at **[corehour.app](https://corehour.app)**, with a 7-day trial that needs no credit card. An iOS app is in the works.
 
-CoreHour is part of a small family of tools we're building at Aburi Studio around time and money — alongside **FireFree**, a FIRE calculator ([read about it here](/posts/firefree)), and **Daily Wage**, a wage visualizer. More on those soon.
+If time boxing or the 80/20 rule ever appealed to you, I'd love for you to try it and tell me what's missing.
+
+CoreHour is part of a small family of tools we're building at Aburi Studio around time and money — alongside **FireFree**, a FIRE planning app ([read about it here](/posts/firefree)), and **DailyWage**, a real-time salary counter ([read about it here](/posts/dailywage)).
 
 If you have feedback, find me on [X](https://x.com/easondev) or [email me](mailto:eason@easonchang.com) — I read everything.

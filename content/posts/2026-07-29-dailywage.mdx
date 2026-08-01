@@ -1,0 +1,55 @@
+---
+title: '打造「天天開薪」：柯基陪你上班、薪水一秒一秒進帳的療癒小 App'
+slug: 'dailywage'
+date: 2026-07-29
+tags: [Project, Aburi Studio, iOS, React Native, Side Project]
+category: Project
+socialImage: '/images/dailywage/dailywage-og-zh-TW.png'
+type: Post
+language: zh-TW
+description: '天天開薪（DailyWage）是我們在 Aburi Studio 打造的免費 iOS App：每 100 毫秒更新你今天賺到的薪水，一隻像素柯基陪你上班，還能輕觸把收入分配進存錢目標。沒有後端，資料完全不離開你的手機。'
+---
+
+![天天開薪 — 看著薪水一秒一秒進帳](/images/dailywage/dailywage-og-zh-TW.png)
+
+## 簡介
+
+**[天天開薪](https://dailywage.aburi.app)**（DailyWage）是我和 [Carol](https://carolhsiao.com) 在 **[Aburi Studio](https://aburistudio.com)** 打造的第三個產品——最小、最玩心大發，但意外地，也是工程細節最有趣的一個。
+
+它回答每個上班族週三下午三點都問過的問題：「到現在為止，我今天到底賺了多少錢？」名字是「天天開心」的諧音——我們希望上班的煩悶裡，至少有個東西讓你每天開薪（心）😆
+
+## Demo
+
+- **官網：** [dailywage.aburi.app](https://dailywage.aburi.app)
+- **App Store：** [免費下載](https://apps.apple.com/app/id6758375748)（iOS；Android 在路線圖上）
+- **語言：** 繁體中文 / English
+
+## 為什麼我們要開發這個專案
+
+我們發現大家是為了目標跟夢想而上班，但上班帶來的煩悶跟厭倦感，卻讓人很想放棄。
+
+薪水是月底才出現的一個數字，跟今天下午這三個小時的關係太遙遠了。如果能*看見*時間正在變成錢——每一秒都在——上班會不會有動力一點？
+
+於是我們做了一個療癒小工具：輸入月薪和上班時間，它就**每 100 毫秒**更新一次你今天賺到的錢，小數點後四位都給你看，旁邊一隻像素柯基陪你上班。下班時間和週末，柯基會睡覺。
+
+## 主打功能
+
+- **即時薪水計算：** 每 100 毫秒跳動一次，看著自己賺到的錢一點一點長大。
+- **輕觸存錢目標：** 建立「日本旅遊」、緊急預備金等目標，點一下卡片就把今天賺到的錢分配進去，長按還能連續分配。目標達成時會蓋上一顆篆刻印章動畫。
+- **每月的節奏：** 本月累積進度條慢慢填滿；標成「每月固定支出」的目標（房租！）每月 1 號自動歸零。
+- **桌面小工具：** 今日收入和本月進度直接在主畫面與鎖定畫面上跳動，柯基也有上班、睡覺、慶祝三種型態。
+- **100% 隱私：** 沒有帳號、沒有雲端，所有財務資料只存在你的裝置上，完全免費、沒有廣告。
+
+## 技術架構
+
+天天開薪是用 Expo（React Native）打造的 App，搭配 SwiftUI 小工具，而且**刻意不做後端**——所有資料只存在你的裝置上。我最喜歡的開發細節：「盯著薪水跳一整天」沒辦法用真實時間 QA，所以開發者模式可以把時鐘加速 720 倍，24 小時的工作日兩分鐘演完。
+
+## 目前進度
+
+天天開薪已經在 [App Store 上架](https://apps.apple.com/app/id6758375748)，完全免費、沒有廣告，Android 版在路線圖上。
+
+如果你的上班日需要一隻柯基和一個持續上升的數字，來試試看——如果它讓你在週三下午三點笑出來，它的任務就完成了。
+
+天天開薪是我們在 Aburi Studio 圍繞「時間與金錢」打造的一系列工具之一——另外還有極簡時間塊 App **CoreHour**（[介紹文在這](/posts/corehour)）和 FIRE 財務規劃工具 **FireFree**（[介紹文在這](/posts/firefree)）。
+
+有任何回饋，歡迎在 [X](https://x.com/easondev_tw) 上找我，或直接[寄信給我](mailto:eason@easonchang.com)——每一封我都會看。
