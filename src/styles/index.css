@@ -82,14 +82,21 @@
   }
 }
 
-/* Bento cards: soft border, subtle inner light, lift on hover */
+/* Bento cards: soft border, gradient sheen, inner top highlight, and a
+ * primary-tinted glow lift on hover */
 @utility bento-card {
   position: relative;
   overflow: hidden;
   border-radius: var(--radius-3xl);
   border: 1px solid --alpha(var(--color-gray-900) / 8%);
-  background: --alpha(var(--color-white) / 60%);
-  box-shadow: 0 1px 2px --alpha(var(--color-gray-950) / 4%);
+  background: linear-gradient(
+    180deg,
+    --alpha(var(--color-white) / 78%),
+    --alpha(var(--color-white) / 55%)
+  );
+  box-shadow:
+    inset 0 1px 0 --alpha(var(--color-white) / 70%),
+    0 1px 2px --alpha(var(--color-gray-950) / 4%);
   transition:
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
     box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -97,12 +104,21 @@
 
   .dark & {
     border-color: --alpha(var(--color-white) / 8%);
-    background: --alpha(var(--color-gray-900) / 55%);
+    background: linear-gradient(
+      180deg,
+      --alpha(var(--color-gray-900) / 68%),
+      --alpha(var(--color-gray-900) / 45%)
+    );
+    box-shadow:
+      inset 0 1px 0 --alpha(var(--color-white) / 6%),
+      0 1px 2px --alpha(var(--color-gray-950) / 40%);
   }
 
   &:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px -12px --alpha(var(--color-gray-950) / 25%);
+    box-shadow:
+      0 20px 44px -18px --alpha(var(--color-primary-600) / 25%),
+      0 12px 32px -12px --alpha(var(--color-gray-950) / 22%);
     border-color: --alpha(var(--color-primary-500) / 35%);
   }
 

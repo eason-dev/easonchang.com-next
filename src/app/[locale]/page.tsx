@@ -15,6 +15,23 @@ const MAX_DISPLAY = 6;
 const FEATURED_PROJECTS = 3;
 const ABURI_PRODUCTS = ['CoreHour', 'FireFree', 'DailyWage'];
 
+/* Cover fallback for posts without a socialImage: a deterministic gradient
+ * poster keyed off the slug. Full literal class names so Tailwind sees them. */
+const POSTER_GRADIENTS = [
+  'from-teal-400 via-cyan-500 to-sky-600',
+  'from-violet-400 via-purple-500 to-fuchsia-600',
+  'from-amber-400 via-orange-500 to-rose-500',
+  'from-emerald-400 via-teal-500 to-cyan-600',
+  'from-sky-400 via-blue-500 to-indigo-600',
+  'from-pink-400 via-rose-500 to-red-500',
+];
+
+const posterGradient = (slug: string) => {
+  let hash = 0;
+  for (const char of slug) hash = (hash * 31 + char.charCodeAt(0)) % 997;
+  return POSTER_GRADIENTS[hash % POSTER_GRADIENTS.length];
+};
+
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -44,6 +61,7 @@ export default async function HomePage({ params }: PageProps) {
     title: post.title,
     description: post.description,
     path: post.path,
+    image: post.socialImage,
   }));
   const projects = locale === 'en' ? PROJECTS_EN : PROJECTS_ZH;
   const featuredProjects = projects.slice(0, FEATURED_PROJECTS);
@@ -129,7 +147,7 @@ export default async function HomePage({ params }: PageProps) {
               {tCommon('view-all-projects', { count: projects.length })} &rarr;
             </CustomLink>
           </div>
-          <ul className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project) => (
               <li key={project.title}>
                 <CustomLink
@@ -139,20 +157,28 @@ export default async function HomePage({ params }: PageProps) {
                     project.links.github
                   }
                   aria-label={project.title}
-                  className="group block"
+                  className="group relative block aspect-video w-full overflow-hidden rounded-2xl border border-gray-900/5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/5"
                 >
-                  <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-gray-900/5 dark:border-white/5">
-                    <Image
-                      src={project.image.src}
-                      alt={project.image.alt}
-                      fill
-                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                      className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-                      placeholder={project.image.placeholder}
-                    />
-                  </div>
-                  <p className="mt-3 font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
+                  <Image
+                    src={project.image.src}
+                    alt={project.image.alt}
+                    fill
+                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
+                    placeholder={project.image.placeholder}
+                  />
+                  <div
+                    aria-hidden="true"
+                    className="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-gray-950/10 to-transparent"
+                  />
+                  <p className="absolute bottom-3 left-4 right-4 font-semibold text-white drop-shadow-sm">
                     {project.title.split(' - ')[0]}
+                    <span
+                      aria-hidden="true"
+                      className="ml-1 inline-block transition-transform duration-300 motion-safe:group-hover:translate-x-1"
+                    >
+                      &rarr;
+                    </span>
                   </p>
                 </CustomLink>
               </li>
@@ -176,31 +202,44 @@ export default async function HomePage({ params }: PageProps) {
               {tCommon('view-all-posts', { count: posts.length })} &rarr;
             </CustomLink>
           </div>
-          <ul className="mt-4 grid grid-cols-1 gap-x-8 divide-y divide-gray-900/5 md:grid-cols-2 md:divide-y-0 dark:divide-white/5">
+          <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
             {latestPosts.map((post) => (
-              <li
-                key={post.slug}
-                className="md:border-b md:border-gray-900/5 dark:md:border-white/5"
-              >
-                <CustomLink
-                  href={post.path}
-                  className="group flex flex-col gap-1 py-3"
-                >
-                  <span className="flex items-baseline justify-between gap-4">
-                    <span className="font-medium text-gray-800 transition-colors group-hover:text-primary-600 dark:text-gray-200 dark:group-hover:text-primary-400">
-                      {post.title}
-                    </span>
-                    <time
-                      dateTime={post.date}
-                      className="shrink-0 text-sm text-gray-400"
-                    >
-                      {formatDate(post.date, locale)}
-                    </time>
-                  </span>
+              <li key={post.slug}>
+                <CustomLink href={post.path} className="group block">
+                  <div className="relative aspect-[1200/630] w-full overflow-hidden rounded-2xl border border-gray-900/5 bg-gray-100 shadow-sm transition-shadow group-hover:shadow-lg dark:border-white/5 dark:bg-gray-800">
+                    {post.image ? (
+                      <Image
+                        src={post.image}
+                        alt=""
+                        fill
+                        unoptimized
+                        sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                        className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
+                      />
+                    ) : (
+                      <div
+                        aria-hidden="true"
+                        className={`absolute inset-0 bg-gradient-to-br transition-transform duration-500 motion-safe:group-hover:scale-105 ${posterGradient(post.slug)}`}
+                      >
+                        <span className="absolute -bottom-8 -right-2 select-none text-[7rem] font-black leading-none text-white/25">
+                          {post.title.slice(0, 1)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                  <time
+                    dateTime={post.date}
+                    className="mt-3 block text-xs font-medium uppercase tracking-wider text-gray-400"
+                  >
+                    {formatDate(post.date, locale)}
+                  </time>
+                  <h3 className="mt-1 line-clamp-2 font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
+                    {post.title}
+                  </h3>
                   {post.description && (
-                    <span className="line-clamp-1 text-sm text-gray-500 dark:text-gray-400">
+                    <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
                       {post.description}
-                    </span>
+                    </p>
                   )}
                 </CustomLink>
               </li>

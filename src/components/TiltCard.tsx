@@ -59,7 +59,7 @@ export default function TiltCard({ title, detail, cta, href, chips }: Props) {
       </h2>
       <p className="text-gray-600 dark:text-gray-300">{detail}</p>
       <ul
-        className="my-auto flex flex-wrap gap-2 py-4"
+        className="mt-1 flex flex-wrap content-start gap-2"
         style={reduceMotion ? undefined : { transform: 'translateZ(40px)' }}
       >
         {chips.map((chip) => (
@@ -72,7 +72,7 @@ export default function TiltCard({ title, detail, cta, href, chips }: Props) {
         ))}
       </ul>
       <p
-        className="text-sm font-medium text-primary-600 dark:text-primary-400"
+        className="mt-auto pt-4 text-sm font-medium text-primary-600 dark:text-primary-400"
         style={reduceMotion ? undefined : { transform: 'translateZ(20px)' }}
       >
         {cta}
@@ -81,7 +81,7 @@ export default function TiltCard({ title, detail, cta, href, chips }: Props) {
   );
 
   const cardClassName =
-    'relative flex h-full flex-col gap-4 rounded-3xl border border-gray-900/10 bg-white/60 p-8 shadow-sm transition-colors hover:border-primary-500/35 dark:border-white/10 dark:bg-gray-900/55';
+    'relative flex h-full flex-col gap-4 rounded-3xl border border-gray-900/10 bg-gradient-to-b from-white/80 to-white/55 p-8 shadow-sm transition-colors hover:border-primary-500/35 dark:border-white/10 dark:from-gray-900/70 dark:to-gray-900/45';
 
   if (reduceMotion) {
     return (
