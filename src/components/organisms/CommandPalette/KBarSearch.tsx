@@ -37,7 +37,7 @@ export function KBarSearch(
 
   React.useEffect(() => {
     query.setSearch('');
-    ownRef.current.focus();
+    ownRef.current?.focus();
     return () => query.setSearch('');
   }, [currentRootActionId, query]);
 

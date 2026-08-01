@@ -1,4 +1,6 @@
-import { useTranslation } from 'next-i18next';
+'use client';
+
+import { useTranslations } from 'next-intl';
 
 import CustomLink from '@/components/CustomLink';
 
@@ -11,7 +13,7 @@ export default function Pagination({
   totalPages,
   currentPage,
 }: PaginationType) {
-  const { t } = useTranslation(['common']);
+  const t = useTranslations('common');
 
   const prevPage = currentPage - 1 > 0;
   const nextPage = currentPage + 1 <= totalPages;

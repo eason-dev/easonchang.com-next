@@ -1,30 +1,19 @@
 // @ts-check
+import { withContentCollections } from '@content-collections/next';
+import createNextIntlPlugin from 'next-intl/plugin';
 
-import { withContentlayer } from 'next-contentlayer';
-
-import i18nConfig from './next-i18next.config.js';
-
-const { i18n } = i18nConfig;
+const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
 
 /**
  * @type {import('next').NextConfig}
  **/
-export default withContentlayer({
+const nextConfig = {
   reactStrictMode: true,
-  eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // For migration period
-    ignoreBuildErrors: true,
-  },
-  i18n,
   images: {
     formats: ['image/avif', 'image/webp'],
+    // Next 16 restricts the optimizer to these quality values (default [75]).
+    // ProjectCard requests quality 30 for its cover thumbnails.
+    qualities: [30, 75],
     remotePatterns: [
       {
         protocol: 'https',
@@ -44,11 +33,14 @@ export default withContentlayer({
       },
     ],
   },
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.svg$/,
-      use: ['@svgr/webpack'],
-    });
-    return config;
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
   },
-});
+};
+
+export default withContentCollections(withNextIntl(nextConfig));

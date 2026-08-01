@@ -1,20 +1,27 @@
 // ref: https://github.com/ekomenyong/kommy-mdx/blob/main/src/components/TOC.tsx
 
+'use client';
+
 import clsx from 'clsx';
 import GithubSlugger from 'github-slugger';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line no-unused-vars
 type UseIntersectionObserverType = (setActiveId: (id: string) => void) => void;
 
 const useIntersectionObserver: UseIntersectionObserverType = (setActiveId) => {
   const headingElementsRef = useRef<{
     [key: string]: IntersectionObserverEntry;
   }>({});
-  // const headingElementsRef = useRef<{ [key: string]: HTMLHeadingElement }>({});
 
   useEffect(() => {
+    const headingElements = Array.from(
+      document.querySelectorAll('article h2,h3')
+    );
+
+    const getIndexFromId = (id: string) =>
+      headingElements.findIndex((heading) => heading.id === id);
+
     const callback = (headings: IntersectionObserverEntry[]) => {
       headingElementsRef.current = headings.reduce((map, headingElement) => {
         map[headingElement.target.id] = headingElement;
@@ -28,9 +35,6 @@ const useIntersectionObserver: UseIntersectionObserverType = (setActiveId) => {
         const headingElement = headingElementsRef.current[key];
         if (headingElement.isIntersecting) visibleHeadings.push(headingElement);
       });
-
-      const getIndexFromId = (id) =>
-        headingElements.findIndex((heading) => heading.id === id);
 
       if (visibleHeadings.length === 1) {
         setActiveId(visibleHeadings[0].target.id);
@@ -47,10 +51,6 @@ const useIntersectionObserver: UseIntersectionObserverType = (setActiveId) => {
       rootMargin: '0px 0px -70% 0px',
     });
 
-    const headingElements = Array.from(
-      document.querySelectorAll('article h2,h3')
-    );
-
     headingElements.forEach((element) => observer.observe(element));
 
     return () => observer.disconnect();
@@ -62,7 +62,7 @@ type Props = {
 };
 
 const TableOfContents = ({ source }: Props) => {
-  const { t } = useTranslation(['common']);
+  const t = useTranslations('common');
 
   const headingLines = source
     .split('\n')
@@ -104,7 +104,7 @@ const TableOfContents = ({ source }: Props) => {
               )}
               onClick={(e) => {
                 e.preventDefault();
-                document.querySelector(`#${heading.id}`).scrollIntoView({
+                document.querySelector(`#${heading.id}`)?.scrollIntoView({
                   behavior: 'smooth',
                   block: 'start',
                   inline: 'nearest',

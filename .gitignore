@@ -53,8 +53,8 @@ posts-draft/
 /public/feed.xml
 /public/feed.json
 
-# Contentlayer
-.contentlayer
+# Content Collections
+.content-collections
 
 # VSCode
 .vscode/

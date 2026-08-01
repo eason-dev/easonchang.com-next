@@ -1,4 +1,6 @@
-import { useTranslation } from 'next-i18next';
+'use client';
+
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import PostList from '@/components/organisms/PostList';
@@ -16,7 +18,7 @@ export default function ListLayout({
   initialDisplayPosts = [],
   pagination,
 }: Props) {
-  const { t } = useTranslation(['common']);
+  const t = useTranslations('common');
 
   const [searchValue, setSearchValue] = useState('');
 

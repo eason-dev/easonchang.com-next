@@ -1,11 +1,11 @@
+'use client';
+
 import { useEffect, useState } from 'react';
-import smoothscroll from 'smoothscroll-polyfill';
 
 const ScrollTop = () => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    smoothscroll.polyfill();
     const handleWindowScroll = () => {
       if (window.scrollY > 50) setShow(true);
       else setShow(false);
@@ -19,7 +19,7 @@ const ScrollTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const handleScrollToComment = () => {
-    document.getElementById('comment').scrollIntoView({ behavior: 'smooth' });
+    document.getElementById('comment')?.scrollIntoView({ behavior: 'smooth' });
   };
   return (
     <div
