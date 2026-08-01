@@ -4,8 +4,8 @@ import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import PostList from '@/components/organisms/PostList';
-import { PostForPostList } from '@/components/organisms/PostList/PostList';
-import Pagination, { PaginationType } from '@/components/Pagination';
+import type { PostForPostList } from '@/components/organisms/PostList/PostList';
+import Pagination, { type PaginationType } from '@/components/Pagination';
 
 type Props = {
   posts: PostForPostList[];
@@ -45,6 +45,7 @@ export default function ListLayout({
               className="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-gray-900 transition-colors focus:border-primary-500 focus:ring-primary-500 dark:border-gray-900 dark:bg-gray-800 dark:text-gray-100"
             />
             <svg
+              aria-hidden="true"
               className="absolute right-3 top-3 h-5 w-5 text-gray-400 transition-colors dark:text-gray-300"
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

@@ -13,6 +13,7 @@ export default function CommandBarToggle() {
       onClick={query.toggle}
     >
       <svg
+        aria-hidden="true"
         fill="none"
         className="h-4 w-4 text-gray-900 transition-colors dark:text-gray-100"
         viewBox="0 0 18 18"

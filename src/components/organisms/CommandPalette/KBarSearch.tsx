@@ -35,6 +35,7 @@ export function KBarSearch(
 
   const { defaultPlaceholder, ...rest } = props;
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: vendored from kbar; re-runs only on root action change
   React.useEffect(() => {
     query.setSearch('');
     ownRef.current?.focus();
@@ -56,7 +57,7 @@ export function KBarSearch(
     <input
       {...rest}
       ref={ownRef}
-      // eslint-disable-next-line jsx-a11y/no-autofocus
+      // biome-ignore lint/a11y/noAutofocus: focusing the palette input on open is the expected UX
       autoFocus
       autoComplete="off"
       role="combobox"

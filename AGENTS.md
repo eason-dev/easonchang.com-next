@@ -6,9 +6,11 @@ Personal bilingual blog of Eason Chang, deployed on Vercel at https://easonchang
 
 - `pnpm install` — install deps (pnpm only; `preinstall` blocks npm/yarn)
 - `pnpm dev` — dev server at http://localhost:3000
-- `pnpm build` — production build (statically generates all pages, sitemap, robots, and RSS/Atom/JSON feed routes)
-- `pnpm lint` / `pnpm lint:fix` — lint
-- `pnpm new-post` — scaffold a new MDX post
+- `pnpm build` — production build (statically generates all pages, sitemap, robots, and RSS/Atom/JSON feed routes; gates on TypeScript strict)
+- `pnpm lint` / `pnpm lint:fix` — Biome lint + format check (also runs on pre-commit via lint-staged)
+- `pnpm test` — Vitest unit tests
+- `pnpm test:e2e` — Playwright smoke tests (builds required first; set `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/opt/pw-browsers/chromium` in sandboxed envs instead of downloading browsers)
+- `pnpm storybook` / `pnpm build-storybook` — component workshop (Storybook 10, Vite builder)
 
 ## Architecture
 
@@ -25,6 +27,6 @@ Personal bilingual blog of Eason Chang, deployed on Vercel at https://easonchang
 
 ## Conventions
 
-- TypeScript + Tailwind CSS. Formatting via the repo's configured formatter; pre-commit hook runs lint-staged.
+- TypeScript (strict) + Tailwind CSS. Lint/format via Biome (`biome.json`); pre-commit hook runs lint-staged.
 - Never commit generated output: `.next/`, `.contentlayer/`, `public/sitemap*.xml`, `public/robots.txt`, `public/feed.*`, `public/atom.xml`.
 - Modernization roadmap lives in `docs/MODERNIZATION_PLAN.md`; keep it updated as phases land.

@@ -27,7 +27,9 @@ const collectRedirects = (): Redirect[] => {
   allPosts.forEach((post) => {
     const sources = (post.redirect_from ?? []).map(unifyPath);
     // Old filename-based URLs (e.g. /posts/2016-03-17-less-but-better) keep working.
-    sources.push(unifyPath('/posts/' + post.sourceFileName.replace(/\.mdx?$/, '')));
+    sources.push(
+      unifyPath(`/posts/${post.sourceFileName.replace(/\.mdx?$/, '')}`)
+    );
     sources.forEach((source) => {
       redirects.push({ source, destination: post.path, permanent: false });
     });

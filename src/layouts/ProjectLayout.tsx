@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 
 import ProjectCard from '@/components/organisms/ProjectCard';
-import { Project } from '@/data/projects';
+import type { Project } from '@/data/projects';
 
 export default function ProjectLayout({ projects }: { projects: Project[] }) {
   const t = useTranslations('common');

@@ -54,7 +54,9 @@ export const buildPageMetadata = ({
   ogImage = siteMetadata.siteUrl + siteMetadata.socialBanner,
 }: PageMetadataInput): Metadata => {
   const url = localizedUrl(locale, path);
-  const fullTitle = title ? `${title} - ${siteMetadata.title}` : siteMetadata.title;
+  const fullTitle = title
+    ? `${title} - ${siteMetadata.title}`
+    : siteMetadata.title;
 
   return {
     ...(title ? { title } : {}),
