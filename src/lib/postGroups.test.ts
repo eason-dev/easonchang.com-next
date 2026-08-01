@@ -14,6 +14,7 @@ const post = (
   date,
   description: '',
   path: `/posts/${slug}`,
+  socialImage: '',
   ...overrides,
 });
 

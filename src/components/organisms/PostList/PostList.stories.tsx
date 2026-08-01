@@ -19,6 +19,7 @@ export const Default: Story = {
         title: 'Hello World',
         description: 'A first post about getting started with this blog.',
         path: '/posts/hello-world',
+        socialImage: '',
       },
       {
         slug: 'nextjs-app-router',
@@ -27,6 +28,7 @@ export const Default: Story = {
         description:
           'Notes from moving a bilingual MDX blog onto React Server Components.',
         path: '/posts/nextjs-app-router',
+        socialImage: '',
       },
     ],
   },

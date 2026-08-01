@@ -4,6 +4,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import CustomLink from '@/components/CustomLink';
 import FadeIn from '@/components/FadeIn';
+import PostCoverThumb from '@/components/PostCoverThumb';
 import TiltCard from '@/components/TiltCard';
 import { PROJECTS_EN, PROJECTS_ZH } from '@/data/projects';
 import siteMetadata from '@/data/siteMetadata';
@@ -14,23 +15,6 @@ import formatDate from '@/lib/utils/formatDate';
 const MAX_DISPLAY = 6;
 const FEATURED_PROJECTS = 3;
 const ABURI_PRODUCTS = ['CoreHour', 'FireFree', 'DailyWage'];
-
-/* Cover fallback for posts without a socialImage: a deterministic gradient
- * poster keyed off the slug. Full literal class names so Tailwind sees them. */
-const POSTER_GRADIENTS = [
-  'from-teal-400 via-cyan-500 to-sky-600',
-  'from-violet-400 via-purple-500 to-fuchsia-600',
-  'from-amber-400 via-orange-500 to-rose-500',
-  'from-emerald-400 via-teal-500 to-cyan-600',
-  'from-sky-400 via-blue-500 to-indigo-600',
-  'from-pink-400 via-rose-500 to-red-500',
-];
-
-const posterGradient = (slug: string) => {
-  let hash = 0;
-  for (const char of slug) hash = (hash * 31 + char.charCodeAt(0)) % 997;
-  return POSTER_GRADIENTS[hash % POSTER_GRADIENTS.length];
-};
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -226,25 +210,12 @@ export default async function HomePage({ params }: PageProps) {
                     )}
                   </div>
                   <div className="relative aspect-[1200/630] w-28 shrink-0 overflow-hidden rounded-xl border border-gray-900/5 bg-gray-100 shadow-sm transition-shadow group-hover:shadow-md dark:border-white/5 dark:bg-gray-800 sm:w-44">
-                    {post.image ? (
-                      <Image
-                        src={post.image}
-                        alt=""
-                        fill
-                        unoptimized
-                        sizes="176px"
-                        className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-                      />
-                    ) : (
-                      <div
-                        aria-hidden="true"
-                        className={`absolute inset-0 bg-gradient-to-br transition-transform duration-500 motion-safe:group-hover:scale-105 ${posterGradient(post.slug)}`}
-                      >
-                        <span className="absolute -bottom-3 -right-1 select-none text-5xl font-black leading-none text-white/25">
-                          {post.title.slice(0, 1)}
-                        </span>
-                      </div>
-                    )}
+                    <PostCoverThumb
+                      slug={post.slug}
+                      title={post.title}
+                      image={post.image}
+                      sizes="176px"
+                    />
                   </div>
                 </CustomLink>
               </li>

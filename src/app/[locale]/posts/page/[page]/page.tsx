@@ -46,6 +46,7 @@ export default async function PostListPage({ params }: PageProps) {
     date: post.date,
     slug: post.slug,
     path: post.path,
+    socialImage: post.socialImage,
   }));
 
   const pageNumber = parseInt(page, 10);

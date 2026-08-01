@@ -6,6 +6,7 @@ export type GroupablePost = {
   date: string;
   description: string;
   path: string;
+  socialImage: string;
 };
 
 export type SeriesItem = {
