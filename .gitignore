@@ -14,6 +14,7 @@
 
 # TypeScript
 next-env.d.ts
+tsconfig.tsbuildinfo
 
 # production
 /build
