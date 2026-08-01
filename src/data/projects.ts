@@ -92,7 +92,7 @@ export const PROJECTS_ZH = <Project[]>[
     links: {
       post: '/posts/equation-pyramid',
       github: 'https://github.com/eason-dev/equation-pyramid',
-      site: 'https://equation-pyramid.vercel.app',
+      site: 'https://equation-pyramid.carolhsiao.com',
     },
     image: {
       src: EquationPyramidImg,
@@ -378,7 +378,7 @@ export const PROJECTS_EN = <Project[]>[
     links: {
       post: '/posts/equation-pyramid',
       github: 'https://github.com/eason-dev/equation-pyramid',
-      site: 'https://equation-pyramid.vercel.app',
+      site: 'https://equation-pyramid.carolhsiao.com',
     },
     image: {
       src: EquationPyramidImg,
