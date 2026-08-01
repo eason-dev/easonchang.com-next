@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2022",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -25,12 +21,8 @@
       }
     ],
     "paths": {
-      "content-collections": [
-        "./.content-collections/generated"
-      ],
-      "@/*": [
-        "src/*"
-      ]
+      "content-collections": ["./.content-collections/generated"],
+      "@/*": ["src/*"]
     }
   },
   "include": [
@@ -41,8 +33,5 @@
     ".content-collections/generated",
     ".next/dev/types/**/*.ts"
   ],
-  "exclude": [
-    "node_modules",
-    "**/*.stories.tsx"
-  ]
+  "exclude": ["node_modules"]
 }

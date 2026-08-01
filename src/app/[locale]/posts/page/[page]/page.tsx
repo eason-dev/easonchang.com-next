@@ -3,8 +3,8 @@ import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { POSTS_PER_PAGE } from '@/constants/siteMeta';
-import ListLayout from '@/layouts/ListLayout';
 import { routing } from '@/i18n/routing';
+import ListLayout from '@/layouts/ListLayout';
 import { allPostsOfLocaleNewToOld } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 
@@ -50,7 +50,11 @@ export default async function PostListPage({ params }: PageProps) {
 
   const pageNumber = parseInt(page, 10);
   const totalPages = Math.ceil(posts.length / POSTS_PER_PAGE);
-  if (!Number.isFinite(pageNumber) || pageNumber < 1 || pageNumber > totalPages) {
+  if (
+    !Number.isFinite(pageNumber) ||
+    pageNumber < 1 ||
+    pageNumber > totalPages
+  ) {
     notFound();
   }
 

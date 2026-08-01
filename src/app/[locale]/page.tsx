@@ -56,7 +56,9 @@ export default async function HomePage({ params }: PageProps) {
         <h1 className="text-center sm:text-left">{t('intro-title')}</h1>
         <p>
           {t.rich('intro-1', {
-            projects: (chunks) => <CustomLink href="/projects">{chunks}</CustomLink>,
+            projects: (chunks) => (
+              <CustomLink href="/projects">{chunks}</CustomLink>
+            ),
           })}
         </p>
         <p>
@@ -71,7 +73,9 @@ export default async function HomePage({ params }: PageProps) {
             resume: externalLink(
               'https://drive.google.com/file/d/1-RdgOpRQxKpwLDSpFHWX0rzkCdnquDZG/view'
             ),
-            linkedin: externalLink('https://www.linkedin.com/in/easonchang101/'),
+            linkedin: externalLink(
+              'https://www.linkedin.com/in/easonchang101/'
+            ),
             github: externalLink('https://github.com/eason-dev'),
             twitter: externalLink('https://x.com/easondev'),
             booking: externalLink('https://fantastical.app/easonchang/chat'),

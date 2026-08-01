@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
 import CustomLink from '@/components/CustomLink';
-import { Project } from '@/data/projects';
+import type { Project } from '@/data/projects';
 
 type Props = {
   project: Project;
@@ -53,6 +53,7 @@ export default function ProjectCard({ project }: Props) {
           </h2>
           <div
             className="prose mb-3 max-w-none text-gray-500 transition-colors dark:text-gray-400"
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: descriptions are trusted local data
             dangerouslySetInnerHTML={{
               __html: description,
             }}

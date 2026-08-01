@@ -1,4 +1,4 @@
-import Image, { ImageProps } from 'next/image';
+import Image, { type ImageProps } from 'next/image';
 
 type Props = ImageProps & { base64?: string };
 
@@ -11,7 +11,10 @@ export default function CustomImage({
 }: Props) {
   if (!src) return null;
   if (typeof src === 'string' && (!height || !width)) {
-    // eslint-disable-next-line jsx-a11y/alt-text
+    // Remote images without known dimensions can't go through next/image.
+    // The alt text arrives via otherProps from the MDX img attributes.
+    // biome-ignore lint/performance/noImgElement: dimensions unknown, next/image not usable
+    // biome-ignore lint/a11y/useAltText: alt is spread from otherProps
     return <img src={src} height={height} width={width} {...otherProps} />;
   }
   return (

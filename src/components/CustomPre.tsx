@@ -17,6 +17,7 @@ function CustomPre({ children, className, ...props }: Props) {
 
   const [copied, setCopied] = useState(false);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: `copied` re-arms the reset timer after every copy
   useEffect(() => {
     const timer = setTimeout(() => setCopied(false), 2000);
 
@@ -61,6 +62,7 @@ function CustomPre({ children, className, ...props }: Props) {
             )}
           >
             <svg
+              aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               className={clsx('pointer-events-none h-4 w-4', {
                 'text-gray-400 dark:text-gray-400': !copied,

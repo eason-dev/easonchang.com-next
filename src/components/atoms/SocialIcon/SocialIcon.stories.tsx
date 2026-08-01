@@ -1,13 +1,39 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import SocialIcon from './SocialIcon';
 
-const Template = (args) => <SocialIcon {...args} />;
-
-export const Default = Template.bind({});
-Default.args = {
-  aProp: 'placeholder',
-};
-
-export default {
+const meta = {
   title: 'atoms/SocialIcon',
   component: SocialIcon,
+  argTypes: {
+    kind: {
+      control: 'select',
+      options: [
+        'mail',
+        'github',
+        'facebook',
+        'youtube',
+        'linkedin',
+        'twitter',
+        'rss',
+      ],
+    },
+  },
+} satisfies Meta<typeof SocialIcon>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const GitHub: Story = {
+  args: {
+    kind: 'github',
+    href: 'https://github.com/eason-dev',
+  },
+};
+
+export const Mail: Story = {
+  args: {
+    kind: 'mail',
+    href: 'mailto:eason@easonchang.com',
+  },
 };

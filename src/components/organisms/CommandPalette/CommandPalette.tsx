@@ -242,7 +242,6 @@ interface ResultItemProps {
 }
 type Ref = HTMLDivElement;
 
-// eslint-disable-next-line react/display-name
 const ResultItem = forwardRef<Ref, ResultItemProps>(
   (
     { action, active, currentRootActionId }: ResultItemProps,

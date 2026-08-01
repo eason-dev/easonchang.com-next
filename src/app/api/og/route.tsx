@@ -37,48 +37,48 @@ export async function GET(req: NextRequest) {
     const { regular, bold } = await loadFonts();
 
     return new ImageResponse(
-      (
-        <div
-          style={{
-            height: '100%',
-            width: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'gray',
-            fontFamily: 'Noto Sans TC, sans-serif',
-          }}
-        >
-          <img
-            src="https://easonchang.com/og-background.jpg"
-            alt=""
-            width={1200}
-            height={630}
-            tw="flex absolute w-full h-full"
-          />
-          <div tw="bg-white absolute flex flex-col right-0 bottom-0 h-[550px] w-[1100px] rounded-tl-[80px] p-[60px] shadow-2xl">
-            <div tw="flex w-full items-center mb-4">
-              <img
-                src="https://easonchang.com/logo.png"
-                alt="Eason Chang"
-                width={100}
-                height={100}
-                tw="flex w-[100px] h-[100px] bg-gray-300 rounded-full"
-              />
-              <h2 tw="text-[48px] font-bold leading-none text-slate-900 ml-6">
-                Eason Chang
-              </h2>
-            </div>
-            <h1 tw="w-full text-[48px] font-bold leading-none text-slate-900 mb-2 overflow-hidden max-h-[176px] shrink-0">
-              {title}
-            </h1>
-            <h3 tw="w-full text-[32px] leading-tight font-normal text-slate-600 overflow-hidden max-h-[140px] shrink-0">
-              {description}
-            </h3>
+      <div
+        style={{
+          height: '100%',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'gray',
+          fontFamily: 'Noto Sans TC, sans-serif',
+        }}
+      >
+        {/* biome-ignore lint/performance/noImgElement: satori renders raw elements */}
+        <img
+          src="https://easonchang.com/og-background.jpg"
+          alt=""
+          width={1200}
+          height={630}
+          tw="flex absolute w-full h-full"
+        />
+        <div tw="bg-white absolute flex flex-col right-0 bottom-0 h-[550px] w-[1100px] rounded-tl-[80px] p-[60px] shadow-2xl">
+          <div tw="flex w-full items-center mb-4">
+            {/* biome-ignore lint/performance/noImgElement: satori renders raw elements */}
+            <img
+              src="https://easonchang.com/logo.png"
+              alt="Eason Chang"
+              width={100}
+              height={100}
+              tw="flex w-[100px] h-[100px] bg-gray-300 rounded-full"
+            />
+            <h2 tw="text-[48px] font-bold leading-none text-slate-900 ml-6">
+              Eason Chang
+            </h2>
           </div>
+          <h1 tw="w-full text-[48px] font-bold leading-none text-slate-900 mb-2 overflow-hidden max-h-[176px] shrink-0">
+            {title}
+          </h1>
+          <h3 tw="w-full text-[32px] leading-tight font-normal text-slate-600 overflow-hidden max-h-[140px] shrink-0">
+            {description}
+          </h3>
         </div>
-      ),
+      </div>,
       {
         width: 1200,
         height: 630,

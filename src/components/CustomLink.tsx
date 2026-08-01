@@ -1,14 +1,9 @@
-/* eslint-disable jsx-a11y/anchor-has-content */
-
 import { Link } from '@/i18n/navigation';
 
 type Props = React.ComponentPropsWithoutRef<'a'>;
 
 const CustomLink = ({ href, children, ...rest }: Props) => {
-  const isInternalLink = href && href.startsWith('/');
-  const isAnchorLink = href && href.startsWith('#');
-
-  if (isInternalLink) {
+  if (href?.startsWith('/')) {
     return (
       <Link href={href} {...rest}>
         {children}
@@ -16,7 +11,7 @@ const CustomLink = ({ href, children, ...rest }: Props) => {
     );
   }
 
-  if (isAnchorLink) {
+  if (href?.startsWith('#')) {
     return (
       <a href={href} {...rest}>
         {children}
