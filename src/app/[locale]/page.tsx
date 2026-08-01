@@ -16,6 +16,14 @@ const MAX_DISPLAY = 6;
 const FEATURED_PROJECTS = 3;
 const ABURI_PRODUCTS = ['CoreHour', 'FireFree', 'DailyWage'];
 
+/* Some project descriptions carry rich HTML for the projects page; the
+ * homepage tile only needs a plain-text teaser line. */
+const stripHtml = (html: string) =>
+  html
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
 type PageProps = {
   params: Promise<{ locale: string }>;
 };
@@ -141,28 +149,23 @@ export default async function HomePage({ params }: PageProps) {
                     project.links.github
                   }
                   aria-label={project.title}
-                  className="group relative block aspect-video w-full overflow-hidden rounded-2xl border border-gray-900/5 shadow-sm transition-shadow hover:shadow-lg dark:border-white/5"
+                  className="group block"
                 >
-                  <Image
-                    src={project.image.src}
-                    alt={project.image.alt}
-                    fill
-                    sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
-                    className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-                    placeholder={project.image.placeholder}
-                  />
-                  <div
-                    aria-hidden="true"
-                    className="absolute inset-0 bg-gradient-to-t from-gray-950/70 via-gray-950/10 to-transparent"
-                  />
-                  <p className="absolute bottom-3 left-4 right-4 font-semibold text-white drop-shadow-sm">
+                  <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-gray-900/5 bg-gray-100 dark:border-white/5 dark:bg-gray-800">
+                    <Image
+                      src={project.image.src}
+                      alt={project.image.alt}
+                      fill
+                      sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                      className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
+                      placeholder={project.image.placeholder}
+                    />
+                  </div>
+                  <p className="mt-3 font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
                     {project.title.split(' - ')[0]}
-                    <span
-                      aria-hidden="true"
-                      className="ml-1 inline-block transition-transform duration-300 motion-safe:group-hover:translate-x-1"
-                    >
-                      &rarr;
-                    </span>
+                  </p>
+                  <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
+                    {stripHtml(project.description)}
                   </p>
                 </CustomLink>
               </li>
@@ -209,7 +212,7 @@ export default async function HomePage({ params }: PageProps) {
                       </p>
                     )}
                   </div>
-                  <div className="relative aspect-[1200/630] w-28 shrink-0 overflow-hidden rounded-xl border border-gray-900/5 bg-gray-100 shadow-sm transition-shadow group-hover:shadow-md dark:border-white/5 dark:bg-gray-800 sm:w-44">
+                  <div className="relative aspect-[1200/630] w-28 shrink-0 overflow-hidden rounded-xl border border-gray-900/5 bg-gray-100 dark:border-white/5 dark:bg-gray-800 sm:w-44">
                     <PostCoverThumb
                       slug={post.slug}
                       title={post.title}

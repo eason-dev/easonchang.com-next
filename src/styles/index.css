@@ -97,10 +97,7 @@
   box-shadow:
     inset 0 1px 0 --alpha(var(--color-white) / 70%),
     0 1px 2px --alpha(var(--color-gray-950) / 4%);
-  transition:
-    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 0.3s;
+  transition: border-color 0.3s;
 
   .dark & {
     border-color: --alpha(var(--color-white) / 8%);
@@ -114,19 +111,9 @@
       0 1px 2px --alpha(var(--color-gray-950) / 40%);
   }
 
+  /* Hover stays quiet: just a hint of the brand color on the border. */
   &:hover {
-    transform: translateY(-2px);
-    box-shadow:
-      0 20px 44px -18px --alpha(var(--color-primary-600) / 25%),
-      0 12px 32px -12px --alpha(var(--color-gray-950) / 22%);
-    border-color: --alpha(var(--color-primary-500) / 35%);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-    &:hover {
-      transform: none;
-    }
+    border-color: --alpha(var(--color-primary-500) / 30%);
   }
 }
 

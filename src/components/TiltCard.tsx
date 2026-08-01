@@ -39,7 +39,7 @@ export default function TiltCard({ title, detail, cta, href, chips }: Props) {
 
   const glareX = useTransform(pointerX, (value) => `${value * 100}%`);
   const glareY = useTransform(pointerY, (value) => `${value * 100}%`);
-  const glare = useMotionTemplate`radial-gradient(360px circle at ${glareX} ${glareY}, rgb(255 255 255 / 0.22), transparent 70%)`;
+  const glare = useMotionTemplate`radial-gradient(360px circle at ${glareX} ${glareY}, rgb(255 255 255 / 0.09), transparent 70%)`;
 
   const handlePointerMove = (event: PointerEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -81,7 +81,7 @@ export default function TiltCard({ title, detail, cta, href, chips }: Props) {
   );
 
   const cardClassName =
-    'relative flex h-full flex-col gap-4 rounded-3xl border border-gray-900/10 bg-gradient-to-b from-white/80 to-white/55 p-8 shadow-sm transition-colors hover:border-primary-500/35 dark:border-white/10 dark:from-gray-900/70 dark:to-gray-900/45';
+    'relative flex h-full flex-col gap-4 rounded-3xl border border-gray-900/10 bg-gradient-to-b from-white/80 to-white/55 p-8 shadow-sm transition-colors hover:border-primary-500/30 dark:border-white/10 dark:from-gray-900/70 dark:to-gray-900/45';
 
   if (reduceMotion) {
     return (
