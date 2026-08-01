@@ -128,6 +128,38 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     path: post.path,
   }));
 
+  const identityData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebSite',
+        '@id': `${siteMetadata.siteUrl}/#website`,
+        url: siteMetadata.siteUrl,
+        name: siteMetadata.title,
+        description: siteMetadata.description,
+        inLanguage: ['en', 'zh-TW'],
+        publisher: { '@id': `${siteMetadata.siteUrl}/#person` },
+      },
+      {
+        '@type': 'Person',
+        '@id': `${siteMetadata.siteUrl}/#person`,
+        name: siteMetadata.author,
+        url: siteMetadata.siteUrl,
+        image: siteMetadata.siteUrl + siteMetadata.siteLogo,
+        email: siteMetadata.email,
+        sameAs: [
+          siteMetadata.github,
+          siteMetadata.linkedin,
+          siteMetadata.twitter,
+          siteMetadata.facebook,
+          siteMetadata.instagram,
+          siteMetadata.threads,
+          siteMetadata.bluesky,
+        ],
+      },
+    ],
+  };
+
   return (
     <html
       lang={locale}
@@ -135,6 +167,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
       className={`${inter.variable} ${notoSansTC.variable}`}
     >
       <body className="overflow-x-hidden bg-white text-gray-950 antialiased transition-colors dark:bg-gray-950 dark:text-white">
+        <script
+          type="application/ld+json"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD built from trusted site metadata
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(identityData) }}
+        />
         <NextIntlClientProvider messages={messages}>
           <ThemeProvider attribute="class" defaultTheme={siteMetadata.theme}>
             <CommandPalette posts={commandPalettePosts}>
