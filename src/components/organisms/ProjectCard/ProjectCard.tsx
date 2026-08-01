@@ -3,12 +3,16 @@
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
 
+import GithubIcon from '@/components/atoms/SocialIcon/github.svg';
 import CustomLink from '@/components/CustomLink';
 import type { Project } from '@/data/projects';
 
 type Props = {
   project: Project;
 };
+
+const iconLinkClassName =
+  'rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-900/5 hover:text-primary-600 dark:hover:bg-white/5 dark:hover:text-primary-400';
 
 export default function ProjectCard({ project }: Props) {
   const {
@@ -21,52 +25,96 @@ export default function ProjectCard({ project }: Props) {
   const href = post || site || github;
 
   return (
-    <div>
-      <div
-        className={
-          'h-full overflow-hidden rounded-md border-2 border-gray-300/60 transition-colors transition-colors dark:border-gray-700/60'
-        }
+    <article className="bento-card flex h-full flex-col">
+      <CustomLink
+        href={href}
+        aria-label={`Link to ${title}`}
+        className="group relative block aspect-video w-full overflow-hidden bg-gray-100 dark:bg-gray-800"
       >
-        <CustomLink
-          href={href}
-          aria-label={`Link to ${title}`}
-          className="relative block aspect-video w-full"
-        >
-          <Image
-            alt={imgAlt}
-            src={imgSrc}
-            className="bg-gray-300 object-cover object-center dark:bg-gray-700"
-            quality="30"
-            placeholder={imgPlaceholder}
-            fill
-            sizes="(max-width: 767px) 100vw, (max-width: 1023px) 344px, 472px"
-            style={{
-              objectFit: 'cover',
-            }}
-          />
-        </CustomLink>
-        <div className="p-6">
-          <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
-            <CustomLink href={href} aria-label={`Link to ${title}`}>
-              {title}
-            </CustomLink>
-          </h2>
-          <div
-            className="prose mb-3 max-w-none text-gray-500 transition-colors dark:text-gray-400"
-            // biome-ignore lint/security/noDangerouslySetInnerHtml: descriptions are trusted local data
-            dangerouslySetInnerHTML={{
-              __html: description,
-            }}
-          />
+        <Image
+          alt={imgAlt}
+          src={imgSrc}
+          className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
+          quality={30}
+          placeholder={imgPlaceholder}
+          fill
+          sizes="(max-width: 767px) 100vw, (max-width: 1023px) 344px, 472px"
+        />
+      </CustomLink>
+      <div className="flex grow flex-col p-6 sm:p-7">
+        <h2 className="text-2xl font-bold leading-8 tracking-tight text-gray-900 dark:text-gray-100">
           <CustomLink
             href={href}
-            className="text-base font-medium leading-6 text-primary-500 transition-colors hover:text-primary-600 dark:hover:text-primary-400"
             aria-label={`Link to ${title}`}
+            className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
           >
-            {t('learn-more')} &rarr;
+            {title}
           </CustomLink>
+        </h2>
+        <div
+          className="prose prose-sm mt-3 max-w-none text-gray-500 transition-colors dark:prose-invert dark:text-gray-400"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: descriptions are trusted local data
+          dangerouslySetInnerHTML={{
+            __html: description,
+          }}
+        />
+        <div className="mt-auto flex items-center justify-between pt-5">
+          {post ? (
+            <CustomLink
+              href={post}
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+            >
+              {t('learn-more')}
+              <span
+                aria-hidden="true"
+                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
+              >
+                &rarr;
+              </span>
+            </CustomLink>
+          ) : (
+            <span aria-hidden="true" />
+          )}
+          <div className="flex items-center gap-1">
+            {site && (
+              <a
+                href={site}
+                target="_blank"
+                rel="noreferrer"
+                className={iconLinkClassName}
+              >
+                <span className="sr-only">{`${title} — website`}</span>
+                <svg
+                  aria-hidden="true"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.8}
+                  stroke="currentColor"
+                  className="h-5 w-5"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 0 1 7.843 4.582M12 3a8.997 8.997 0 0 0-7.843 4.582m15.686 0A11.953 11.953 0 0 1 12 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0 1 21 12c0 .778-.099 1.533-.284 2.253m-18.432 0A8.959 8.959 0 0 1 3 12c0 .778.099 1.533.284 2.253m0 0A17.919 17.919 0 0 0 12 16.5c3.162 0 6.133-.815 8.716-2.247"
+                  />
+                </svg>
+              </a>
+            )}
+            {github && (
+              <a
+                href={github}
+                target="_blank"
+                rel="noreferrer"
+                className={iconLinkClassName}
+              >
+                <span className="sr-only">{`${title} — GitHub`}</span>
+                <GithubIcon className="h-5 w-5 fill-current" />
+              </a>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </article>
   );
 }

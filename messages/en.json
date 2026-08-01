@@ -1,6 +1,10 @@
 {
   "common": {
     "view-all": "View all",
+    "view-all-posts": "View all {count} posts",
+    "view-all-projects": "All {count} projects",
+    "series": "Series",
+    "series-post-count": "{count, plural, one {# post} other {# posts}}",
     "copied": "Copied!",
     "table-of-contents": "Table of contents",
     "home": "Home",
@@ -30,10 +34,18 @@
   },
   "indexPage": {
     "latest-posts": "Latest Posts",
+    "featured-projects": "Featured Projects",
+    "build-in-public": "Build in Public",
+    "build-in-public-detail": "I'm building apps in public at Aburi Studio — follow the journey from idea to App Store.",
+    "build-in-public-cta": "Follow along at aburistudio.com →",
     "intro-title": "Hey, I am Eason Chang 👋",
     "intro-1": "I am a Fullstack Developer. I love building <projects>cool stuff</projects>!",
     "intro-2": "Here I write <posts>posts</posts> about <strong>Software Engineering</strong>, <strong>Web Dev</strong>, <strong>Maker</strong>, and <strong>Productivity</strong>.",
     "intro-3": "I am from Taiwan 🇹🇼, currently live in Canada 🇨🇦, and actively seeking a job!",
-    "intro-4": "Feel free to check out my <resume>resume</resume>, connect with me on <linkedin>LinkedIn</linkedin>, explore my <github>GitHub</github>, follow me on <twitter>Twitter</twitter>, or <booking>book my time</booking> and chat with me!"
+    "intro-4": "Feel free to check out my <resume>resume</resume>, connect with me on <linkedin>LinkedIn</linkedin>, explore my <github>GitHub</github>, follow me on <twitter>Twitter</twitter>, or <booking>book my time</booking> and chat with me!",
+    "contact-title": "Get in Touch",
+    "contact-detail": "Have a question, an idea, or just want to say hi? My inbox is always open.",
+    "email-me": "Email me",
+    "book-time": "Book a chat"
   }
 }

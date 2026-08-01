@@ -33,6 +33,7 @@ export default async function PostsPage({ params }: PageProps) {
     date: post.date,
     slug: post.slug,
     path: post.path,
+    socialImage: post.socialImage,
   }));
 
   const pagination = {

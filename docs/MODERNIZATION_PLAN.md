@@ -76,8 +76,8 @@ Goal: modern foundation everything else builds on. This is the big one.
 Goal: visual redesign on top of the new foundation. 2026 look: content-first typography, depth via glass + gradients, tasteful motion.
 
 - [ ] **Design tokens in Tailwind 4 CSS-first config**: oklch wide-gamut palette, fluid type scale, dark mode as first-class (default to system, keep toggle)
-- [ ] **Homepage as a bento grid**: hero card (name + animated gradient/aurora accent), latest posts, featured project, now-playing/"now" card, stats card, AI-chat entry card
-- [ ] **Post list**: spotlight-hover cards (radial highlight following cursor), cover-image cards with `next/image` blur placeholders, tag filter pills
+- [ ] **Homepage as a bento grid**: hero card (name + animated gradient/aurora accent), interactive 3D tilt card promoting Aburi Studio (build in public), featured-projects row, latest posts with post-count link
+- [ ] **Post list**: spotlight-hover cards (radial highlight following cursor), grouped by year with collapsible series cards, client-side search
 - [ ] **Post page**: readable measure (~65ch), sticky scroll-spy TOC, reading-progress bar, `rehype-pretty-code`/Shiki code blocks with copy button (replacing Prism), footnote popovers, next/prev navigation
 - [ ] **Micro-interactions with Motion** (`motion`, framer-motion's successor): page fade/slide via **View Transitions API** (Next 16 `viewTransition`), scroll-reveal sections, magnetic nav hover — all `prefers-reduced-motion`-safe
 - [ ] **Glassmorphism sticky header** (backdrop-blur, border-hairline) + subtle grain/mesh-gradient page background

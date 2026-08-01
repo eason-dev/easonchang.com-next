@@ -1,11 +1,13 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-import { useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useMemo, useState } from 'react';
 
+import GroupedPostList from '@/components/organisms/GroupedPostList';
 import PostList from '@/components/organisms/PostList';
 import type { PostForPostList } from '@/components/organisms/PostList/PostList';
 import Pagination, { type PaginationType } from '@/components/Pagination';
+import { groupPostsByYearAndSeries } from '@/lib/postGroups';
 
 type Props = {
   posts: PostForPostList[];
@@ -19,6 +21,7 @@ export default function ListLayout({
   pagination,
 }: Props) {
   const t = useTranslations('common');
+  const locale = useLocale();
 
   const [searchValue, setSearchValue] = useState('');
 
@@ -28,6 +31,11 @@ export default function ListLayout({
         return searchContent.toLowerCase().includes(searchValue.toLowerCase());
       })
     : initialDisplayPosts;
+
+  const groups = useMemo(
+    () => groupPostsByYearAndSeries(initialDisplayPosts, locale),
+    [initialDisplayPosts, locale]
+  );
 
   return (
     <>
@@ -62,7 +70,11 @@ export default function ListLayout({
           </div>
         </div>
 
-        <PostList posts={filteredBlogPosts} />
+        {searchValue ? (
+          <PostList posts={filteredBlogPosts} />
+        ) : (
+          <GroupedPostList groups={groups} />
+        )}
       </div>
 
       {pagination && pagination.totalPages > 1 && !searchValue && (
