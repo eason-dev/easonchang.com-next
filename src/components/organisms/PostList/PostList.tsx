@@ -1,6 +1,7 @@
 'use client';
 
 import { useLocale } from 'next-intl';
+import type { MouseEvent } from 'react';
 
 import CustomLink from '@/components/CustomLink';
 import formatDate from '@/lib/utils/formatDate';
@@ -17,34 +18,42 @@ type Props = {
   posts: PostForPostList[];
 };
 
+const trackSpotlight = (event: MouseEvent<HTMLElement>) => {
+  const card = event.currentTarget;
+  const rect = card.getBoundingClientRect();
+  card.style.setProperty('--spotlight-x', `${event.clientX - rect.left}px`);
+  card.style.setProperty('--spotlight-y', `${event.clientY - rect.top}px`);
+};
+
 export default function PostList({ posts = [] }: Props) {
   const locale = useLocale();
 
   return (
-    <ul className="divide-y divide-gray-200 transition-colors dark:divide-gray-700">
+    <ul className="grid grid-cols-1 gap-4 py-6">
       {!posts.length && 'No posts found.'}
       {posts.map((post) => {
         const { slug, date, title, description, path } = post;
         return (
-          <li key={slug} className="group transition-colors">
-            <CustomLink href={path}>
-              <article className="space-y-2 rounded-xl p-4 transition-colors group-hover:bg-gray-100 dark:group-hover:bg-gray-800 xl:grid xl:grid-cols-4  xl:items-baseline xl:space-y-0">
+          <li key={slug}>
+            <CustomLink href={path} className="block">
+              <article
+                onMouseMove={trackSpotlight}
+                className="bento-card spotlight-card p-6 sm:p-7"
+              >
                 <dl>
                   <dt className="sr-only">Published on</dt>
-                  <dd className="text-sm font-medium leading-6 text-gray-500 transition-colors dark:text-gray-400 md:text-base">
+                  <dd className="text-sm font-medium text-gray-400 dark:text-gray-500">
                     <time dateTime={date}>{formatDate(date, locale)}</time>
                   </dd>
                 </dl>
-                <div className="space-y-3 xl:col-span-3">
-                  <div>
-                    <h3 className="text-lg font-bold tracking-tight text-gray-900 transition-colors dark:text-gray-100 sm:text-xl md:text-2xl">
-                      {title}
-                    </h3>
-                  </div>
-                  <div className="prose prose-sm max-w-none text-gray-500 transition-colors dark:text-gray-400 md:prose-base">
+                <h3 className="mt-2 text-lg font-bold tracking-tight text-gray-900 transition-colors dark:text-gray-100 sm:text-xl">
+                  {title}
+                </h3>
+                {description && (
+                  <p className="mt-2 line-clamp-2 text-gray-500 transition-colors dark:text-gray-400">
                     {description}
-                  </div>
-                </div>
+                  </p>
+                )}
               </article>
             </CustomLink>
           </li>

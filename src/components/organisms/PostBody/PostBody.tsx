@@ -1,17 +1,16 @@
 import clsx from 'clsx';
 
-import styles from './PostBody.module.scss';
-
 type Props = {
   children: React.ReactNode;
+  className?: string;
 };
 
-export default function PostBody({ children }: Props) {
+export default function PostBody({ children, className }: Props) {
   return (
     <div
       className={clsx(
-        'prose mx-auto transition-colors dark:prose-dark',
-        styles.postBody
+        'prose mx-auto transition-colors dark:prose-invert',
+        className
       )}
     >
       {children}

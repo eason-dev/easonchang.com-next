@@ -8,6 +8,7 @@ import Balancer from 'react-wrap-balancer';
 import CustomLink from '@/components/CustomLink';
 import PostBody from '@/components/organisms/PostBody';
 import PageTitle from '@/components/PageTitle';
+import ReadingProgress from '@/components/ReadingProgress';
 import ScrollTop from '@/components/ScrollTop';
 import TableOfContents from '@/components/TableOfContents';
 import siteMetadata from '@/data/siteMetadata';
@@ -49,6 +50,7 @@ export default function PostLayout({
 
   return (
     <>
+      <ReadingProgress />
       <ScrollTop />
 
       <article>

@@ -30,6 +30,12 @@
   },
   "indexPage": {
     "latest-posts": "Latest Posts",
+    "featured-project": "Featured Project",
+    "connect": "Find me around the web",
+    "command-hint": "Quick search",
+    "command-hint-detail": "Press <kbd>⌘K</kbd> anywhere to jump to a post, switch theme, or change language.",
+    "stats-posts": "posts",
+    "stats-writing-since": "writing since",
     "intro-title": "Hey, I am Eason Chang 👋",
     "intro-1": "I am a Fullstack Developer. I love building <projects>cool stuff</projects>!",
     "intro-2": "Here I write <posts>posts</posts> about <strong>Software Engineering</strong>, <strong>Web Dev</strong>, <strong>Maker</strong>, and <strong>Productivity</strong>.",

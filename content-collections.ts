@@ -1,19 +1,28 @@
 import { defineCollection, defineConfig } from '@content-collections/core';
 import { compileMDX } from '@content-collections/mdx';
-import rehypeCodeTitles from 'rehype-code-titles';
-import rehypePrism from 'rehype-prism-plus';
+import rehypePrettyCode from 'rehype-pretty-code';
 import rehypeSlug from 'rehype-slug';
 import remarkGfm from 'remark-gfm';
 import { z } from 'zod';
 
 import imageMetadata from './src/plugins/image-metadata';
+import remarkCodeTitleShim from './src/plugins/remark-code-title-shim';
 
 const mdxOptions = {
-  remarkPlugins: [remarkGfm],
+  remarkPlugins: [remarkGfm, remarkCodeTitleShim],
   rehypePlugins: [
     rehypeSlug,
-    rehypeCodeTitles,
-    [rehypePrism, { ignoreMissing: true }],
+    [
+      rehypePrettyCode,
+      {
+        theme: {
+          light: 'github-light',
+          dark: 'one-dark-pro',
+        },
+        defaultColor: false,
+        defaultLang: 'txt',
+      },
+    ],
     imageMetadata,
   ],
   // Pluggable typings across unified versions disagree; the plugins themselves are compatible.
