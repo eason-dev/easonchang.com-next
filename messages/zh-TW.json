@@ -1,6 +1,10 @@
 {
   "common": {
     "view-all": "查看全部",
+    "view-all-posts": "查看全部 {count} 篇文章",
+    "view-all-projects": "全部 {count} 個專案",
+    "series": "系列文章",
+    "series-post-count": "共 {count} 篇",
     "copied": "已複製！",
     "table-of-contents": "目錄",
     "home": "首頁",
@@ -30,12 +34,10 @@
   },
   "indexPage": {
     "latest-posts": "最新文章",
-    "featured-project": "精選專案",
-    "connect": "在網路上找到我",
-    "command-hint": "快速搜尋",
-    "command-hint-detail": "隨時按下 <kbd>⌘K</kbd>，快速跳轉文章、切換主題或語言。",
-    "stats-posts": "篇文章",
-    "stats-writing-since": "寫作起於",
+    "featured-projects": "精選專案",
+    "built-with": "本站技術",
+    "built-with-detail": "這個網站使用現代開源技術從零重新打造。",
+    "built-with-hint": "移動滑鼠感受一下 ✨",
     "intro-title": "Hey，我是 Eason Chang 👋",
     "intro-1": "我是一位全端軟體工程師。我喜歡創造<projects>酷東西</projects>！",
     "intro-2": "我在這裡寫了許多<posts>文章</posts>，主題涵蓋<strong>軟體工程</strong>、<strong>網站開發</strong>、<strong>自造者（Maker）</strong>、和<strong>生產力</strong>。",

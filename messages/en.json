@@ -1,6 +1,10 @@
 {
   "common": {
     "view-all": "View all",
+    "view-all-posts": "View all {count} posts",
+    "view-all-projects": "All {count} projects",
+    "series": "Series",
+    "series-post-count": "{count, plural, one {# post} other {# posts}}",
     "copied": "Copied!",
     "table-of-contents": "Table of contents",
     "home": "Home",
@@ -30,12 +34,10 @@
   },
   "indexPage": {
     "latest-posts": "Latest Posts",
-    "featured-project": "Featured Project",
-    "connect": "Find me around the web",
-    "command-hint": "Quick search",
-    "command-hint-detail": "Press <kbd>⌘K</kbd> anywhere to jump to a post, switch theme, or change language.",
-    "stats-posts": "posts",
-    "stats-writing-since": "writing since",
+    "featured-projects": "Featured Projects",
+    "built-with": "Under the hood",
+    "built-with-detail": "This site is rebuilt from the ground up with a modern open-source stack.",
+    "built-with-hint": "Move your cursor around ✨",
     "intro-title": "Hey, I am Eason Chang 👋",
     "intro-1": "I am a Fullstack Developer. I love building <projects>cool stuff</projects>!",
     "intro-2": "Here I write <posts>posts</posts> about <strong>Software Engineering</strong>, <strong>Web Dev</strong>, <strong>Maker</strong>, and <strong>Productivity</strong>.",

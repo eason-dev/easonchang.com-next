@@ -7,6 +7,10 @@ test.describe('home', () => {
       'Eason Chang'
     );
     await expect(page.getByRole('link', { name: 'all posts' })).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: 'all projects' })
+    ).toBeVisible();
+    await expect(page.getByText('Under the hood')).toBeVisible();
   });
 
   test('renders the zh-TW homepage', async ({ page }) => {
@@ -28,6 +32,24 @@ test.describe('posts', () => {
       .getByPlaceholder('Search title or description')
       .fill('nonexistent-gibberish-term');
     await expect(page.getByText('No posts found.')).toBeVisible();
+  });
+
+  test('groups the listing by year and collapses series posts', async ({
+    page,
+  }) => {
+    await page.goto('/posts');
+    await expect(
+      page.getByRole('heading', { name: '2022', exact: true })
+    ).toBeVisible();
+
+    const seriesCard = page.getByText('Modern Next.js Blog Series', {
+      exact: true,
+    });
+    await expect(seriesCard).toBeVisible();
+    await seriesCard.click();
+    await expect(
+      page.getByRole('link', { name: /Series Introduction/ })
+    ).toBeVisible();
   });
 
   test('renders a post page with TOC and comments anchor', async ({ page }) => {
