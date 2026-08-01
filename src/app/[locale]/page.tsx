@@ -202,18 +202,37 @@ export default async function HomePage({ params }: PageProps) {
               {tCommon('view-all-posts', { count: posts.length })} &rarr;
             </CustomLink>
           </div>
-          <ul className="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="mt-2 divide-y divide-gray-900/5 dark:divide-white/5">
             {latestPosts.map((post) => (
               <li key={post.slug}>
-                <CustomLink href={post.path} className="group block">
-                  <div className="relative aspect-[1200/630] w-full overflow-hidden rounded-2xl border border-gray-900/5 bg-gray-100 shadow-sm transition-shadow group-hover:shadow-lg dark:border-white/5 dark:bg-gray-800">
+                <CustomLink
+                  href={post.path}
+                  className="group flex items-center gap-5 py-4 sm:gap-6"
+                >
+                  <div className="min-w-0 flex-1">
+                    <time
+                      dateTime={post.date}
+                      className="block text-xs font-medium uppercase tracking-wider text-gray-400"
+                    >
+                      {formatDate(post.date, locale)}
+                    </time>
+                    <h3 className="mt-1 line-clamp-2 font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
+                      {post.title}
+                    </h3>
+                    {post.description && (
+                      <p className="mt-1 line-clamp-1 text-sm text-gray-500 dark:text-gray-400">
+                        {post.description}
+                      </p>
+                    )}
+                  </div>
+                  <div className="relative aspect-[1200/630] w-28 shrink-0 overflow-hidden rounded-xl border border-gray-900/5 bg-gray-100 shadow-sm transition-shadow group-hover:shadow-md dark:border-white/5 dark:bg-gray-800 sm:w-44">
                     {post.image ? (
                       <Image
                         src={post.image}
                         alt=""
                         fill
                         unoptimized
-                        sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"
+                        sizes="176px"
                         className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
                       />
                     ) : (
@@ -221,26 +240,12 @@ export default async function HomePage({ params }: PageProps) {
                         aria-hidden="true"
                         className={`absolute inset-0 bg-gradient-to-br transition-transform duration-500 motion-safe:group-hover:scale-105 ${posterGradient(post.slug)}`}
                       >
-                        <span className="absolute -bottom-8 -right-2 select-none text-[7rem] font-black leading-none text-white/25">
+                        <span className="absolute -bottom-3 -right-1 select-none text-5xl font-black leading-none text-white/25">
                           {post.title.slice(0, 1)}
                         </span>
                       </div>
                     )}
                   </div>
-                  <time
-                    dateTime={post.date}
-                    className="mt-3 block text-xs font-medium uppercase tracking-wider text-gray-400"
-                  >
-                    {formatDate(post.date, locale)}
-                  </time>
-                  <h3 className="mt-1 line-clamp-2 font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
-                    {post.title}
-                  </h3>
-                  {post.description && (
-                    <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
-                      {post.description}
-                    </p>
-                  )}
                 </CustomLink>
               </li>
             ))}
