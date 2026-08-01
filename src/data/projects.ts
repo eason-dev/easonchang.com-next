@@ -88,7 +88,7 @@ export const PROJECTS_ZH = <Project[]>[
     title: 'Equation Pyramid - 數學解謎遊戲',
     category: 'side',
     description:
-      '靈感來自 Netflix《惡魔計劃》的數學解謎遊戲：用加減乘除排列出正確的等式。使用 Next.js 與 React Three Fiber 打造 3D 互動體驗，和 Carol 一起創作的開源專案。',
+      '靈感來自 Netflix《魔鬼的計謀》的數學解謎遊戲：用加減乘除排列出正確的等式。使用 Next.js 與 React Three Fiber 打造 3D 互動體驗，和 Carol 一起創作的開源專案。',
     links: {
       post: '/posts/equation-pyramid',
       github: 'https://github.com/eason-dev/equation-pyramid',
