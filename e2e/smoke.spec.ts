@@ -72,6 +72,9 @@ test.describe('projects', () => {
     page,
   }) => {
     await page.goto('/projects');
+    await expect(
+      page.getByRole('heading', { name: 'Aburi Studio' })
+    ).toBeVisible();
     const firstImage = page.locator('main img').first();
     await expect(firstImage).toBeVisible();
 

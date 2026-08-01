@@ -14,6 +14,7 @@ export const Default: Story = {
   args: {
     project: {
       title: 'Timez - Time Zone Converter',
+      category: 'side',
       description:
         'Convert times between time zones and compare overlapping hours.',
       links: {

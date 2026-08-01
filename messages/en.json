@@ -2,7 +2,7 @@
   "common": {
     "view-all": "View all",
     "view-all-posts": "View all {count} posts",
-    "view-all-projects": "All {count} projects",
+    "view-all-projects": "View all {count} projects",
     "series": "Series",
     "series-post-count": "{count, plural, one {# post} other {# posts}}",
     "copied": "Copied!",
@@ -47,5 +47,12 @@
     "contact-detail": "Have a question, an idea, or just want to say hi? My inbox is always open.",
     "email-me": "Email me",
     "book-time": "Book a chat"
+  },
+  "projectsPage": {
+    "aburi-title": "Aburi Studio",
+    "aburi-blurb": "Products Carol and I are building in public — focused tools around time and money.",
+    "side-title": "Side Projects",
+    "work-title": "Professional Work",
+    "maker-title": "Maker & Hackathons"
   }
 }

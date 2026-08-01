@@ -1,0 +1,49 @@
+---
+title: 'FocusZone - A visionOS Focus App with AI Distraction Detection'
+slug: 'focuszone'
+date: 2024-09-15
+tags: [Project, Productivity, Side Project]
+category: Project
+socialImage: '/images/focuszone/focuszone-welcome.png'
+type: Post
+language: en
+description: 'FocusZone is a focus and productivity app for Apple Vision Pro: a Pomodoro timer paired with AI distraction detection (phone appearance, noise, head movement) that guards your attention inside immersive spaces.'
+---
+
+![The FocusZone welcome card floating in an immersive space](/images/focuszone/focuszone-welcome.png)
+
+## Introduction
+
+**FocusZone** is a focus and productivity app we built for Apple Vision Pro: run a Pomodoro timer inside an immersive space, with AI watching for distractions so your attention stays on the work.
+
+It's an exploration of spatial computing that [Carol](https://carolhsiao.com) and I did together — she designed the spatial UI/UX, and I handled the visionOS implementation.
+
+## Demo & Source Code
+
+- **Source code:** [github.com/eason-dev/FocusZone](https://github.com/eason-dev/FocusZone)
+- **Platform:** Apple Vision Pro (visionOS 2)
+
+## Why we created this project
+
+When Vision Pro launched, we immediately saw its potential for focused work: immersive environments naturally block out physical distractions, and its rich sensors understand your working context.
+
+But traditional productivity apps weren't designed for spatial computing. We wanted a focus tool that actually uses what Vision Pro can do — not just a timer floating in 3D, but a device that actively helps you notice when you've drifted.
+
+## Key Features
+
+- **Spatial Pomodoro timer:** the timer floats in your immersive space — always visible, never in the way.
+- **AI distraction detection:** your phone entering your view, a sudden spike of noise, frequent head turning — FocusZone gives you a gentle nudge back to work, never a punishment.
+- **Immersive environments:** from a minimal void to natural scenes, pick the space that puts you in flow.
+- **Focus analytics:** track focus hours and distraction patterns to learn what actually breaks your concentration.
+
+![The Pomodoro timer floating in space](/images/focuszone/focuszone-timer.png)
+
+![Customizing focus duration and AI detection: head movement, phone, sound](/images/focuszone/focuszone-customize.png)
+
+## Technologies
+
+FocusZone is built with SwiftUI and RealityKit on visionOS 2. Distraction detection runs entirely on-device — nothing leaves your headset.
+
+## Closing
+
+FocusZone is an open-source exploration — the code lives on [GitHub](https://github.com/eason-dev/FocusZone). If you have a Vision Pro, or you're curious about productivity in spatial computing, browse the code, open an issue, or leave a comment below!

@@ -14,7 +14,7 @@ const LanguageSwitch = () => {
       locale={nextLocale}
       href={pathname}
       aria-label="Toggle Language"
-      className="rounded p-2 text-2xl leading-6 transition-colors hover:bg-gray-100 dark:hover:bg-gray-800 sm:p-3"
+      className="rounded-full p-2 text-2xl leading-6 transition-colors hover:bg-gray-900/5 dark:hover:bg-white/5 sm:p-3"
     >
       {locale === 'en' ? '🇺🇸' : '🇹🇼'}
     </Link>
