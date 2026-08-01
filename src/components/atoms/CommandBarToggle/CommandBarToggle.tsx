@@ -1,3 +1,5 @@
+'use client';
+
 import { useKBar } from 'kbar';
 
 export default function CommandBarToggle() {

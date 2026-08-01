@@ -1,6 +1,8 @@
 // template come from:
 // https://blog.prototypr.io/how-to-implement-command-palette-with-kbar-and-tailwind-css-71ea0e3f99c1
 
+'use client';
+
 import {
   CodeBracketIcon,
   HomeIcon,
@@ -13,8 +15,9 @@ import {
   UserIcon,
 } from '@heroicons/react/24/outline';
 import {
-  ActionId,
-  ActionImpl,
+  type Action,
+  type ActionId,
+  type ActionImpl,
   KBarAnimator,
   KBarPortal,
   KBarPositioner,
@@ -22,26 +25,38 @@ import {
   KBarResults,
   Priority,
   useMatches,
+  useRegisterActions,
 } from 'kbar';
-import { useRouter } from 'next/router';
-import { useTranslation } from 'next-i18next';
+import { useTranslations } from 'next-intl';
 import { useTheme } from 'next-themes';
 import React, { forwardRef, useMemo } from 'react';
 
+import { usePathname, useRouter } from '@/i18n/navigation';
+
 import { KBarSearch } from './KBarSearch';
 
-export default function CommandPalette({ children }) {
-  const { t } = useTranslation(['common']);
+export type PostForCommandPalette = {
+  slug: string;
+  title: string;
+  path: string;
+};
+
+type Props = {
+  posts: PostForCommandPalette[];
+  children: React.ReactNode;
+};
+
+export default function CommandPalette({ posts, children }: Props) {
+  const t = useTranslations('common');
   const router = useRouter();
+  const pathname = usePathname();
   const { setTheme } = useTheme();
 
   const changeLocale = (locale: string) => {
-    // TODO pathname, asPath, query won't get updated when change page, should fix
-    const { pathname, asPath, query } = router;
-    router.push({ pathname, query }, asPath, { locale: locale });
+    router.replace(pathname, { locale });
   };
 
-  const actions = [
+  const actions: Action[] = [
     // Page section
     {
       id: 'home',
@@ -159,10 +174,29 @@ export default function CommandPalette({ children }) {
 
   return (
     <KBarProvider actions={actions}>
+      <PostActions posts={posts} />
       <CommandBar />
       {children}
     </KBarProvider>
   );
+}
+
+function PostActions({ posts }: { posts: PostForCommandPalette[] }) {
+  const router = useRouter();
+  const t = useTranslations('common');
+
+  useRegisterActions(
+    posts.map((post) => ({
+      id: post.slug,
+      name: post.title,
+      perform: () => router.push(post.path),
+      section: t('search-posts'),
+      parent: 'search-posts',
+    })),
+    [posts]
+  );
+
+  return null;
 }
 
 function CommandBar() {
@@ -193,7 +227,7 @@ function RenderResults() {
           <ResultItem
             action={item}
             active={active}
-            currentRootActionId={rootActionId}
+            currentRootActionId={rootActionId ?? undefined}
           />
         )
       }
@@ -201,25 +235,17 @@ function RenderResults() {
   );
 }
 
-interface Props {
+interface ResultItemProps {
   action: ActionImpl;
   active: boolean;
-  currentRootActionId: ActionId;
+  currentRootActionId?: ActionId;
 }
 type Ref = HTMLDivElement;
 
 // eslint-disable-next-line react/display-name
-const ResultItem = forwardRef<Ref, Props>(
+const ResultItem = forwardRef<Ref, ResultItemProps>(
   (
-    {
-      action,
-      active,
-      currentRootActionId,
-    }: {
-      action: ActionImpl;
-      active: boolean;
-      currentRootActionId: ActionId;
-    },
+    { action, active, currentRootActionId }: ResultItemProps,
     ref: React.Ref<HTMLDivElement>
   ) => {
     const ancestors = useMemo(() => {

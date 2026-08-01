@@ -1,11 +1,13 @@
-import { useTranslation } from 'next-i18next';
+'use client';
+
+import { useTranslations } from 'next-intl';
 import { useState } from 'react';
 
 import CustomLink from '@/components/CustomLink';
 import headerNavLinks from '@/data/headerNavLinks';
 
 const MobileNav = () => {
-  const { t } = useTranslation(['common']);
+  const t = useTranslations('common');
 
   const [navShow, setNavShow] = useState(false);
 

@@ -1,4 +1,6 @@
-import { useRouter } from 'next/router';
+'use client';
+
+import { useLocale } from 'next-intl';
 
 import CustomLink from '@/components/CustomLink';
 import formatDate from '@/lib/utils/formatDate';
@@ -16,7 +18,7 @@ type Props = {
 };
 
 export default function PostList({ posts = [] }: Props) {
-  const { locale } = useRouter();
+  const locale = useLocale();
 
   return (
     <ul className="divide-y divide-gray-200 transition-colors dark:divide-gray-700">

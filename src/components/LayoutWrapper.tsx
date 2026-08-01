@@ -1,4 +1,6 @@
-import { useTranslation } from 'next-i18next';
+'use client';
+
+import { useTranslations } from 'next-intl';
 
 import CommandBarToggle from '@/components/atoms/CommandBarToggle';
 import CustomLink from '@/components/CustomLink';
@@ -16,7 +18,7 @@ type Props = {
 };
 
 const LayoutWrapper = ({ children }: Props) => {
-  const { t } = useTranslation(['common']);
+  const t = useTranslations('common');
 
   return (
     <div className="flex min-h-screen w-full flex-col justify-between">
@@ -27,13 +29,9 @@ const LayoutWrapper = ({ children }: Props) => {
               <div>
                 <CustomLink href="/" aria-label={siteMetadata.headerTitle}>
                   <div className="flex items-center justify-between">
-                    {typeof siteMetadata.headerTitle === 'string' ? (
-                      <div className="h-6 text-2xl font-semibold sm:block">
-                        {siteMetadata.headerTitle}
-                      </div>
-                    ) : (
-                      siteMetadata.headerTitle
-                    )}
+                    <div className="h-6 text-2xl font-semibold sm:block">
+                      {siteMetadata.headerTitle}
+                    </div>
                   </div>
                 </CustomLink>
               </div>

@@ -1,63 +1,66 @@
-// Custom rehype plugin to add width and height to local images
-// To make Next.js <Image/> works
+// Custom rehype plugin to add width/height and a blur placeholder to local
+// images, so they can be rendered with next/image.
 // Ref: https://kylepfromer.com/blog/nextjs-image-component-blog
+import path from 'node:path';
 
-// Similiar structure to:
-// https://github.com/JS-DevTools/rehype-inline-svg/blob/master/src/inline-svg.ts
-import imageSize from 'image-size';
-import path from 'path';
-import { getPlaiceholder } from 'plaiceholder';
+import sharp from 'sharp';
 import { visit } from 'unist-util-visit';
-import { promisify } from 'util';
 
-const sizeOf = promisify(imageSize);
+type ImageNode = {
+  type: 'element';
+  tagName: 'img';
+  properties: {
+    src: string;
+    width?: number;
+    height?: number;
+    base64?: string;
+  };
+};
 
-/**
- * Determines whether the given HAST node is an `<img>` element.
- */
-function isImageNode(node) {
-  const img = node;
+function isImageNode(node: unknown): node is ImageNode {
+  const img = node as ImageNode;
   return (
     img.type === 'element' &&
     img.tagName === 'img' &&
-    img.properties &&
+    !!img.properties &&
     typeof img.properties.src === 'string'
   );
 }
 
 /**
- * Filters out non absolute paths from the public folder.
+ * Only local images from the public folder (absolute paths) get metadata;
+ * remote images are left untouched.
  */
-function filterImageNode(node) {
+function isLocalImage(node: ImageNode) {
   return node.properties.src.startsWith('/');
 }
 
-/**
- * Adds the image's `height` and `width` to it's properties.
- */
-async function addMetadata(node) {
-  const res = await sizeOf(
-    path.join(process.cwd(), 'public', node.properties.src)
-  );
-  const { base64 } = await getPlaiceholder(node.properties.src, { size: 10 }); // 10 is to increase detail (default is 4)
+async function addMetadata(node: ImageNode): Promise<void> {
+  const filePath = path.join(process.cwd(), 'public', node.properties.src);
+  const image = sharp(filePath);
+  const { width, height } = await image.metadata();
+  if (!width || !height) {
+    throw new Error(`Invalid image with src "${node.properties.src}"`);
+  }
 
-  if (!res) throw Error(`Invalid image with src "${node.properties.src}"`);
+  const blurBuffer = await image
+    .resize(10, 10, { fit: 'inside' })
+    .toFormat('png')
+    .toBuffer();
 
-  node.properties.width = res.width;
-  node.properties.height = res.height;
-  node.properties.base64 = base64;
+  node.properties.width = width;
+  node.properties.height = height;
+  node.properties.base64 = `data:image/png;base64,${blurBuffer.toString(
+    'base64'
+  )}`;
 }
 
-/**
- * This is a Rehype plugin that finds image `<img>` elements and adds the height and width to the properties.
- * Read more about Next.js image: https://nextjs.org/docs/api-reference/next/image#layout
- */
 export default function imageMetadata() {
-  return async function transformer(tree) {
-    const imgNodes = [];
+  return async function transformer(tree: Parameters<typeof visit>[0]) {
+    const imgNodes: ImageNode[] = [];
 
     visit(tree, 'element', (node) => {
-      if (isImageNode(node) && filterImageNode(node)) {
+      if (isImageNode(node) && isLocalImage(node)) {
         imgNodes.push(node);
       }
     });
