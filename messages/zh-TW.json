@@ -47,5 +47,12 @@
     "contact-detail": "有問題、有想法，或只是想打聲招呼？隨時歡迎來信。",
     "email-me": "寄信給我",
     "book-time": "預約聊聊"
+  },
+  "projectsPage": {
+    "aburi-title": "Aburi Studio",
+    "aburi-blurb": "我和 Carol 公開打造中的產品——圍繞時間與金錢的專注工具。",
+    "side-title": "個人專案",
+    "work-title": "職涯作品",
+    "maker-title": "Maker 與黑客松"
   }
 }

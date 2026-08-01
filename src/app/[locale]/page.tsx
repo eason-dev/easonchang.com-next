@@ -12,18 +12,11 @@ import siteMetadata from '@/data/siteMetadata';
 import { allPostsOfLocaleNewToOld } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 import formatDate from '@/lib/utils/formatDate';
+import stripHtml from '@/lib/utils/stripHtml';
 
 const MAX_DISPLAY = 6;
 const FEATURED_PROJECTS = 3;
 const ABURI_PRODUCTS = ['CoreHour', 'FireFree', 'DailyWage'];
-
-/* Some project descriptions carry rich HTML for the projects page; the
- * homepage tile only needs a plain-text teaser line. */
-const stripHtml = (html: string) =>
-  html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -57,7 +50,9 @@ export default async function HomePage({ params }: PageProps) {
     image: post.socialImage,
   }));
   const projects = locale === 'en' ? PROJECTS_EN : PROJECTS_ZH;
-  const featuredProjects = projects.slice(0, FEATURED_PROJECTS);
+  const featuredProjects = projects
+    .filter((project) => project.category === 'aburi')
+    .slice(0, FEATURED_PROJECTS);
 
   const externalLink = (href: string) => {
     const ExternalLink = (chunks: React.ReactNode) => (

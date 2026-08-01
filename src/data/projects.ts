@@ -6,13 +6,18 @@ import TimezoneConverterImg from '../../public/images/project-timezone-converter
 import TrendMicroIdProtectionImg from '../../public/images/project-trendmicro-id-protection/trendmicro-id-protection-homepage.jpg';
 import TrendMicroNewsBlogImg from '../../public/images/project-trendmicro-news-blog/trendmicro-news-blog-homepage.jpg';
 import OneHundredSitesImg from '../../public/images/projects/100sites.png';
+import EquationPyramidImg from '../../public/images/projects/equation-pyramid.jpg';
+import FocusZoneImg from '../../public/images/projects/focuszone.png';
 import ScifiTrophyImg from '../../public/images/projects/scifi-trophy.png';
 import SigmaGoImg from '../../public/images/projects/sigmago.jpg';
 import SmartGlovesImg from '../../public/images/projects/smart-gloves.png';
 import WinsterImg from '../../public/images/projects/winster.png';
 
+export type ProjectCategory = 'aburi' | 'side' | 'work' | 'maker';
+
 export type Project = {
   title: string;
+  category: ProjectCategory;
   description: string;
   links: {
     post: string;
@@ -30,6 +35,7 @@ export const PROJECTS_ZH = <Project[]>[
   // CoreHour (Aburi Studio)
   {
     title: 'CoreHour - 80/20 法則時間塊 App',
+    category: 'aburi',
     description:
       '極簡的時間塊（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。拖放任務到時間格、標記關鍵任務、追蹤專注時數。由 Aburi Studio 打造。',
     links: {
@@ -46,6 +52,7 @@ export const PROJECTS_ZH = <Project[]>[
   // FireFree (Aburi Studio)
   {
     title: 'FireFree - 財務自由追蹤工具',
+    category: 'aburi',
     description:
       '不用記帳、不用串接銀行的 FIRE 財務規劃工具：追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。由 Aburi Studio 打造，公開測試中，可直接體驗 Demo。',
     links: {
@@ -62,6 +69,7 @@ export const PROJECTS_ZH = <Project[]>[
   // DailyWage 天天開薪 (Aburi Studio)
   {
     title: '天天開薪 - 即時薪水計算器',
+    category: 'aburi',
     description:
       '每 100 毫秒更新你今天賺到的薪水，像素柯基陪你上班。輕觸把收入分配進存錢目標，桌面小工具持續跳動。免費、無廣告、沒有後端——資料不離開你的手機。由 Aburi Studio 打造。',
     links: {
@@ -75,9 +83,44 @@ export const PROJECTS_ZH = <Project[]>[
       placeholder: 'empty',
     },
   },
+  // Equation Pyramid - 數學解謎遊戲
+  {
+    title: 'Equation Pyramid - 數學解謎遊戲',
+    category: 'side',
+    description:
+      '靈感來自 Netflix《惡魔計劃》的數學解謎遊戲：用加減乘除排列出正確的等式。使用 Next.js 與 React Three Fiber 打造 3D 互動體驗，和 Carol 一起創作的開源專案。',
+    links: {
+      post: '',
+      github: 'https://github.com/eason-dev/equation-pyramid',
+      site: 'https://equation-pyramid.vercel.app',
+    },
+    image: {
+      src: EquationPyramidImg,
+      alt: 'Equation Pyramid - 數學解謎遊戲',
+      placeholder: 'blur',
+    },
+  },
+  // FocusZone - visionOS 專注生產力 App
+  {
+    title: 'FocusZone - visionOS 專注生產力 App',
+    category: 'side',
+    description:
+      '為 Apple Vision Pro 設計的生產力 App：結合番茄鐘與 AI 干擾偵測（手機出現、噪音、頭部轉動），打造沉浸式的專注環境。使用 SwiftUI 與 RealityKit 開發，和 Carol 一起創作。',
+    links: {
+      post: '',
+      github: 'https://github.com/eason-dev/FocusZone',
+      site: '',
+    },
+    image: {
+      src: FocusZoneImg,
+      alt: 'FocusZone - visionOS 專注生產力 App',
+      placeholder: 'blur',
+    },
+  },
   // Timez - Timezone Converter
   {
     title: 'Timez - Time Zone Converter 時區轉換工具',
+    category: 'side',
     description: '輕鬆在不同時區之間轉換時間並比較重疊時間段',
     links: {
       post: '/posts/timezone-converter',
@@ -94,6 +137,7 @@ export const PROJECTS_ZH = <Project[]>[
   {
     title:
       'Product Hunt Today - 自動產生短影片介紹熱門 Product Hunt 專案的推特機器人',
+    category: 'side',
     description:
       '每日透過 Product Hunt API 爬取 Product Hunt 上熱門專案，接著用 Remotion 產生短影片（使用 React！），最後寫些簡介，透過 Twitter API 發佈到貼文到推特上。',
     links: {
@@ -110,6 +154,7 @@ export const PROJECTS_ZH = <Project[]>[
   // Trend Micro ID Protection - Password Manager
   {
     title: 'Trend Micro ID Protection - 密碼管理工具',
+    category: 'work',
     description: `
     <p>跨平台的機敏資料管理工具，可以管理密碼、信用卡資訊等重要資料。</p>
     <ul>
@@ -131,6 +176,7 @@ export const PROJECTS_ZH = <Project[]>[
   // Trend Micro News Blog
   {
     title: 'Trend Micro News Blog',
+    category: 'work',
     description: `
     <p>趨勢科技新聞網站，提供最新的資安領域新聞和趨勢。</p>
     <ul>
@@ -153,6 +199,7 @@ export const PROJECTS_ZH = <Project[]>[
   // TaiKer Map
   {
     title: '台客地圖 - 台灣景點地圖編輯器',
+    category: 'side',
     description: `
     <p>提供商家、旅行團、活動主辦者使用，簡單易用的景點地圖編輯器。選擇附近的景點、餐廳和飯店，自訂風格，並輸出印刷可靠、美麗的地圖。</p>
     <p>開發工具：Next.js、Tailwind CSS、Google Map API、Vercel。</p>
@@ -171,6 +218,7 @@ export const PROJECTS_ZH = <Project[]>[
   // 智慧手套 Smart Gloves
   {
     title: '智慧手套 Smart Gloves',
+    category: 'maker',
     description: `<b>「智慧手套 Smart Gloves」</b>，是我們在2018年3月底參加 台大電機創客松 MakeNTU 2018 時的專案作品。
     <br/>
     智慧手套旨在取代鍵盤及滑鼠，成為下個世代的人機介面裝置，希望使用者能透過智慧手套，操控生活中的所有事物，例如：控制智慧家電、作為遊戲控制器、演奏虛擬樂器等。
@@ -191,6 +239,7 @@ export const PROJECTS_ZH = <Project[]>[
   // 科幻風造型獎盃
   {
     title: '科幻風造型獎盃',
+    category: 'maker',
     description: `「科幻風造型獎盃」，是我在2017年11月時，受新竹黑客松官方委託打造的，希望能呈現出科技感、及體現創客們的創造力。<br /><br />
     這作品在技術上使用了兩大創客神器：雷射切割、3D列印，並搭配了自己焊接的LED開關電路。`,
     links: {
@@ -207,6 +256,7 @@ export const PROJECTS_ZH = <Project[]>[
   // 智慧釀藏酒大師 Winster
   {
     title: '智慧釀藏酒大師 Winster',
+    category: 'maker',
     description: `「智慧釀藏酒大師 Winster」，是一套幫助您釀酒和控管酒況的釀藏酒平台。
     <br /><br />
     主要能夠提供專業釀酒玩家、小型釀酒企業，酒的品種以及產地的分析和釀酒過程的錯誤偵測，同時在網頁與行動裝置上指示用戶，註冊、偵測並顯示相關資訊，並紀錄之，亦可對於單純收藏酒的一般用戶提供酒況偵測與建議。
@@ -228,6 +278,7 @@ export const PROJECTS_ZH = <Project[]>[
   // 智慧導盲犬 SigmaGO
   {
     title: '智慧導盲犬 SigmaGO',
+    category: 'maker',
     description: `「SigmaGO 智慧導盲犬」，是我們在2017年7月時參加 2017 臺大黑客松 HackNTU 時，開發的軟硬整合專案。
     <br /><br />
     專案目的是開發低成本的智慧導盲犬，取代需要龐大成本訓練的傳統導盲犬，造福盲人朋友的生活。
@@ -249,6 +300,7 @@ export const PROJECTS_ZH = <Project[]>[
   // 100sites
   {
     title: '100 Sites',
+    category: 'side',
     description: `為了成為全端工程師，我決定開始做大量的side-project，從做中學，高效地提升我所需要的能力。
     <br /><br />
     這就是100sites，從現在起我會寫出100個網頁並將其上傳，然後盡可能地說明我使用了哪些技術和工具。`,
@@ -269,6 +321,7 @@ export const PROJECTS_EN = <Project[]>[
   // CoreHour (Aburi Studio)
   {
     title: 'CoreHour - Time Boxing App for the 80/20 Rule',
+    category: 'aburi',
     description:
       'A minimalist time-boxing app that helps you focus on the 20% of tasks that drive 80% of results. Drag tasks into time slots, mark what is critical, and track your focus hours. Built at Aburi Studio.',
     links: {
@@ -285,6 +338,7 @@ export const PROJECTS_EN = <Project[]>[
   // FireFree (Aburi Studio)
   {
     title: 'FireFree - Track Your Path to Financial Freedom',
+    category: 'aburi',
     description:
       'A FIRE planning app with no expense logging and no bank linking: track your net worth, project your FIRE date, and visualize your journey to financial independence. Built at Aburi Studio, live now, with a no-account demo.',
     links: {
@@ -301,6 +355,7 @@ export const PROJECTS_EN = <Project[]>[
   // DailyWage (Aburi Studio)
   {
     title: 'DailyWage - Real-Time Salary Counter',
+    category: 'aburi',
     description:
       'Watch your salary tick up every 100 ms while a pixel corgi keeps you company. Tap to allocate earnings into savings goals; widgets keep counting on your lock screen. Free, no ads, and no backend — your data never leaves your device. Built at Aburi Studio.',
     links: {
@@ -314,9 +369,44 @@ export const PROJECTS_EN = <Project[]>[
       placeholder: 'empty',
     },
   },
+  // Equation Pyramid - Math Puzzle Game
+  {
+    title: 'Equation Pyramid - Math Puzzle Game',
+    category: 'side',
+    description:
+      "A math puzzle game inspired by Netflix's The Devil's Plan: arrange arithmetic operations to form valid equations. Built with Next.js and React Three Fiber for a 3D interactive experience — an open-source project co-created with Carol.",
+    links: {
+      post: '',
+      github: 'https://github.com/eason-dev/equation-pyramid',
+      site: 'https://equation-pyramid.vercel.app',
+    },
+    image: {
+      src: EquationPyramidImg,
+      alt: 'Equation Pyramid - Math Puzzle Game',
+      placeholder: 'blur',
+    },
+  },
+  // FocusZone - visionOS Productivity App
+  {
+    title: 'FocusZone - visionOS Productivity App',
+    category: 'side',
+    description:
+      'A productivity app designed for Apple Vision Pro: a Pomodoro timer combined with AI distraction detection (phone appearance, noise, head movement) for an immersive focus environment. Built with SwiftUI and RealityKit, co-created with Carol.',
+    links: {
+      post: '',
+      github: 'https://github.com/eason-dev/FocusZone',
+      site: '',
+    },
+    image: {
+      src: FocusZoneImg,
+      alt: 'FocusZone - visionOS Productivity App',
+      placeholder: 'blur',
+    },
+  },
   // Timez - Timezone Converter
   {
     title: 'Timez - Time Zone Converter',
+    category: 'side',
     description:
       'Easily convert time between different timezones and compare overlapping time periods',
     links: {
@@ -334,6 +424,7 @@ export const PROJECTS_EN = <Project[]>[
   {
     title:
       'Product Hunt Today - Automatically Generate Short Video Introductions to Hottest Product Hunt Projects on Twitter',
+    category: 'side',
     description:
       'Daily fetching popular projects on Product Hunt through the Product Hunt GraphQL API, then generating short videos using Remotion (with React!), and finally writing some introductions to publish posts on Twitter through the Twitter API.',
     links: {
@@ -350,6 +441,7 @@ export const PROJECTS_EN = <Project[]>[
   // Trend Micro ID Protection - Password Manager
   {
     title: 'Trend Micro ID Protection - Password Manager',
+    category: 'work',
     description: `
     <p>A cross-platform vault for managing sensitive data like passwords.</p>
     <ul>
@@ -371,6 +463,7 @@ export const PROJECTS_EN = <Project[]>[
   // Trend Micro News Blog
   {
     title: 'Trend Micro News Blog',
+    category: 'work',
     description: `
     <p>A news website with latest cybersecurity news and trends from Trend Micro.</p>
     <ul>
@@ -393,6 +486,7 @@ export const PROJECTS_EN = <Project[]>[
   // TaiKer Map
   {
     title: 'TaiKer Map - Taiwan Attraction Map Editor',
+    category: 'side',
     description: `<p>A utility-based web tool designed for accommodation businesses, tour groups, or event organizers, offering an easy-to-use map editor. Users can effortlessly select from a range of attractions, restaurants, and hotels in the vicinity, customize the style, and output the map in a print-ready, aesthetically pleasing format.</p>
     <p>Technologies Used: Next.js, Tailwind CSS, Google Map API, Vercel.</p>
     `,
@@ -410,6 +504,7 @@ export const PROJECTS_EN = <Project[]>[
   // 智慧手套 Smart Gloves
   {
     title: 'Smart Gloves - A Smart Gloves for Your Hands',
+    category: 'maker',
     description: `<b>"Smart Gloves"</b>, our project at MakeNTU 2018 in late March 2018, aims to replace keyboards and mice as the next generation human-computer interface device.
       <br/>
       It is designed for users to control everything in their lives, such as smart home appliances, gaming controllers, and playing virtual instruments.
@@ -429,6 +524,7 @@ export const PROJECTS_EN = <Project[]>[
   // 科幻風造型獎盃
   {
     title: 'Sci-fi Trophy',
+    category: 'maker',
     description: `The Sci-fi Trophy is a Maker project developed in 2017 for Hsinchu Hackathon, showcase the scientific knowledge and innovation of the makers.<br/>
     We used laser cutting, 3D printing, and a custom LED light circuit to make the trophy.`,
     links: {
@@ -445,6 +541,7 @@ export const PROJECTS_EN = <Project[]>[
   // 智慧釀藏酒大師 Winster
   {
     title: 'Winster - A Wine Master',
+    category: 'maker',
     description: `
     "Smart Winemaking Master Winster" is a winemaking and storage platform that helps you make wine and control the condition of your wine.
     <br /><br />
@@ -467,6 +564,7 @@ export const PROJECTS_EN = <Project[]>[
   // 智慧導盲犬 SigmaGO
   {
     title: 'SigmaGo - A Smart Guide Dog',
+    category: 'maker',
     description: `"SigmaGO Smart Guide Dog" is a software and hardware integration project developed when we participated in the 2017 National Taiwan University Hackathon (HackNTU) in July 2017.
     <br /><br />
     The purpose of the project is to develop low-cost smart guide dogs to replace traditional guide dogs that require huge training costs and benefit the lives of blind friends.
@@ -488,6 +586,7 @@ export const PROJECTS_EN = <Project[]>[
   // 100sites
   {
     title: '100 Sites',
+    category: 'side',
     description: `In order to become a full-end engineer, I decided to start doing a lot of side-projects, learn by doing, and effectively improve the capabilities I need.
     <br /><br />
     This is 100sites, from now on I will write 100 web pages and upload them, and then explain as much as possible what techniques and tools I used.`,
