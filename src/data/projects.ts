@@ -31,7 +31,7 @@ export const PROJECTS_ZH = <Project[]>[
   {
     title: 'CoreHour - 80/20 法則時間箱 App',
     description:
-      '極簡的時間箱（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。拖放任務到時間格、標記關鍵任務、追蹤專注時數。由 Aburi Studio 打造，目前 Beta 中。',
+      '極簡的時間箱（Time Boxing）App，幫助你專注在驅動 80% 成果的那 20% 任務上。拖放任務到時間格、標記關鍵任務、追蹤專注時數。由 Aburi Studio 打造。',
     links: {
       post: '/posts/corehour',
       github: '',
@@ -47,7 +47,7 @@ export const PROJECTS_ZH = <Project[]>[
   {
     title: 'FireFree - 財務自由追蹤工具',
     description:
-      '追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。我們先為自己打造、再分享出來的工具。由 Aburi Studio 打造，即將推出。',
+      '追蹤淨資產、預測你的 FIRE 日期、視覺化通往財務自由的旅程。我們先為自己打造、再分享出來的工具。由 Aburi Studio 打造，現已上線。',
     links: {
       post: '/posts/firefree',
       github: '',
@@ -56,6 +56,22 @@ export const PROJECTS_ZH = <Project[]>[
     image: {
       src: '/images/firefree/firefree-og-zh-TW.png',
       alt: 'FireFree - 財務自由追蹤工具',
+      placeholder: 'empty',
+    },
+  },
+  // DailyWage 天天開薪 (Aburi Studio)
+  {
+    title: '天天開薪 - 即時薪水計算器',
+    description:
+      '每 100 毫秒更新你今天賺到的薪水，像素柯基陪你上班。輕觸把收入分配進存錢目標，桌面小工具持續跳動。免費、無廣告、沒有後端——資料不離開你的手機。由 Aburi Studio 打造。',
+    links: {
+      post: '',
+      github: '',
+      site: 'https://dailywage.aburi.app',
+    },
+    image: {
+      src: '/images/dailywage/dailywage-og-zh-TW.png',
+      alt: '天天開薪 - 即時薪水計算器',
       placeholder: 'empty',
     },
   },
@@ -254,7 +270,7 @@ export const PROJECTS_EN = <Project[]>[
   {
     title: 'CoreHour - Time Boxing App for the 80/20 Rule',
     description:
-      'A minimalist time-boxing app that helps you focus on the 20% of tasks that drive 80% of results. Drag tasks into time slots, mark what is critical, and track your focus hours. Built at Aburi Studio, currently in beta.',
+      'A minimalist time-boxing app that helps you focus on the 20% of tasks that drive 80% of results. Drag tasks into time slots, mark what is critical, and track your focus hours. Built at Aburi Studio.',
     links: {
       post: '/posts/corehour',
       github: '',
@@ -270,7 +286,7 @@ export const PROJECTS_EN = <Project[]>[
   {
     title: 'FireFree - Track Your Path to Financial Freedom',
     description:
-      'Track your net worth, project your FIRE date, and visualize your journey to financial independence. A tool we built for ourselves first. Built at Aburi Studio, launching soon.',
+      'Track your net worth, project your FIRE date, and visualize your journey to financial independence. A tool we built for ourselves first. Built at Aburi Studio, live now.',
     links: {
       post: '/posts/firefree',
       github: '',
@@ -279,6 +295,22 @@ export const PROJECTS_EN = <Project[]>[
     image: {
       src: '/images/firefree/firefree-og-en.png',
       alt: 'FireFree - Track Your Path to Financial Freedom',
+      placeholder: 'empty',
+    },
+  },
+  // DailyWage (Aburi Studio)
+  {
+    title: 'DailyWage - Real-Time Salary Counter',
+    description:
+      'Watch your salary tick up every 100 ms while a pixel corgi keeps you company. Tap to allocate earnings into savings goals; widgets keep counting on your lock screen. Free, no ads, and no backend — your data never leaves your device. Built at Aburi Studio.',
+    links: {
+      post: '',
+      github: '',
+      site: 'https://dailywage.aburi.app',
+    },
+    image: {
+      src: '/images/dailywage/dailywage-og-en.png',
+      alt: 'DailyWage - Real-Time Salary Counter',
       placeholder: 'empty',
     },
   },
