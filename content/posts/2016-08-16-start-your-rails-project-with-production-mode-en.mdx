@@ -1,0 +1,191 @@
+---
+title: 'Start Your Rails Project in Production Mode'
+date: 2016-08-16 02:34
+tags: [Rails, Tutorial]
+category: Rails
+socialImage: 'https://imgur.com/a21E49E.jpg'
+type: Post
+slug: 'start-your-rails-project-with-production-mode'
+language: en
+description: ''
+---
+
+# Quick Reference:
+
+```bash
+$ RAILS_ENV=production rake db:migrate
+$ rake secret //產生secret key
+$ export SECRET_KEY_BASE=[貼入上個指令產生出來的密鑰]
+$ vim config/initializers/assets.rb  //加入用到的assets路徑
+確認各處引用assets的方法正確
+$ RAILS_ENV=production rake assets:precompile
+$ vim config/environments/production.rb  //將這行改成true: config.serve_static_assets = true
+$ rails s -e production
+```
+
+---
+
+# What Is Production Mode? Why Use It?
+
+Normally, when you run `$ rails s` in your project, you're starting it in development mode.
+
+In development mode, most changes show up on the page right away, which is convenient for development.
+
+But when the system actually goes live, we don't use development mode — we use **production mode**.
+
+In production mode, rails pre-compiles the assets together and puts them under the public/ folder for access, which **improves site performance**.
+
+# Starting a Rails Project in Production Mode
+
+## 0. Migrate Your Database
+
+Production mode and development mode use separate databases, so you need to migrate again:
+
+```bash
+$ RAILS_ENV=production rake db:migrate
+```
+
+## 1. Edit config/secret.yml to Set the secret_key_base for Production Mode
+
+To run a rails app properly, you need to set something called the **secret_key_base**, a secret key rails uses to verify browser cookies. rails has already set it up for development mode and test mode, but not for production mode — you have to do it yourself. The setting lives in the **config/secret.yml** file. Let's take a look at it:
+
+```c secret.yml
+// development mode的設定
+// 它使用 b1f4eb...3a9 這串密鑰（隨機生成的）
+development:
+  secret_key_base: b1f4eb6c1d97f627fbc0a3919fc27ab5f831200cdd0ea72317f404a2b9d878192bca27d92380f56051c60d0a364c86fe53d9b9866d487a17cf06582a783723a9
+
+// test mode使用 fe9d...c3b 這串密鑰
+test:
+  secret_key_base: fe9d49b7edc8e3a4dfa47c0682974aca4572388e929ea3e4f037b3e8841747fc3029e030bbd102a62d372596b4d753dd0c419b7425a8dcceca3817cf7d5dbc3b
+
+// production mode從執行環境裡抓 $SECRET_KEY_BASE 這個環境變數當作密鑰，但正常情況下該變數並不存在，所以出錯
+production:
+  secret_key_base: <%= ENV["SECRET_KEY_BASE"] %>
+```
+
+You have two ways to set the secret_key_base for production mode.
+
+### (1) The simpler way is to hardcode a fixed key:
+
+```c secret.yml
+// 前略...
+
+production:
+// 刪掉原本的 <%= ... %> ，替換成隨便一串長度30以上的英數組合字串給他當密鑰
+	secret_key_base: iameasonchangiamhandsomeiamthekingoftheworldnoonecandefeatmeiwantagirlfriendiamaloserqq
+```
+
+### (2) The safer way is to set the key in your environment:
+
+```bash
+$ rake secret // 生成一串密鑰，顯示在終端機上
+$ export SECRET_KEY_BASE=[此處貼上你剛剛產生的密鑰] // 把密鑰設定至環境變數 $SECRET_KEY_BASE
+```
+
+But if you stop there, the environment variable disappears when you restart your terminal, so you can write the setting into your shell config file.
+
+For me, using zsh, the config file is **./.zshrc**
+For Mac's default terminal shell bash, it's **./.bash_profile**
+
+```bash .zshrc
+// 在.zshrc中插入下面這行
+export SECRET_KEY_BASE=[此處貼上你剛剛產生的密鑰]
+```
+
+At this point you should be able to start your rails project in production mode without errors. Run `$ rails s -e production` to start the server, then browse to `localhost:3000` to check the current result.
+
+Your screen probably looks a lot like mine. Why is it so ugly? Where's the beautiful page I designed without sleeping for days?
+
+![Imgur](https://i.imgur.com/oVAdVyK.png?2)
+
+That's because you haven't told rails which design assets you're using yet. The next steps show you how:
+
+## 2. Tell rails Which Assets Need to Be Pre-compiled
+
+As mentioned earlier, the reason to use production mode is to **improve page load performance**, and the way it does that is by **pre-compiling all kinds of assets**. You need to manually tell rails which assets need pre-compiling. Apart from image files, every asset you use needs to be added, such as js and css files.
+
+To do this, update the **config/initializers/assets.rb** file and add the paths of the assets you use:
+
+```c++ assets.rb
+// 前略...
+// 後面加入這一行，裡頭放入你要precompile的檔案
+Rails.application.config.assets.precompile += [
+  'bootstrap.js', // 請幫我compile vendor/assets/javascripts/bootstrap.js 這支檔案
+	'courses/content.js', // 還有 app/assets/javascripts/courses/content.js
+	'courses/chart.js',  // app/assets/javascripts/courses/chart.js 也要
+	'new-index.css', // 還有這個css，它在app/assets/stylesheets/new-index.css.scss
+	'login.css', // app/assets/stylesheets/login.css.erb也要
+	'newcomer/*.css', // app/assets/stylesheets/newcomer/裡面的css檔都要！
+	'NotoSans-Regular-ttf' // 這個是字形檔唷！它在app/assets/fonts/NotoSans-Regular-ttf
+]
+```
+
+rails looks for your asset files in the **app/assets/** and **vendor/assets/** folders, and it looks in the corresponding path based on the file extension:
+
+- js files are looked up under **javascripts/**
+- css files are looked up under **stylesheets/**
+- font files are looked up under **fonts/**
+- image files are looked up under **images/**
+
+But rails compiles all image files for you by default, so **you don't need to add .png, .jpg, and other image files**.
+
+## 3. Make Sure You're Referencing Assets Correctly
+
+After compiling, asset filenames change, so the traditional way of referencing assets stops working. You have to use the methods rails provides instead:
+
+- To include a js file, use `<%= javascript_include_tag 'your-js-path' %>`
+- To include a css file, use `<%= stylesheet_link_tag 'your-css-path' %>`
+- To include an image, use `<%= image_tag 'your-image-path' %>`
+- To reference an asset inside a js file, use `<%= asset_path('your-img-path') %>`
+
+## 4. Pre-compile it!
+
+Run this command in your project directory:
+
+```bash
+$ RAILS_ENV=production rake assets:precompile
+```
+
+This pre-compiles the assets into /public/assets.
+
+## 5. Update the Production Mode Settings
+
+The assets are compiled, but by default production mode won't let users access the files in /public/assets.
+
+You have to edit the **config/environments/production.rb** file.
+
+Around line 24, change
+
+```ruby production.rb
+config.serve_static_assets = false
+```
+
+to **true**:
+
+```ruby production.rb
+config.serve_static_assets = true
+```
+
+## 6. Start It in Production Mode!!
+
+Run this command in your project directory:
+
+```bash
+$ rails s -e production
+```
+
+And your rails project starts in production mode!
+
+Browse to `localhost:3000` and you'll see your beautiful page, now loading much faster!
+
+![imgur](https://imgur.com/IGxS4QM.jpg)
+
+---
+
+Test environment:
+
+- OS: Mac OS X
+- Rails version: 4.2.6
+- Ruby version: 2.0.0p481
+- Shell: zsh

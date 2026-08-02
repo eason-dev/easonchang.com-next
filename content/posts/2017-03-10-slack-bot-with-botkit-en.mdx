@@ -1,0 +1,106 @@
+---
+title: Trying Out Botkit, Let's Write a Slack Chatbot!
+tags:
+  - Botkit
+  - Chatbot
+  - Slack
+category: Chatbot
+socialImage: 'https://imgur.com/wnDgpFG.png'
+date: 2017-03-10 02:57
+type: Post
+slug: 'slack-bot-with-botkit'
+language: en
+description: ''
+---
+
+# Trying Out Botkit, Let's Write a Slack Chatbot!
+
+Goal: build a working Slack chatbot
+
+What you need:
+
+- A computer with internet access that can run Node.js (I'm using Arch Linux)
+- A Slack team for testing (you can create your own or use an existing one)
+
+# What Is Botkit
+
+[Botkit](https://www.botkit.ai/) is an open-source chatbot development toolkit. It currently supports platforms like [Slack](https://slack.com/), [Facebook Messenger](https://www.messenger.com/), [Cisco Spark](https://www.ciscospark.com/), [Twilio IP Messaging](https://www.twilio.com/chat), and [Microsoft Bot Framework](https://dev.botframework.com/).
+
+Botkit's Github link: [https://github.com/howdyai/botkit](https://github.com/howdyai/botkit)
+
+# Downloading Botkit and Node.js
+
+## Downloading Node.js (only needed if you haven't installed it before)
+
+Node.js is an open-source, cross-platform, lightweight JavaScript runtime, commonly used to build all kinds of web services.
+
+Botkit runs on Node.js, so you have to install Node.js before you can use Botkit.
+
+You can find installation instructions for each platform on the Node.js official website:
+https://nodejs.org/en/
+
+On Arch Linux, just enter the following command to easily install Node.js with the system's built-in pacman package manager:
+
+```bash
+sudo pacman -S nodejs npm
+```
+
+## Downloading Botkit
+
+Botkit officially offers two ways to download it: via Git and via npm.
+
+Here we'll use Git, so the example code gets downloaded along with it.
+
+Enter the following command in your terminal:
+
+```bash
+git clone https://github.com/howdyai/botkit
+```
+
+This downloads botkit into your current directory, including the botkit library and example programs.
+
+Then download the Node.js modules that Botkit needs:
+
+```bash
+cd botkit/
+npm install
+```
+
+# Setting Up Your First Slack Chatbot
+
+Once the download is done, it's time to put a chatbot into your Slack team!
+
+## Slack-side Setup
+
+Open https://my.slack.com/services/new/bot in your browser (replace **my** with your **Slack team's own URL**).
+
+This link adds a new chatbot to your Slack team. Enter the name you want to give your bot in the **@username** field, then click **Add bot integration** to create it. I named my bot **mmbot**.
+
+![](https://imgur.com/erLvNAU.png)
+
+Chatbot created! Next, you'll see an **API Token** on its settings page. **Copy it** — you'll need it in the next step.
+
+The chatbot backend program you're about to run needs this token to connect to the Slack bot you just set up.
+
+![](https://imgur.com/W6FAR8S.png)
+
+## Running the Botkit Backend
+
+Finally, let's test with the slack-bot.js example that botkit provides! Run it with the command below, remembering to replace `token=your-token` with the API Token you just copied:
+
+```bash
+token=your-token node slack-bot.js
+```
+
+# Done! Say Hi to Your New Bot!
+
+Your new chatbot is all set up! Open Slack and go talk to it!!
+
+The slack-bot.js example supports a few very simple conversations. Try saying these to it:
+
+- Hello
+- What is your name?
+- Who am I?
+- Call me Eason!
+
+![](https://imgur.com/6VI5HdN.png)
