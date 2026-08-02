@@ -14,8 +14,8 @@ export function GET() {
 - Date: ${post.date}
 - Language: ${post.language}
 ${post.description ? `- Description: ${post.description}\n` : ''}${
-  post.translation === 'ai' ? '- Translation: AI-assisted\n' : ''
-}
+  post.written === 'ai' ? '- Written: AI-assisted\n' : ''
+}${post.translation === 'ai' ? '- Translation: AI-assisted\n' : ''}
 ${post.raw.trim()}`;
   });
 

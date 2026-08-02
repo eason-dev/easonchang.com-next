@@ -50,6 +50,9 @@ const posts = defineCollection({
     // Set on the translated half of a language pair: who produced the
     // translation. Absent on originals.
     translation: z.enum(['ai']).optional(),
+    // Set when the post itself was drafted with AI assistance. Only ever
+    // set deliberately at writing time — never retroactively guessed.
+    written: z.enum(['ai']).optional(),
     redirect_from: z.array(z.string()).optional(),
   }),
   transform: async (post, context) => {

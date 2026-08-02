@@ -22,6 +22,7 @@ export interface PostForPostLayout {
   socialImage: string;
   raw: string;
   translation?: 'ai';
+  written?: 'ai';
 }
 
 export type RelatedPostForPostLayout = {
@@ -44,13 +45,23 @@ export default function PostLayout({
   onlyHavePostInAnotherLocale,
   children,
 }: Props) {
-  const { date, title, raw, translation } = post;
+  const { date, title, raw, translation, written } = post;
 
   const locale = useLocale();
   const pathname = usePathname();
   const { resolvedTheme } = useTheme();
   const t = useTranslations('common');
   const originalLocale = locale === 'en' ? 'zh-TW' : 'en';
+  // One combined notice when a post is both AI-written and AI-translated,
+  // so the disclosures never stack.
+  const aiNoticeKey =
+    written === 'ai' && translation === 'ai'
+      ? 'post-ai-written-translation-notice'
+      : translation === 'ai'
+        ? 'post-ai-translation-notice'
+        : written === 'ai'
+          ? 'post-ai-written-notice'
+          : null;
 
   return (
     <>
@@ -87,10 +98,10 @@ export default function PostLayout({
                     <Balancer>{t('post-locale-not-available-notice')}</Balancer>
                   </div>
                 )}
-                {translation === 'ai' && (
+                {aiNoticeKey && (
                   <div className="mb-8 rounded-lg border border-gray-300 bg-gray-100 py-2 px-4 text-center text-sm text-gray-500 transition-colors dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                     <Balancer>
-                      {t.rich('post-ai-translation-notice', {
+                      {t.rich(aiNoticeKey, {
                         original: (chunks) => (
                           <Link
                             href={pathname}

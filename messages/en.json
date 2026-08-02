@@ -31,7 +31,9 @@
     "english": "English",
     "chinese": "中文",
     "post-locale-not-available-notice": "Currently displaying Chinese version content. This article doesn't have a English version yet. Please stay tuned!",
-    "post-ai-translation-notice": "This English version was translated from my <original>Chinese original</original> with AI assistance."
+    "post-ai-translation-notice": "This English version was translated from my <original>Chinese original</original> with AI assistance.",
+    "post-ai-written-notice": "I wrote this post with AI assistance.",
+    "post-ai-written-translation-notice": "I wrote the <original>Chinese original</original> with AI assistance, and this English version was AI-translated from it."
   },
   "indexPage": {
     "latest-posts": "Latest Posts",
