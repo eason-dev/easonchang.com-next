@@ -14,7 +14,7 @@ import LayoutWrapper from '@/components/LayoutWrapper';
 import CommandPalette from '@/components/organisms/CommandPalette';
 import { NEXT_PUBLIC_GOOGLE_ANALYTICS } from '@/constants/envValues';
 import siteMetadata from '@/data/siteMetadata';
-import { getSocialLinks } from '@/data/socialLinks';
+import { allProfileUrls, getSocialLinks } from '@/data/socialLinks';
 import { routing } from '@/i18n/routing';
 import { allPostsOfLocaleNewToOld } from '@/lib/content';
 import { languageAlternates, localizedUrl } from '@/lib/seo';
@@ -125,8 +125,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
 
   const messages = await getMessages();
 
-  const social = getSocialLinks(locale);
-
   const commandPalettePosts = allPostsOfLocaleNewToOld(locale).map((post) => ({
     slug: post.slug,
     title: post.title,
@@ -151,16 +149,8 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
         name: siteMetadata.author,
         url: siteMetadata.siteUrl,
         image: siteMetadata.siteUrl + siteMetadata.siteLogo,
-        email: social.email,
-        sameAs: [
-          social.github,
-          social.linkedin,
-          social.twitter,
-          social.facebook,
-          social.instagram,
-          social.threads,
-          social.bluesky,
-        ],
+        email: siteMetadata.email,
+        sameAs: allProfileUrls,
       },
     ],
   };

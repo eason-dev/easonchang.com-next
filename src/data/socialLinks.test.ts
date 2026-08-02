@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 
-import { getSocialLinks } from '@/data/socialLinks';
+import { allProfileUrls, getSocialLinks } from '@/data/socialLinks';
 
 /**
  * Every markdown link target on a page, trailing slash normalized away.
@@ -40,5 +40,27 @@ describe('getSocialLinks', () => {
 
   it('falls back to the English accounts for an unknown locale', () => {
     expect(getSocialLinks('de')).toEqual(getSocialLinks('en'));
+  });
+});
+
+describe('allProfileUrls', () => {
+  it('covers both locales, so one sameAs list identifies the whole person', () => {
+    for (const locale of ['en', 'zh-TW']) {
+      const { twitterID, email, ...profiles } = getSocialLinks(locale);
+
+      for (const [platform, url] of Object.entries(profiles)) {
+        expect(allProfileUrls, `${locale} ${platform}`).toContain(url);
+      }
+    }
+  });
+
+  it('lists each profile once', () => {
+    expect(allProfileUrls).toEqual([...new Set(allProfileUrls)]);
+  });
+
+  it('carries no @handles, which are not resolvable URLs', () => {
+    for (const url of allProfileUrls) {
+      expect(url).toMatch(/^https:\/\//);
+    }
   });
 });

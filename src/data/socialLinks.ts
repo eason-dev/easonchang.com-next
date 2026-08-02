@@ -46,3 +46,20 @@ export const getSocialLinks = (locale: string): SocialLinks => ({
   linkedin: siteMetadata.linkedin,
   ...(locale === 'zh-TW' ? localizedAccounts['zh-TW'] : localizedAccounts.en),
 });
+
+/**
+ * Every profile URL Eason owns, both audiences' accounts together, for the
+ * Person JSON-LD's `sameAs`.
+ *
+ * Deliberately not localized: `sameAs` is an identity graph rather than a link
+ * for readers, and both locales publish the same Person `@id`. Emitting a
+ * different half of the set per page would have the two pages disagree about
+ * one entity and show any given crawl only part of it.
+ */
+export const allProfileUrls: string[] = [
+  siteMetadata.github,
+  siteMetadata.linkedin,
+  ...Object.values(localizedAccounts).flatMap(({ twitterID, ...urls }) =>
+    Object.values(urls)
+  ),
+];
