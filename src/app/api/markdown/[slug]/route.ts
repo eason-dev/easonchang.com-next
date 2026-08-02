@@ -11,7 +11,13 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const locale = request.nextUrl.searchParams.get('locale') ?? 'en';
+  // The locale arrives as a query param on direct calls, or as a request
+  // header when src/proxy.ts rewrites /posts/<slug>.md here (query params
+  // added during a middleware rewrite don't survive into request.nextUrl).
+  const locale =
+    request.nextUrl.searchParams.get('locale') ??
+    request.headers.get('x-markdown-locale') ??
+    'en';
 
   const candidates = allPostsNewToOld.filter((post) => post.slug === slug);
   if (candidates.length === 0) {
