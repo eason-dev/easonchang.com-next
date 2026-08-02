@@ -66,3 +66,6 @@ posts-draft/
 
 # VSCode
 .vscode/
+
+# TypeScript incremental build info
+*.tsbuildinfo

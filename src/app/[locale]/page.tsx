@@ -13,18 +13,11 @@ import { getSocialLinks } from '@/data/socialLinks';
 import { allPostsOfLocaleNewToOld } from '@/lib/content';
 import { buildPageMetadata } from '@/lib/seo';
 import formatDate from '@/lib/utils/formatDate';
+import stripHtml from '@/lib/utils/stripHtml';
 
 const MAX_DISPLAY = 6;
 const FEATURED_PROJECTS = 3;
 const ABURI_PRODUCTS = ['CoreHour', 'FireFree', 'DailyWage'];
-
-/* Some project descriptions carry rich HTML for the projects page; the
- * homepage tile only needs a plain-text teaser line. */
-const stripHtml = (html: string) =>
-  html
-    .replace(/<[^>]+>/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
 
 type PageProps = {
   params: Promise<{ locale: string }>;
@@ -59,7 +52,9 @@ export default async function HomePage({ params }: PageProps) {
   }));
   const projects = locale === 'en' ? PROJECTS_EN : PROJECTS_ZH;
   const social = getSocialLinks(locale);
-  const featuredProjects = projects.slice(0, FEATURED_PROJECTS);
+  const featuredProjects = projects
+    .filter((project) => project.category === 'aburi')
+    .slice(0, FEATURED_PROJECTS);
 
   const externalLink = (href: string) => {
     const ExternalLink = (chunks: React.ReactNode) => (
@@ -172,18 +167,16 @@ export default async function HomePage({ params }: PageProps) {
       {/* Featured projects */}
       <FadeIn delay={0.15} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
-          <div className="flex items-baseline justify-between">
-            <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
-              {t('featured-projects')}
-            </h2>
-            <CustomLink
-              href="/projects"
-              aria-label="all projects"
-              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
-            >
-              {tCommon('view-all-projects', { count: projects.length })} &rarr;
-            </CustomLink>
-          </div>
+          <h2 className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-gray-400">
+            <Image
+              src="/images/aburi-studio-logo.png"
+              alt=""
+              width={20}
+              height={20}
+              className="rounded-md"
+            />
+            {t('featured-projects')}
+          </h2>
           <ul className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project) => (
               <li key={project.title}>
@@ -216,24 +209,30 @@ export default async function HomePage({ params }: PageProps) {
               </li>
             ))}
           </ul>
+          <div className="mt-6 border-t border-gray-900/5 pt-4 text-center dark:border-white/5">
+            <CustomLink
+              href="/projects"
+              aria-label="all projects"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+            >
+              {tCommon('view-all-projects', { count: projects.length })}
+              <span
+                aria-hidden="true"
+                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
+              >
+                &rarr;
+              </span>
+            </CustomLink>
+          </div>
         </section>
       </FadeIn>
 
       {/* Latest posts */}
       <FadeIn delay={0.2} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
-          <div className="flex items-baseline justify-between">
-            <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
-              {t('latest-posts')}
-            </h2>
-            <CustomLink
-              href="/posts"
-              aria-label="all posts"
-              className="text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
-            >
-              {tCommon('view-all-posts', { count: posts.length })} &rarr;
-            </CustomLink>
-          </div>
+          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+            {t('latest-posts')}
+          </h2>
           <ul className="mt-2 divide-y divide-gray-900/5 dark:divide-white/5">
             {latestPosts.map((post) => (
               <li key={post.slug}>
@@ -269,6 +268,21 @@ export default async function HomePage({ params }: PageProps) {
               </li>
             ))}
           </ul>
+          <div className="mt-2 border-t border-gray-900/5 pt-4 text-center dark:border-white/5">
+            <CustomLink
+              href="/posts"
+              aria-label="all posts"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+            >
+              {tCommon('view-all-posts', { count: posts.length })}
+              <span
+                aria-hidden="true"
+                className="transition-transform motion-safe:group-hover/link:translate-x-0.5"
+              >
+                &rarr;
+              </span>
+            </CustomLink>
+          </div>
         </section>
       </FadeIn>
     </div>
