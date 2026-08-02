@@ -1,0 +1,139 @@
+---
+title: 'Build a Bluetooth Piano App! Using AppInventor with Arduino, HC05, and a Buzzer'
+date: 2017-03-05 23:00
+tags: [AppInventor, HC05, Arduino]
+category: Arduino
+socialImage: 'https://imgur.com/HXjQPNQ.png'
+type: Post
+language: en
+translation: ai
+slug: 'bluetooth-keyboard'
+description: ''
+---
+
+Today we're building a simple Bluetooth piano app!
+
+- An Android app built with AppInventor 2 as the control interface
+- An Arduino UNO for hardware control
+- An HC-05 Bluetooth module to receive commands from the phone
+- A passive buzzer as the sound device
+
+DEMO video:
+
+[![](https://img.youtube.com/vi/hr8DXRMLY9s/0.jpg)](https://www.youtube.com/watch?v=hr8DXRMLY9s)
+
+### Prerequisites
+
+- Basic AppInventor usage
+- Basic Arduino programming
+- Using the HC-05 Bluetooth module
+- Using a buzzer
+
+---
+
+# Writing the Android App (with AppInventor)
+
+The app acts as the control interface of the Bluetooth piano. It tells the Arduino which note to play, over Bluetooth.
+
+Download the .aia file: [keyboard.aia](https://drive.google.com/file/d/0B89iCvlgxOnydm9oaW9mOVdNTzg/view?usp=sharing)
+
+### Layout
+
+- At the top, **a ListPicker** for connecting to Bluetooth
+- In the middle, **eight buttons** as piano keys, from DO, RE, ... up to DO5
+- At the bottom, **a button** for disconnecting Bluetooth
+- Plus an invisible **BluetoothClient** component
+
+![](https://imgur.com/jv9FN5e.png)
+
+### Programming
+
+- When the **Connect Bluetooth** ListPicker is tapped, list all paired Bluetooth devices
+- After the **Connect Bluetooth** ListPicker has a selection, connect to Bluetooth
+- When the **Disconnect** button is pressed, disconnect
+- When a **DO~DO5** key button is pressed, send **'1'~'8'** over Bluetooth to tell the Arduino to play the note
+- When a **DO~DO5** key button is released, send **'S'** over Bluetooth to tell the Arduino to stop the sound
+
+![](https://imgur.com/ouu8fbu.png)
+
+---
+
+# Hardware Wiring
+
+### Materials:
+
+- Arduino UNO x1 (any UNO-like board works)
+- Passive buzzer x1
+- HC-05 Bluetooth module x1 (HC-06 works too)
+
+### Wiring:
+
+- HC-05 RX to pin 11, TX to pin 10
+- Buzzer positive pin to pin 6 (must support PWM)
+
+![](https://imgur.com/SFuIdNX.png)
+
+---
+
+# Arduino Code
+
+- Keep reading data from Bluetooth
+- On receiving '1'~'8', play the corresponding note
+- On receiving 'S', stop the sound
+
+```c
+#include <SoftwareSerial.h>
+SoftwareSerial BTSerial(10, 11); // 藍芽Serial使用的pin腳（Arduino的RX,TX，對應到HC05的TX,RX)
+
+#define DO  262 // 音階頻率table
+#define RE  294
+#define MI  330
+#define FA  349
+#define SOL 392
+#define LA  440
+#define SI  494
+#define DO5 523
+
+#define BUZZER 6 // 蜂鳴器pin腳
+
+void setup() {
+  BTSerial.begin(9600);
+}
+
+void loop() {
+  if (BTSerial.available()){
+    char note = BTSerial.read();
+    switch(note){
+      case '1': // 若接收到字元'1'（從手機App傳來的）
+        tone(BUZZER, DO); // 就開始發出DO的音
+        break;
+      case '2': // 以此類推
+        tone(BUZZER, RE);
+        break;
+      case '3':
+        tone(BUZZER, MI);
+        break;
+      case '4':
+        tone(BUZZER, FA);
+        break;
+      case '5':
+        tone(BUZZER, SOL);
+        break;
+      case '6':
+        tone(BUZZER, LA);
+        break;
+      case '7':
+        tone(BUZZER, SI);
+        break;
+      case '8':
+        tone(BUZZER, DO5);
+        break;
+      case 'S': // 若接收到'S'
+        noTone(BUZZER); // 停止發音
+        break;
+    }
+  }
+}
+```
+
+Done! Now you can play beautiful music with your phone!

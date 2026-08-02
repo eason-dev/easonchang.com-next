@@ -78,6 +78,7 @@ description: 'One to two sentences, used for SEO, feeds, and post cards.'
 - `title`, `slug`, `date`, `description`, `socialImage` are required by the schema
 - `socialImage` can be an absolute URL or a `/images/...` path; an empty string `''` falls back to the generated `/api/og` image
 - Never change the `slug` of a published post; use `redirect_from` if a URL must move
+- When AI drafts the post (it does when you are writing it), set `written: ai` in the frontmatter — the site renders an AI-assistance disclosure. Never add it retroactively to posts Eason wrote himself
 - Local images go in `public/images/<slug>/`
 
 ## Before finishing

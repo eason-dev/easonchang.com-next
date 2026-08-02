@@ -1,0 +1,340 @@
+---
+title: "【100sites #008】Showcase, a single-page website design to showcase my portfolio"
+date: 2016-03-20 18:42
+tags: [100sites, Project, Web]
+category: 100sites
+socialImage: "https://i.imgur.com/sZzCbXP.jpg"
+type: Post
+language: en
+translation: ai
+slug: "100sites-008-showcase"
+description: ""
+---
+
+# Showcase, a single-page website design to show off my practice portfolio
+
+> One-sentence summary: My first single-page website
+
+[Try the Showcase live demo](http://kamigami55.github.io/100sites/008_Showcase/)
+
+[Check out the Showcase code on Github](https://github.com/eason-dev/100sites/tree/gh-pages/008_Showcase)
+
+![Screenshot 2016-03-21 2.07.29 AM.png](https://i.imgur.com/sZzCbXP.jpg)
+
+I've always wanted to learn how to design single-page websites, so that's today's 100sites topic!
+
+I found a pretty good tutorial, [PJCHENder's jQuery study notes, lesson 8 part 1](http://pjchender.blogspot.tw/2015/04/jquery_19.html) and [part 2](http://pjchender.blogspot.tw/2015/04/jquery-2mousewheel.html), which walks you through building a simple single-page website step by step.
+
+So I followed the tutorial one step at a time. Once it was done, I swapped in my own images and added some text, links, and an overlay — and that became today's result, Showcase!
+
+Besides the single-page design itself, the special parts of Showcase are the frosted glass and dark overlay effects, both done with CSS.
+
+The frosted glass effect (adjust the px value to get however much blur you want):
+
+```css
+-moz-filter: blur(4px);
+-webkit-filter: blur(4px);
+-o-filter: blur(4px);
+-ms-filter: blur(4px);
+filter: blur(4px);
+```
+
+The dark overlay is a div with the class cover, using background-color and opacity to get the effect:
+
+```css
+.cover {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  background-color: #333;
+  opacity: 0.6;
+  z-index: 1;
+}
+```
+
+The full code is below:
+
+```html index.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Showcase</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="jquery.mousewheel.min.js"></script>
+    <script src="showcase.js"></script>
+    <link rel="stylesheet" type="text/css" href="showcase.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="nav">
+        <ul>
+          <li style="background-color:#46dd46"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+      </div>
+      <div class="info">
+        <h2>#001</h2>
+        <h1>Timer</h1>
+        <a href="http://kamigami55.github.io/100sites/001_Timer/timer.html"
+          >Demo</a
+        >
+      </div>
+      <div class="p1 picture"></div>
+      <div class="info">
+        <h2>#002</h2>
+        <h1>Pomodoro</h1>
+        <a
+          href="http://kamigami55.github.io/100sites/002_Pomodoro/pomodoro.html"
+          >Demo</a
+        >
+      </div>
+      <div class="p2 picture"></div>
+      <div class="info">
+        <h2>#003</h2>
+        <h1>Todolist</h1>
+        <a>/* Demo Preparing */</a>
+      </div>
+      <div class="p3 picture"></div>
+      <div class="info">
+        <h2>#004</h2>
+        <h1>Fireworks</h1>
+        <a href="http://kamigami55.github.io/100sites/004_Firework/">Demo</a>
+      </div>
+      <div class="p4 picture"></div>
+      <div class="info">
+        <h2>#005</h2>
+        <h1>Drawer</h1>
+        <a href="http://kamigami55.github.io/100sites/005_Drawer/">Demo</a>
+      </div>
+      <div class="p5 picture"></div>
+      <div class="info">
+        <h2>#006</h2>
+        <h1>Snack</h1>
+        <a href="http://kamigami55.github.io/100sites/006_Snack/">Demo</a>
+      </div>
+      <div class="p6 picture"></div>
+      <div class="info">
+        <h2>#007</h2>
+        <h1>Pong</h1>
+        <a href="http://kamigami55.github.io/100sites/007_Pong/">Demo</a>
+      </div>
+      <div class="p7 picture"></div>
+      <div class="cover"></div>
+    </div>
+  </body>
+</html>
+```
+
+```css showcase.css
+* {
+  padding: 0;
+  margin: 0;
+}
+body {
+  overflow: hidden;
+}
+.cover {
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0px;
+  background-color: #333;
+  opacity: 0.6;
+  z-index: 1;
+}
+.picture {
+  background-size: cover;
+  height: 100vh;
+  -moz-filter: blur(4px);
+  -webkit-filter: blur(4px);
+  -o-filter: blur(4px);
+  -ms-filter: blur(4px);
+  filter: blur(4px);
+}
+h1 {
+  font-size: 20vh;
+  color: #fff;
+  font-family: Sans-serif;
+  text-shadow: 4px 4px 30px #222;
+  position: relative;
+  top: 50vh;
+  z-index: 3;
+}
+h2 {
+  font-size: 8vh;
+  color: #fff;
+  font-family: Sans-serif;
+  text-shadow: 3px 3px 20px #222;
+  position: relative;
+  top: 50vh;
+  z-index: 3;
+}
+.info {
+  text-align: center;
+}
+a {
+  font-size: 10vh;
+  color: #fff;
+  font-family: Sans-serif;
+  text-shadow: 3px 3px 20px #222;
+  position: relative;
+  top: 60vh;
+  margin: 0px auto;
+  z-index: 3;
+  text-decoration: none;
+}
+a:hover {
+  color: #4f4;
+}
+.p1 {
+  background-image: url(images/p1.png);
+}
+.p2 {
+  background-image: url(images/p2.png);
+}
+.p3 {
+  background-image: url(images/p3.png);
+}
+.p4 {
+  background-image: url(images/p4.png);
+}
+.p5 {
+  background-image: url(images/p5.png);
+}
+.p6 {
+  background-image: url(images/p6.png);
+}
+.p7 {
+  background-image: url(images/p7.png);
+}
+
+/* 插入導覽列 */
+.nav {
+  position: fixed;
+  top: 50%;
+  right: 0px;
+  z-index: 2;
+}
+li {
+  width: 10px;
+  height: 10px;
+  margin: 10px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0, 5) inset, -1px -1px 1px rgba(
+        0,
+        0,
+        0,
+        0,
+        5
+      ) inset;
+  list-style-type: none;
+}
+```
+
+```javascript showcase.js
+$(document).ready(function () {
+  var num_li = $("li").length;
+  n = 1;
+  moving = 0;
+  for (i = 0; i <= num_li; ++i) {
+    $("html,body").stop();
+    $(".nav li:eq(" + i + ")").click({ id: i }, function (e) {
+      $(".nav li").css("background-color", "white");
+      page = e.data.id + 1;
+      $("html,body").animate({ scrollTop: $(".p" + page).offset().top });
+      $(this).css("background-color", "#46dd46");
+      n = e.data.id + 1;
+    });
+  }
+
+  $(window).scroll(function () {
+    if (
+      $(window).scrollTop() >= $(".p1").offset().top &&
+      $(window).scrollTop() < $(".p2").offset().top
+    ) {
+      $(".nav li").css("background-color", "white");
+      $(".nav li:eq(0)").css("background-color", "#46dd46");
+    } else if (
+      $(window).scrollTop() >= $(".p2").offset().top &&
+      $(window).scrollTop() < $(".p3").offset().top
+    ) {
+      $(".nav li").css("background-color", "white");
+      $(".nav li:eq(1)").css("background-color", "#46dd46");
+    } else if (
+      $(window).scrollTop() >= $(".p3").offset().top &&
+      $(window).scrollTop() < $(".p4").offset().top
+    ) {
+      $(".nav li").css("background-color", "white");
+      $(".nav li:eq(2)").css("background-color", "#46dd46");
+    } else if (
+      $(window).scrollTop() >= $(".p4").offset().top &&
+      $(window).scrollTop() < $(".p5").offset().top
+    ) {
+      $(".nav li").css("background-color", "white");
+      $(".nav li:eq(3)").css("background-color", "#46dd46");
+    } else if (
+      $(window).scrollTop() >= $(".p5").offset().top &&
+      $(window).scrollTop() < $(".p6").offset().top
+    ) {
+      $(".nav li").css("background-color", "white");
+      $(".nav li:eq(4)").css("background-color", "#46dd46");
+    } else if (
+      $(window).scrollTop() >= $(".p6").offset().top &&
+      $(window).scrollTop() < $(".p7").offset().top
+    ) {
+      $(".nav li").css("background-color", "white");
+      $(".nav li:eq(5)").css("background-color", "#46dd46");
+    } else if ($(window).scrollTop() >= $(".p7").offset().top) {
+      $(".nav li").css("background-color", "white");
+      $(".nav li:eq(6)").css("background-color", "#46dd46");
+    }
+  });
+
+  $(window).mousewheel(function (e) {
+    // $("html,body").stop()
+    if (moving == 0) {
+      moving = 1;
+      if (e.deltaY < 0) {
+        if (n < num_li) {
+          ++n;
+        }
+      } else {
+        if (n > 1) {
+          --n;
+        }
+      }
+      $("html,body").animate(
+        { scrollTop: $(".p" + n).offset().top },
+        800,
+        function () {
+          moving = 0;
+        }
+      );
+    }
+    console.log(moving + " " + e.deltaY + " " + n);
+  });
+
+  // 一進入網頁時，將導覽列垂直置中
+  center();
+
+  // 縮放網頁時，將導覽列垂直置中
+  $(window).resize(function () {
+    center();
+  });
+
+  // 計算導覽列置中的位置
+  function center() {
+    pos = $(window).height() / 2 - $(".nav").height() / 2;
+    $(".nav").css("top", pos);
+  }
+});
+```

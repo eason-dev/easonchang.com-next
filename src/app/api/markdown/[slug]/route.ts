@@ -11,7 +11,13 @@ export async function GET(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   const { slug } = await params;
-  const locale = request.nextUrl.searchParams.get('locale') ?? 'en';
+  // The locale arrives as a query param on direct calls, or as a request
+  // header when src/proxy.ts rewrites /posts/<slug>.md here (query params
+  // added during a middleware rewrite don't survive into request.nextUrl).
+  const locale =
+    request.nextUrl.searchParams.get('locale') ??
+    request.headers.get('x-markdown-locale') ??
+    'en';
 
   const candidates = allPostsNewToOld.filter((post) => post.slug === slug);
   if (candidates.length === 0) {
@@ -20,13 +26,22 @@ export async function GET(
   const post =
     candidates.find((candidate) => candidate.language === locale) ??
     candidates[0];
+  const original = candidates.find(
+    (candidate) => candidate.language !== post.language
+  );
 
   const body = `# ${post.title}
 
 - Canonical: ${localizedUrl(post.language, post.path)}
 - Date: ${post.date}
 - Language: ${post.language}
-${post.description ? `- Description: ${post.description}\n` : ''}
+${post.description ? `- Description: ${post.description}\n` : ''}${
+  post.written === 'ai' ? '- Written: AI-assisted\n' : ''
+}${
+  post.translation === 'ai'
+    ? `- Translation: AI-assisted${original ? `, from the ${original.language} original` : ''}\n`
+    : ''
+}
 ${post.raw.trim()}
 `;
 

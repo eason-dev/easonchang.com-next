@@ -15,13 +15,16 @@ export default function proxy(request: NextRequest) {
   // /posts/<slug>.md → raw markdown for agents/LLMs (see /llms.txt).
   const markdownMatch = pathname.match(POST_MARKDOWN_PATTERN);
   if (markdownMatch) {
+    const locale = pathname.startsWith('/zh-TW/') ? 'zh-TW' : 'en';
     const url = request.nextUrl.clone();
     url.pathname = `/api/markdown/${markdownMatch[1]}`;
-    url.searchParams.set(
-      'locale',
-      pathname.startsWith('/zh-TW/') ? 'zh-TW' : 'en'
-    );
-    return NextResponse.rewrite(url);
+    url.searchParams.set('locale', locale);
+    // Query params added during a middleware rewrite don't survive into the
+    // route handler's request.nextUrl, so pass the locale as a request header
+    // too (the handler prefers the query param when called directly).
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set('x-markdown-locale', locale);
+    return NextResponse.rewrite(url, { request: { headers: requestHeaders } });
   }
 
   return handleI18nRouting(request);

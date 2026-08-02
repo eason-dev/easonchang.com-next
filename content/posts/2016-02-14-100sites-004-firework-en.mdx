@@ -1,0 +1,140 @@
+---
+title: "【100sites #004】Firework"
+date: 2016-02-14 16:57
+tags: [100sites, Project, Web, Processingjs, Processing]
+category: 100sites
+socialImage: "https://i.imgur.com/wHyk3xI.jpg"
+type: Post
+language: en
+translation: ai
+slug: "100sites-004-firework"
+description: ""
+---
+
+# Firework - Enjoy the Taipei 101 New Year's Fireworks
+
+[Github](https://github.com/eason-dev/100sites/tree/gh-pages/004_Firework)
+
+[Live Demo](http://kamigami55.github.io/100sites/004_Firework/)
+
+![Screenshot 2016-02-15 12.08.44 AM.png](https://i.imgur.com/wHyk3xI.jpg)
+
+I've been looking for a framework for building front-end animations, and today I finally found one: [Processing.js](http://processingjs.org). It's the js version of [Processing](https://processing.org), and it lets you build all kinds of visual arts projects.
+
+So I used it to make today's 100sites project: Firework, a simple fireworks animation.
+
+Here's today's code:
+
+```html index.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Fireworks 101</title>
+    <script src="http://cdn.bootcss.com/processing.js/1.4.16/processing.min.js"></script>
+  </head>
+
+  <body>
+    <h1>Enjoy the fireworks!</h1>
+    <canvas data-processing-sources="firework.pde"></canvas>
+  </body>
+</html>
+```
+
+```javascript firework.pde
+int time = 0;
+ArrayList fireworks = new ArrayList();
+
+
+void setup() {
+  size(600, 600);
+  frameRate(30);
+  smooth();
+  noStroke();
+  loop();
+}
+
+
+
+void draw() {
+  background(0);
+  if(int(random(4)) == 0){
+    add_firework(50+int(random(500)), 50+int(random(350)));
+  }
+  display_firework();
+  draw_taipei101();
+  removeOldFirework();
+}
+
+
+
+void mousePressed() {
+  add_firework(mouseX, mouseY);
+}
+
+
+
+void display_firework() {
+  for(int i = 0; i < fireworks.size(); ++i){
+    fireworks.get(i).display();
+  }
+}
+
+
+
+void removeOldFirework() {
+  for(int i = 0; i < fireworks.size(); ++i) {
+    if(fireworks.get(i).passingTime > 20) {
+      fireworks.remove(i);
+    }
+  }
+}
+
+
+
+void add_firework(int x, int y) {
+  fireworks.add(new Firework(x, y));
+}
+
+
+
+void draw_taipei101() {
+  fill(100);
+  quad(270, 560, 330, 560, 320, 600, 280, 600);
+  quad(270, 520, 330, 520, 320, 560, 280, 560);
+  quad(270, 480, 330, 480, 320, 520, 280, 520);
+  quad(270, 440, 330, 440, 320, 480, 280, 480);
+  rect(295, 410, 10, 30);
+  rect(299, 390, 2, 20);
+}
+
+
+
+class Firework {
+  int x;
+  int y;
+  int directions;
+  int passingTime;
+  int colorR;
+  int colorG;
+  int colorB;
+
+  Firework(int myX, int myY) {
+    x = myX;
+    y = myY;
+    directions = 6+int(random(16));
+    colorR = 100+int(random(155));
+    colorG = 100+int(random(155));
+    colorB = 100+int(random(155));
+    passingTime = 0;
+  }
+
+  void display() {
+    fill(colorR, colorG, colorB);
+    for(int i = 0; i < directions; ++i) {
+      ellipse(x+4*passingTime*sin(TWO_PI*i/directions), y+4*passingTime*cos(TWO_PI*i/directions), 7, 7);
+    }
+    ++passingTime;
+  }
+
+}
+```

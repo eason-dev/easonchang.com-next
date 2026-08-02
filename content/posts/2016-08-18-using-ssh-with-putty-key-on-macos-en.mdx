@@ -1,0 +1,63 @@
+---
+title: 'Using SSH with a Putty Key on MacOS'
+date: 2016-08-18 11:00
+tags: [MacOSX, SSH, Putty, Tutorial]
+category: Environment
+socialImage: 'https://imgur.com/3B3Hrd4.png'
+type: Post
+slug: 'using-ssh-with-putty-key-on-macos'
+language: en
+translation: ai
+description: ''
+---
+
+# Quick Reference:
+
+```bash
+$ brew install putty #安裝puttygen套件
+$ puttygen <your-putty-key.ppk> -O private-openssh -o <your-ssh-key.pem> #將putty key轉換成ssh key
+$ chmod 400 <your-ssh-key.pem> #調整.pem權限
+$ ssh -i <your-ssh-key.pem> <user@your.server.com> #使用.pem進行ssh連線
+```
+
+---
+
+I suddenly found a small bug on my academic program's website, so I needed to connect to the AWS (Amazon Web Service) server hosting the site to fix the code. But the senior who built the site only left behind a .ppk Putty-only SSH key file, and my poor Mac really doesn't have the disk space to install a copy of Windows just to run Putty. So I started digging into how to make MacOS's built-in ssh command accept this .ppk putty key file.
+
+Here's the solution I found:
+
+# 1. Use puttygen to Convert the Putty Key into an SSH-usable Key
+
+The ssh command can't accept a .ppk putty key — you have to convert it into a key ssh can use first.
+
+The puttygen program can do the conversion for you. You can install it with [Homebrew](http://brew.sh/index_zh-tw.html):
+
+```bash
+$ brew install putty
+```
+
+Then enter the following command to convert the putty key into an ssh key:
+
+```bash
+$ puttygen <your-putty-key.ppk> -O private-openssh -o <your-ssh-key.pem>
+```
+
+# 2. Set Proper Access Permissions on the SSH Key
+
+If the permissions on your ssh key file are too open, the server will block you from connecting with this key, so you have to set proper permissions on it (sometimes it's already correct without setting anything):
+
+```bash
+$ chmod 400 <your-ssh-key.pem>
+```
+
+# 3. Connect
+
+Now you can use it to connect!
+
+```bash
+$ ssh -i <your-ssh-key.pem> <user@your.server.com>
+```
+
+---
+
+Reference: [https://stackoverflow.com/questions/3475069/use-ppk-file-in-mac-terminal-to-connect-to-remote-connection-over-ssh](https://stackoverflow.com/questions/3475069/use-ppk-file-in-mac-terminal-to-connect-to-remote-connection-over-ssh)

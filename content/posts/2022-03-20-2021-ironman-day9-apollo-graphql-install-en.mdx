@@ -1,0 +1,168 @@
+---
+title: Day9 Install apollo-graphql in Next.js to Connect the WordPress GraphQL API (Part 1)
+description: "Install the apollo-graphql package in Next.js, which we will use to connect the WordPress GraphQL API"
+slug: "2021-ironman-day9-apollo-graphql-install"
+category: "Frontend"
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+  - WordPress
+  - GraphQL
+  - WPGraphQL
+  - Apollo
+socialImage: ""
+date: 2022-03-20 15:10
+type: Post
+language: en
+translation: ai
+meta:
+  title: Day9 Install apollo-graphql in Next.js to Connect the WordPress GraphQL API (Part 1)
+---
+
+In the last article we successfully installed the WPGraphQL plugin on WordPress and got the GraphQL API running. Now we will connect it from our Next.js blog frontend, fetch the post list data, and show it on the homepage.
+
+## Following the Official Next.js Examples
+
+For this part we will follow these 2 official Next.js sample codes:
+
+1. [cms-wordpress](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress)
+2. [with-apollo](https://github.com/vercel/next.js/tree/canary/examples/with-apollo)
+
+The first one, **cms-wordpress**, demos how to connect a WordPress GraphQL API in Next.js. It uses the fetch function to call the GraphQL API for post data, rendering the post list on the homepage and the post content on the post detail page. We can refer to which GraphQL fields this example uses — we will implement our pages with roughly the same fields.
+
+But since the first example calls the GraphQL API with a plain fetch function, it is a bit limited feature-wise. If we later want more logic or features, like pagination (showing 10 posts per page and so on), we would have to reinvent the wheel ourselves. So for this part we will follow the second example, **with-apollo**, and install apollo-client to execute the GraphQL API calls instead. It handles many common needs for us, like loading state, error state, client-side cache, fetch more function, and so on, letting us use the GraphQL API in more versatile ways.
+
+## Implementation: Install apollo client
+
+We follow the [with-apollo](https://github.com/vercel/next.js/tree/canary/examples/with-apollo) example here. We mainly install the **@apollo/client** and **graphql** packages as our GraphQL client, plus **deepmerge** and **lodash** for data handling
+
+```
+yarn add @apollo/client graphql deepmerge lodash
+```
+
+Next, create a new **/lib/apolloClient.js** file. It provides a useApollo function that will let us wrap the whole Next.js project with ApolloClient in a moment:
+
+```javascript
+// Mainly follow this example
+// https://github.com/vercel/next.js/tree/canary/examples/with-apollo
+import { useMemo } from "react";
+import { ApolloClient, HttpLink, InMemoryCache } from "@apollo/client";
+import { concatPagination } from "@apollo/client/utilities";
+import merge from "deepmerge";
+import isEqual from "lodash/isEqual";
+
+import { NEXT_PUBLIC_GRAPHQL_ENDPOINT } from "../constants/envValues";
+
+export const APOLLO_STATE_PROP_NAME = "__APOLLO_STATE__";
+
+let apolloClient;
+
+function createApolloClient() {
+  return new ApolloClient({
+    ssrMode: typeof window === "undefined",
+    link: new HttpLink({
+      uri: NEXT_PUBLIC_GRAPHQL_ENDPOINT, // Server URL (must be absolute)
+      credentials: "same-origin", // Additional fetch() options like `credentials` or `headers`
+    }),
+    cache: new InMemoryCache({
+      typePolicies: {
+        Query: {
+          fields: {
+            posts: concatPagination(),
+          },
+        },
+      },
+    }),
+  });
+}
+
+export function initializeApollo(initialState = null) {
+  const _apolloClient = apolloClient ?? createApolloClient();
+
+  // If your page has Next.js data fetching methods that use Apollo Client, the initial state
+  // gets hydrated here
+  if (initialState) {
+    // Get existing cache, loaded during client side data fetching
+    const existingCache = _apolloClient.extract();
+
+    // Merge the existing cache into data passed from getStaticProps/getServerSideProps
+    const data = merge(initialState, existingCache, {
+      // combine arrays using object equality (like in sets)
+      arrayMerge: (destinationArray, sourceArray) => [
+        ...sourceArray,
+        ...destinationArray.filter((d) =>
+          sourceArray.every((s) => !isEqual(d, s))
+        ),
+      ],
+    });
+
+    // Restore the cache with the merged data
+    _apolloClient.cache.restore(data);
+  }
+  // For SSG and SSR always create a new Apollo Client
+  if (typeof window === "undefined") return _apolloClient;
+  // Create the Apollo Client once in the client
+  if (!apolloClient) apolloClient = _apolloClient;
+
+  return _apolloClient;
+}
+
+export function addApolloState(client, pageProps) {
+  if (pageProps?.props) {
+    pageProps.props[APOLLO_STATE_PROP_NAME] = client.cache.extract();
+  }
+
+  return pageProps;
+}
+
+export function useApollo(pageProps) {
+  const state = pageProps[APOLLO_STATE_PROP_NAME];
+  const store = useMemo(() => initializeApollo(state), [state]);
+  return store;
+}
+```
+
+Then modify **/pages/\_app.js**, using the useApollo we just wrote and the ApolloProvider from the @apollo/client package to wrap the whole Next.js app, so that later we can call the GraphQL API inside any page or component:
+
+```javascript
+import { ApolloProvider } from "@apollo/client";
+
+import { useApollo } from "../lib/apolloClient";
+
+import "../styles/globals.css";
+
+export default function App({ Component, pageProps }) {
+  const apolloClient = useApollo(pageProps);
+
+  return (
+    <ApolloProvider client={apolloClient}>
+      <Component {...pageProps} />
+    </ApolloProvider>
+  );
+}
+```
+
+In the earlier **apolloClient.js**, we need to specify the GraphQL API endpoint when creating the client. The standard practice is to extract the URL into an environment variable, and in this project I named it NEXT_PUBLIC_GRAPHQL_ENDPOINT.
+
+Note the NEXT_PUBLIC\_ prefix. We want this environment variable to be visible in the browser too, because in a few articles we will implement pagination, and fetching the second page of the post list happens on the client side, so the browser also needs to know what our API_ENDPOINT is. In Next.js, the prefix decides whether the browser can see it — see the [related docs](https://nextjs.org/docs/basic-features/environment-variables#exposing-environment-variables-to-the-browser). It is similar to the REACT_APP\_ prefix in Create-react-app
+
+I like to gather environment variables into a single JavaScript file and export them from one place, so we can see at a glance which environment variables the project has. Here we create **/constants/envValues.js**:
+
+```javascript
+export const NEXT_PUBLIC_GRAPHQL_ENDPOINT =
+  process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT;
+```
+
+Then, for local Next.js development, environment variables are usually set by creating an **environment variable file**. When the Next.js dev server starts, it automatically reads files with specific names, usually **.env.local**. So let's create **/.env.local** — replace the endpoint URL with your own; with WPGraphQL enabled it is usually the /graphql path under your WordPress domain:
+
+```
+NEXT_PUBLIC_GRAPHQL_ENDPOINT=https://xxxxxx.mybluehost.me/graphql
+```
+
+## Next Article: Fetch the Post List Data
+
+We have now successfully installed ApolloClient in Next.js — but we are not done yet. In the next article we will use the freshly installed ApolloClient to fetch post data from WordPress and show the post list on the homepage!
+
+You can see the changes from this article in this [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/be0fc629e5e67d97ef68856c7540cb5bcb82e80f)
+
+> This article is also published on [iT 邦幫忙 13th iThome Ironman](https://ithelp.ithome.com.tw/articles/10270795)

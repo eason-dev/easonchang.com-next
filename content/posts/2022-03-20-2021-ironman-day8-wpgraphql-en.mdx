@@ -1,0 +1,78 @@
+---
+title: Day8 GraphQL Introduction, Installing the WPGraphQL plugin on WordPress
+description: 'Install the WPGraphQL plugin on WordPress to create a GraphQL API, so the Next.js frontend can fetch post data'
+slug: '2021-ironman-day8-wpgraphql'
+category: 'Frontend'
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+  - WordPress
+  - GraphQL
+  - GraphiQL
+  - WPGraphQL
+socialImage: ''
+date: 2022-03-20 15:00
+type: Post
+language: en
+translation: ai
+meta:
+  title: Day8 GraphQL Introduction, Installing the WPGraphQL plugin on WordPress
+---
+
+Our system architecture is simple: a Next.js frontend hosted on Vercel, and a WordPress backend CMS hosted on BlueHost.
+
+For the frontend and backend to communicate, the most common approach is for the backend to expose an API for the frontend to call. The frontend fetches post data from the backend CMS through the API and renders it on screen.
+
+So how does WordPress expose an API? The most common API format on the web today is the RESTful API, and WordPress has a built-in RESTful API you can call directly to get all kinds of data. But in this series, we will use a newer API format called GraphQL.
+
+# GraphQL, a More Flexible API Format Developed by Facebook
+
+![Imgur](https://i.imgur.com/y5DPhvc.png)
+
+[GraphQL](https://graphql.org/) is an API format, open-sourced by Facebook in 2015 for everyone to use. Like RESTful APIs, GraphQL exchanges data over HTTP requests, but it beats RESTful in both backend development and frontend integration.
+
+As the architecture on the GraphQL official site above shows, the first block on the left, "Describe your data", describes how the backend builds the API. The backend no longer needs to create a separate API endpoint and write logic for every use case. It only needs to install a GraphQL server and define a schema.json file describing the database types and how they connect to each other. That's it! The GraphQL API is ready. There is only one endpoint, but it supports countless ways of calling it, replacing the tens or hundreds of RESTful APIs of the past and greatly reducing backend workload.
+
+The middle and left blocks of the same image describe how the frontend uses the GraphQL API. When querying, the frontend always sends a POST request to that single endpoint, but the parameters carry a query string like the one shown in the middle image, expressing the intent of this API call — telling the API which fields the frontend needs right now. The API then returns a JSON response in the matching shape, containing exactly the right data, no more and no less.
+
+This means a few things for the frontend:
+
+1. The frontend gets more control: if requirements change and one page needs to display one more field, with a traditional RESTful API you would have to ask the backend to return an extra field in some API, and align on all the cases and types of the new return value before the frontend could integrate it — time-consuming back-and-forth. With GraphQL it is super simple: the frontend just adds one more field to the query string to ask the API for more data, and the backend does not change at all. And since GraphQL is strongly typed, you don't have to worry about this field returning strange values.
+2. More precise data fetching: a traditional RESTful API might serve multiple pages or even multiple apps, so it returns a lot of data — but not every page needs all of it, and the extra data adds latency and bandwidth cost. GraphQL is more flexible: every page that uses the API can fetch exactly the data it needs, wasting nothing.
+3. Always up-to-date API docs: because the backend has a schema.json file when exposing the API, it usually pairs with tools like GraphiQL that auto-generate the latest API docs and an interactive development environment. With RESTful APIs this takes extra effort to set up, while the GraphQL ecosystem installs it for you out of the box, improving the developer experience.
+
+So in this series we will use GraphQL as our API format. Next, let's enable GraphQL on WordPress.
+
+# Install the WPGraphQL Plugin to Enable GraphQL
+
+WordPress does not support a GraphQL API out of the box — you need to install a plugin, and the most popular one is [WPGraphQL](https://www.wpgraphql.com/). Let's install it!
+
+![Imgur](https://i.imgur.com/w9XidAz.png)
+
+There are two ways to install a plugin on WordPress. Popular plugins can usually be found by searching the plugin market page and clicking the install button; for more obscure ones you have to find a zip file on sites like Github and upload it to WordPress.
+
+WPGraphQL is very popular, so we search for it directly on the plugin market and click "Install now". After clicking, don't close the screen right away — once the installation finishes, the button changes to "Activate", and you need to click Activate for it to take effect
+
+![Imgur](https://i.imgur.com/zMzcRAC.png)
+
+After activating, a GraphiQL IDE button appears at the top of the screen. If you see it, the installation succeeded! Click in and play around. The screen looks like this:
+
+![Imgur](https://i.imgur.com/7cW1Ub4.png)
+
+We don't need any configuration. WPGraphQL automatically knows which types WordPress has and builds the whole Schema for us. The Explorer on the left lists every Schema we can use, representing all the data we can query. Later in the series we will cover how to add custom types, but the basics are more than enough here.
+
+The GraphiQL IDE is an interactive development tool. Once you browse to the types and fields you need, you can check the fields you want, and the matching query string is generated automatically in the middle. Later we can paste that query string into Next.js and use it. For now let's just play around inside the GraphiQL IDE.
+
+The most common operation is fetching the post list, so in the Explorer on the left we find posts, check it, expand it, expand the nodes level, and keep going down checking the fields we want to see. In this image I checked the slug, title, uri, id, and date fields. When done, press the play-like button at the top, and it fetches real data based on this query string. On the right you can see the JSON response, showing the matching fields of the posts I wrote
+
+![Imgur](https://i.imgur.com/iq6AhZF.png)
+
+Congratulations, you now know how to work with GraphQL on WordPress! In the next article we will connect the GraphQL API from Next.js!
+
+## References:
+
+- https://graphql.org/
+- https://ithelp.ithome.com.tw/articles/10200678
+- https://www.wpgraphql.com/
+
+> This article is also published on [iT 邦幫忙 13th iThome Ironman](https://ithelp.ithome.com.tw/articles/10269849)

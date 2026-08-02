@@ -1,0 +1,127 @@
+---
+title: "【100sites #005】Drawer"
+date: 2016-02-15 17:49
+tags: [100sites, Project, Web]
+category: 100sites
+socialImage: "https://i.imgur.com/k5wMk9z.jpg"
+type: Post
+language: en
+translation: ai
+slug: "100sites-005-drawer"
+description: ""
+---
+
+# Drawer - Simple Number Drawing
+
+[Github](https://github.com/eason-dev/100sites/tree/gh-pages/005_Drawer)
+
+[Live Demo](http://kamigami55.github.io/100sites/005_Drawer/)
+
+![Screenshot 2016-02-16 1.47.27 AM.png](https://i.imgur.com/k5wMk9z.jpg)
+
+I moved back to Hsinchu today and really didn't have much time to code, so I wrote a simple but practical little number-drawing program.
+
+The feature so far is very basic: the user enters a minimum and a maximum, clicks the button, and gets a random number.
+
+For frameworks I only used JQuery and Bootstrap, my two favorites.
+
+I'll add more features when I have time, like different drawing modes and a spinning-wheel animation.
+
+Here's the code:
+
+```html index.html
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Drawer</title>
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+      integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+      integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="col-md-6 col-md-offset-3">
+        <h1>Drawer!</h1>
+        <h2>Pick One:</h2>
+        <div class="form-inline">
+          From
+          <input
+            type="number"
+            class="form-control"
+            id="minimum"
+            placeholder="Minimum"
+          />
+          To
+          <input
+            type="number"
+            class="form-control"
+            id="maximum"
+            placeholder="Maximum"
+          />
+          <button class="btn btn-primary" id="pickone">Pick one!</button>
+          <div class="panel panel-info" id="result-panel">
+            <div class="panel-body" id="result-body">
+              Choose your Max and Min, I will give you a number!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script src="drawer.js"></script>
+</html>
+```
+
+```javascript drawer.js
+$(document).ready(function () {
+  pickone_btn = $("#pickone");
+  result_panel = $("#result-panel"); // style of result panel, used to change result panel style
+  result_body = $("#result-body"); // body of result panel, used to display result
+  max_fld = $("#maximum"); // maximum input field
+  min_fld = $("#minimum"); // minimum input field
+
+  pickone_btn.click(function () {
+    var min = parseInt(min_fld.val());
+    var max = parseInt(max_fld.val());
+
+    // if the input is invalid (empty or not number)
+    if (isNaN(min) || isNaN(max)) {
+      result_body.html("I need both MIN and MAX!");
+      // set style to danger(red)
+      result_panel.addClass("panel-danger");
+      result_panel.removeClass("panel-info");
+      result_panel.removeClass("panel-success");
+      return;
+    }
+
+    if (min > max) {
+      // interchange min & max
+      var tmp = min;
+      min = max;
+      max = tmp;
+      // interchange value of input fields
+      max_fld.val(max);
+      min_fld.val(min);
+    }
+
+    var result = Math.floor(Math.random() * (max - min + 1) + min);
+    result_body.html("You got <b>" + result + "</b> !");
+    // set style to success(green)
+    result_panel.addClass("panel-success");
+    result_panel.removeClass("panel-info");
+    result_panel.removeClass("panel-danger");
+  });
+});
+```

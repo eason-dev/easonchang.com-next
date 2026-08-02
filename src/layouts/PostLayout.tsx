@@ -12,6 +12,7 @@ import ReadingProgress from '@/components/ReadingProgress';
 import ScrollTop from '@/components/ScrollTop';
 import TableOfContents from '@/components/TableOfContents';
 import siteMetadata from '@/data/siteMetadata';
+import { Link, usePathname } from '@/i18n/navigation';
 import formatDate from '@/lib/utils/formatDate';
 
 export interface PostForPostLayout {
@@ -20,6 +21,8 @@ export interface PostForPostLayout {
   description: string;
   socialImage: string;
   raw: string;
+  translation?: 'ai';
+  written?: 'ai';
 }
 
 export type RelatedPostForPostLayout = {
@@ -42,11 +45,23 @@ export default function PostLayout({
   onlyHavePostInAnotherLocale,
   children,
 }: Props) {
-  const { date, title, raw } = post;
+  const { date, title, raw, translation, written } = post;
 
   const locale = useLocale();
+  const pathname = usePathname();
   const { resolvedTheme } = useTheme();
   const t = useTranslations('common');
+  const originalLocale = locale === 'en' ? 'zh-TW' : 'en';
+  // One combined notice when a post is both AI-written and AI-translated,
+  // so the disclosures never stack.
+  const aiNoticeKey =
+    written === 'ai' && translation === 'ai'
+      ? 'post-ai-written-translation-notice'
+      : translation === 'ai'
+        ? 'post-ai-translation-notice'
+        : written === 'ai'
+          ? 'post-ai-written-notice'
+          : null;
 
   return (
     <>
@@ -81,6 +96,23 @@ export default function PostLayout({
                 {onlyHavePostInAnotherLocale && (
                   <div className="mb-8 rounded-lg border border-gray-300 bg-gray-100 py-2 px-4 text-center font-medium text-gray-500 transition-colors dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                     <Balancer>{t('post-locale-not-available-notice')}</Balancer>
+                  </div>
+                )}
+                {aiNoticeKey && (
+                  <div className="mb-8 rounded-lg border border-gray-300 bg-gray-100 py-2 px-4 text-center text-sm text-gray-500 transition-colors dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                    <Balancer>
+                      {t.rich(aiNoticeKey, {
+                        original: (chunks) => (
+                          <Link
+                            href={pathname}
+                            locale={originalLocale}
+                            className="underline transition-colors hover:text-primary-500"
+                          >
+                            {chunks}
+                          </Link>
+                        ),
+                      })}
+                    </Balancer>
                   </div>
                 )}
                 {children}

@@ -1,0 +1,99 @@
+---
+title: Day7 Publish Our Next.js Site with Vercel, and Set Up Automatic Deployment with Github
+description: "Publish the Next.js project to Vercel, see your work live online, and set up automatic deployment with Github."
+slug: "2021-ironman-day7-vercel-publish"
+category: "Frontend"
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+  - Vercel
+  - Github
+  - CICD
+socialImage: ""
+date: 2022-03-20 14:50
+type: Post
+language: en
+translation: ai
+meta:
+  title: Day7 Publish Our Next.js Site with Vercel, and Set Up Automatic Deployment with Github
+---
+
+In the last article we created our Next.js project, and we can now develop and change code on our own machine! The next step is to put it online on a cloud host, so the whole world can see it!
+
+We haven't changed anything or added any features yet. But unless your project is already a famous website, or a launch schedule forces you to finish everything before going live, for a small new blog I recommend setting up the deployment flow first. It makes development more rewarding — you can see your work live right away, and you can share it with others anytime to ask for feedback ~~(and show off a little)~~
+
+You can deploy a Next.js site on any host that runs Node.js, but here we will use [Vercel](https://vercel.com/) to deploy.
+
+# Introduction to the Vercel Hosting Platform
+
+Vercel is a website hosting platform from Vercel, the company (same name) that develops Next.js. It supports deploying many modern web frameworks, including Next.js, React, Vue, Angular, Gatsby, Svelte, and more — there is a detailed list on the official site. And since it shares the same parent as Next.js, it is of course the best place to host a Next.js site.
+
+Deploying a Next.js site on Vercel is basically completely free, as long as your traffic is not too big! No credit card required, and the deployment process is totally painless — a few button clicks, a few seconds, and it's done. So generous!
+
+What makes Vercel even better is that it integrates with Github. When you push new changes to your Github repo, it automatically triggers a new deployment and updates your already-deployed site right away, without you manually rebuilding anything — Vercel handles it all. This mechanism has a name: Continuous Deployment (CD), and it greatly improves the developer experience! So we will start by creating a Github repo and connecting it to Vercel.
+
+# Create a Github repo
+
+If you have written code before, you know this flow well, so we will go through it quickly!
+
+Go to [Github](https://github.com/), click the plus sign in the top right to create a new Repository, enter the project name you want, and click the create button. Since we already have some code locally from the last article, we want to push our local code up and don't want the repo to contain any default files, so leave the default README.md options unchecked:
+
+![Imgur](https://i.imgur.com/QHHIrlr.png)
+
+Once it's created, copy the second code snippet below, and run it in a terminal inside your local Next.js folder:
+
+![Imgur](https://i.imgur.com/PuVPj8U.png)
+
+```
+git remote add origin git@github.com:eason-dev/oh-so-pro-blog.git
+git branch -M main
+git push -u origin main
+```
+
+![Imgur](https://i.imgur.com/178Ikeq.png)
+
+After running it, refresh the Github page. If you see something like the image below, with your code uploaded, this part is done!
+
+![Imgur](https://i.imgur.com/L6fQQ9V.png)
+
+# Connect Vercel to Github for Automatic Deployment
+
+Next, go to the Vercel site to create a new project. Remember to log in with your Github account
+
+https://vercel.com/new
+
+After logging in you will see a screen like the image below. The left side lists all the repos in your Github account. Select the Next.js blog repo we just created and click the Import button
+
+![Imgur](https://i.imgur.com/rT1W4di.png)
+
+You will move on to the next setup screen. First it asks you to set up a Team, but if you are not collaborating with anyone, you can click Skip for now
+
+![Imgur](https://i.imgur.com/LmPlQLb.png)
+
+Below that, you can further tell Vercel which framework your project uses, and which commands to deploy with. Nothing to change here either — the default Next.js settings are fine, just click the Deploy button below:
+
+![Imgur](https://i.imgur.com/TacSntL.png)
+
+Wait about a minute for the build to finish, and the success screen appears!!!
+
+![Imgur](https://i.imgur.com/bATVcYG.png)
+
+Click the button into the Dashboard and you will find all kinds of advanced settings to adjust, like environment variables. We don't need to touch any of them for now
+
+![Imgur](https://i.imgur.com/YBJ0gUJ.png)
+
+Click the Visit button and you will see your successfully deployed new site!! Congratulations, your deployment is complete!!
+
+Vercel also assigned it a pretty decent URL, and your site is now visible to the whole world! And whenever you push changes to Github, the site automatically updates to the latest version! Super convenient! From here on we can just focus on building features!
+
+![Imgur](https://i.imgur.com/5P1n5XQ.png)
+
+Here are my own project URL and Github repo. You can follow the latest code and screens of all upcoming changes here:
+
+https://oh-so-pro-blog.vercel.app/
+
+https://github.com/eason-dev/oh-so-pro-blog
+
+In the next article we will start connecting WordPress and Next.js! We will begin by setting up the GraphQL API on the WordPress side.
+
+> This article is also published on [iT 邦幫忙 13th iThome Ironman](https://ithelp.ithome.com.tw/articles/10269342)

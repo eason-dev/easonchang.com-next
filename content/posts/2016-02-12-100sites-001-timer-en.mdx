@@ -1,0 +1,51 @@
+---
+title: "【100sites #001】Timer"
+date: 2016-02-12 15:56
+tags: [100sites, Project, Web]
+category: 100sites
+socialImage: "https://i.imgur.com/7fMXTrA.jpg"
+type: Post
+language: en
+translation: ai
+slug: "100sites-001-timer"
+description: "A very simple countdown timer."
+---
+
+<p>
+  <a
+    href="https://github.com/eason-dev/100sites/tree/master/001_Timer"
+    target="_blank"
+  >
+    Github
+  </a>
+</p>
+
+<p>
+  <a
+    href="http://kamigami55.github.io/100sites/001_Timer/timer.html"
+    target="_blank"
+  >
+    Live Demo
+  </a>
+</p>
+
+![Screenshot 2016-02-12 1.01.54 AM.png](https://i.imgur.com/7fMXTrA.jpg)
+
+<p>A very simple countdown timer.</p>
+
+<p>
+  I built it with the classic front-end trio — HTML, CSS, and JavaScript — one
+  file each.
+</p>
+
+<p>
+  The core timing feature is done with window.setInterval(function, delay),
+  which works fine in normal use.
+</p>
+
+<p>
+  The current problem is that the time drifts once it runs for a while. And
+  when the user switches to another tab, with the Timer running in the
+  background, the browser gives setInterval fewer resources, so the countdown
+  slows way down or even stops completely. I haven't found a solution yet.
+</p>

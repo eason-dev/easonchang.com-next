@@ -1,67 +1,44 @@
 ---
-title: "Dark Mode Support with Tailwind CSS and next-themes - Modern Next.js Blog Series #10"
-description: "Supporting dark mode with Tailwind CSS and using the next-themes package to detect reader's preferred mode and implement a toggle button"
-slug: "darkmode-tailwindcss"
+title: "Installing Tailwind CSS and Related ESLint and Prettier Settings - Modern Next.js Blog Series #09"
+description: "Installing Tailwind CSS, a CSS utility tool, and setting up the corresponding ESLint and Prettier rules"
+slug: "tailwindcss-setup"
 language: en
+translation: ai
 socialImage: ""
-date: 2022-09-25
+date: 2022-09-24
 type: Post
 isDraft: false
 ---
 
-> This article is also published on [iT 邦幫忙 2022 iThome Ironman](https://ithelp.ithome.com.tw/articles/10298268)
+> This article is also published at [it 邦幫忙 2022 iThome Ironman Contest](https://ithelp.ithome.com.tw/articles/10297905)
 
-In this article, we will enable dark mode (also known as dark theme) for Tailwind CSS installed in the previous article.
+## TL;DR
 
-We will use the [next-themes](https://github.com/pacocoursey/next-themes) package to manage theme switching and detect the preferred theme, and we will implement a toggle button.
+This is the 9th article in the "Modern Blog 30 Days" series. In the previous article, we enabled MDX support in Contentlayer. In this article, we will install Tailwind CSS, a CSS utility tool, and set up the corresponding ESLint and Prettier rules, getting ready to beautify our site!
 
-The results are shown in the screenshots below:
+Screenshot of the results:
 
-![Light mode and toggle](https://i.imgur.com/TFd5fiq.jpg)
-
-![Dark mode](https://i.imgur.com/m0XkqUO.jpg)
+![Index Page result of Tailwind CSS](https://i.imgur.com/gJiZP1Q.jpg)
 
 The code changes for this article are as follows:
 
-https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day09-install-tailwindcss...day10-darkmode
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day08-mdx-support...day09-install-tailwindcss
 
 ---
 
-## Installing next-themes
-
-Here we use the [next-themes](https://github.com/pacocoursey/next-themes) package to help us manage light and dark mode toggling in a Next.js project, as well as detecting browser settings and providing a default mode.
+## Installing Tailwind CSS
 
 ```shell
-pnpm add next-themes
+pnpm add -D tailwindcss autoprefixer postcss
+npx tailwindcss init -p
 ```
 
-Next, modify `/src/pages/_app.tsx` by wrapping the entire App with `<ThemeProvider/>` provided by next-themes:
-
-```tsx
-import "@/styles/globals.css";
-
-import type { AppProps } from "next/app";
-import { ThemeProvider } from "next-themes";
-
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <ThemeProvider attribute="class">
-      <Component {...pageProps} />
-    </ThemeProvider>
-  );
-}
-
-export default MyApp;
-```
-
-Tweak `/tailwind.config.js` to use class for darkMode determination:
+Tweak `/tailwind.config.js`:
 
 ```js
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
-  // Add darkMode
-  darkMode: "class",
   theme: {
     extend: {},
   },
@@ -69,56 +46,35 @@ module.exports = {
 };
 ```
 
-> Reference: [Tailwind CSS Official Dark Mode Documentation](https://tailwindcss.com/docs/dark-mode)
+Tweak `/postcss.config.js`:
 
-This completes the installation and configuration! Next, we will add a theme selector.
-
-## Adding a Theme Selector Component
-
-Create a new `/src/components/ThemeSwitch.tsx`, mainly using `useTheme()` provided by **next-themes** to get and switch the current theme:
-
-```tsx
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
-
-const ThemeSwitch = () => {
-  const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
-
-  // useEffect only runs on the client, so now we can safely show the UI
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    return null;
-  }
-
-  return (
-    <select value={theme} onChange={(e) => setTheme(e.target.value)}>
-      <option value="system">System</option>
-      <option value="dark">Dark</option>
-      <option value="light">Light</option>
-    </select>
-  );
+```js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
 };
-
-export default ThemeSwitch;
 ```
 
-## Placing `<ThemeSwitch/>` on the Homepage and Setting Dark Mode Styles
+Modify `/src/styles/globals.css` by deleting all its content and replacing it with these three lines:
 
-Next, let's place `<ThemeSwitch/>` on the homepage.
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
 
-And specify the styles of various UI elements on the homepage in dark mode. In Tailwind CSS, use the `dark:` prefix to explicitly specify.
+## Applying Basic Styles to the Homepage to Try Out Tailwind CSS
 
-Modified `/src/pages/index.tsx` is as follows:
+Remove `/src/styles/Home.module.css`.
+
+Modify `/src/pages/index.tsx` as follows:
 
 ```tsx
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import ThemeSwitch from "@/components/ThemeSwitch";
 import { allPostsNewToOld, Post } from "@/lib/contentLayerAdapter";
 
 export function getStaticProps() {
@@ -139,19 +95,12 @@ const Home: NextPage<Props> = ({ posts }) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="bg-white p-4 text-black dark:bg-black dark:text-white">
+      <main className="p-4">
         <h1 className="mb-6 text-4xl font-bold">Welcome to my blog!</h1>
-
-        <div className="my-4">
-          <ThemeSwitch />
-        </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {posts.map((post) => (
-            <div
-              key={post.slug}
-              className="rounded-lg border border-black p-6 dark:border-white"
-            >
+            <div key={post.slug} className="rounded-lg border border-black p-6">
               <a href={post.path}>
                 <h2 className="mb-4 text-2xl font-semibold">{post.title}</h2>
                 <p>{post.description}</p>
@@ -167,27 +116,152 @@ const Home: NextPage<Props> = ({ posts }) => {
 export default Home;
 ```
 
+Modify `/src/pages/[slug].tsx` as follows:
+
+```tsx
+import { format, parseISO } from "date-fns";
+import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Head from "next/head";
+import { useMDXComponent } from "next-contentlayer/hooks";
+
+import { allPosts, Post } from "@/lib/contentLayerAdapter";
+
+export const getStaticPaths: GetStaticPaths = () => {
+  const paths = allPosts.map((post) => post.path);
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps: GetStaticProps<Props> = ({ params }) => {
+  const post = allPosts.find((post) => post.slug === params?.slug);
+  if (!post) {
+    return {
+      notFound: true,
+    };
+  }
+  return {
+    props: {
+      post,
+    },
+  };
+};
+
+type Props = {
+  post: Post;
+};
+
+const PostPage: NextPage<Props> = ({ post }) => {
+  const MDXContent = useMDXComponent(post.body.code);
+
+  return (
+    <div>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.description} />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main>
+        <h1>{post.title}</h1>
+
+        <time dateTime={post.date}>
+          {format(parseISO(post.date), "LLLL d, yyyy")}
+        </time>
+
+        <MDXContent />
+      </main>
+    </div>
+  );
+};
+
+export default PostPage;
+```
+
+## Installing Tailwind CSS Related ESLint and Prettier Rules
+
+```shell
+pnpm add -D eslint-plugin-tailwindcss prettier-plugin-tailwindcss
+```
+
+Modify `.prettierrc.js` to add the prettier-plugin-tailwindcss plugin. The final result is as follows:
+
+```js
+module.exports = {
+  trailingComma: "es5",
+  singleQuote: true,
+  printWidth: 80,
+  semi: true,
+  plugins: ["prettier-plugin-tailwindcss"],
+};
+```
+
+Modify `.eslintrc.js`:
+
+```js
+module.exports = {
+  extends: [
+    "eason",
+    "next/core-web-vitals",
+    "plugin:tailwindcss/recommended",
+    "plugin:prettier/recommended", // Make this the last element so prettier config overrides other formatting rules
+  ],
+  plugins: ["tailwindcss"],
+  rules: {
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        components: ["Link"],
+        specialLink: ["hrefLeft", "hrefRight"],
+        aspects: ["invalidHref", "preferButton"],
+      },
+    ],
+    "tailwindcss/classnames-order": "off", // Respect prettier-plugin-tailwindcss order
+  },
+  settings: {
+    // Support absolute imports
+    // https://www.npmjs.com/package/eslint-import-resolver-alias
+    "import/resolver": {
+      alias: {
+        map: [["@", "./src"]],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
+      },
+    },
+    "import/ignore": ["contentLayerAdapter.js"],
+  },
+  overrides: [
+    {
+      files: "**/*.{ts,tsx}",
+      extends: [
+        "eason/typescript",
+        "plugin:prettier/recommended", // Make this the last element so prettier config overrides other formatting rules
+      ],
+    },
+  ],
+};
+```
+
 ## Results
 
-Done! Run `pnpm dev` and enter the homepage, and you will see the homepage now has a selector for light and dark modes. When dark mode is selected, the background becomes black, and the text and lines turn white.
+Done! Run `pnpm dev` and enter the homepage, and you will see the homepage style has changed. All of it is achieved with Tailwind CSS utility classes!
 
-Screenshots as follows:
+The results are as follows:
 
-![Light mode and toggle](https://i.imgur.com/TFd5fiq.jpg)
-
-![Dark mode](https://i.imgur.com/m0XkqUO.jpg)
+![Index Page result of Tailwind CSS](https://i.imgur.com/gJiZP1Q.jpg)
 
 The code changes for this article are as follows:
 
-https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day09-install-tailwindcss...day10-darkmode
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day08-mdx-support...day09-install-tailwindcss
 
 ## References
 
-- https://github.com/pacocoursey/next-themes
-- https://tailwindcss.com/docs/dark-mode
+https://tailwindcss.com/docs/guides/nextjs
 
 ## Next Article
 
-Congratulations! We've successfully integrated dark mode in Next.js using Tailwind CSS and next-themes.
+Congratulations! We have successfully installed Tailwind CSS and the corresponding ESLint and Prettier rules in our Next.js project, and given it a quick try.
 
-In the next article, we will officially start beautifying the homepage style!
+In the next article, we will add an essential element of a modern blog: dark mode! It is also implemented with Tailwind CSS.
+
+After that, we will start truly beautifying the styles of the entire site!

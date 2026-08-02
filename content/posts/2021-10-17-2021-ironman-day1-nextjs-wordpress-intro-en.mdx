@@ -1,0 +1,81 @@
+---
+title: Day1 Splitting the Wordpress Frontend with Next.js - Series Introduction
+description: 'In this series I will document my whole process of splitting the WordPress frontend out with Next.js. Roughly 30% will be about WordPress adjustments, and 70% about creating the new Next.js project, building the UI, and implementing features. The theme is building a personal blog, from the initial WordPress setup to Next.js optimization'
+slug: '2021-ironman-day1-nextjs-wordpress-intro'
+category: 'Frontend'
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+  - WordPress
+socialImage: ''
+date: 2021-10-17 14:54
+type: Post
+language: en
+translation: ai
+meta:
+  title: Day1 Splitting the Wordpress Frontend with Next.js - Series Introduction
+---
+
+Hello, I'm Eason. Welcome to my 30-day Ironman series, **"WordPress Evolved: Splitting Out the Frontend with Next.js for Full UI Customization, Better Performance and SEO"**.
+
+## The Origin: An Existing WordPress Project That Needed Improvement
+
+For a recent project, I took over the maintenance and development of a legacy WordPress blog. I needed to improve its performance, enhance the user experience, apply a brand-new UI design, add new features, and so on.
+
+Since I'm not familiar with WordPress development, everything hurt: bending the original theme's UI blocks to fit the new design was painful, digging into the underlying php code to chase performance issues was painful, our WordPress had no version control so tracing what had been changed before was painful, and deploying from staging to production after each change was painful too. The whole developer experience was terrible.
+
+WordPress is also a fairly complete, all-in-one PHP-based web application. Unless you hack the underlying php code, the usual way to optimize performance is to install WordPress plugins. But installing plugins increases the page size, many good plugins cost money, and it's hard to know whether they actually work before buying. Plugins also pack a lot of functionality inside, which feels like a black box to me — it's hard to know what they're really doing, which doesn't help me build up my own knowledge, and if I want to customize them there's nowhere to start. I just didn't have enough control.
+
+## The Approach: Introducing Next.js and Splitting Out the WordPress Frontend
+
+So to improve my developer experience, gain more control over frontend customization, and push performance further without being bound by WordPress's limitations, my solution was to "introduce Next.js and split the frontend out of WordPress" — turning the original WordPress-only monolith into a decoupled architecture with Next.js as the frontend and WordPress as the backend. Using WordPress purely as a backend like this has its own name: Headless WordPress.
+
+All the existing post content and settings inside WordPress stay valid. You can still edit posts with WordPress's WYSIWYG editor, letting it keep doing its job as a CMS (Content Management System), while the pages actually shown to users are handled by the new Next.js project, which fetches content from WordPress through an API.
+
+## What This Series Covers
+
+My own WordPress project has already completed the Next.js migration, and it really did bring big improvements in developer experience, performance and user experience, and control over customization.
+
+The Next.js Frontend + Headless WordPress setup is still relatively uncommon — it only became popular in the last year or two, and there aren't many tutorials about it in Chinese online. I also ran into quite a few pitfalls and things to consider during the implementation, so I hope to contribute a bit of my research for everyone's reference.
+
+In this series I will document my entire splitting process in detail. Roughly 30% will be about WordPress adjustments, and 70% about creating the new Next.js project, building the UI, and implementing features.
+
+The theme is building a personal blog, and we'll walk through the whole flow together, from the initial WordPress setup to Next.js optimization.
+
+This series is expected to cover the following topics:
+
+1. Introduction (You are here!!)
+2. Site requirement planning
+3. WordPress setup, choosing a hosting platform
+4. WordPress version control
+5. Basic WordPress settings, basic post content
+6. Nextjs introduction
+7. Introduction to the various render methods CSR, SSG, SSR, ISR
+8. Nextjs project creation, using cms-wordpress as the template
+9. Nextjs hosting, using vercel
+10. GraphQL introduction, wpgraphql installation
+11. Frontend apollo graphql integration
+12. Preview feature implementation
+13. Simple UI layout with TailwindCSS
+14. Recreating the category and tag pages
+15. Dynamic page integration & preview
+16. Navigation graphql relay
+17. WordPress menu integration
+18. Page transition progress bar with nprogress
+19. YoastSEO meta integration
+20. Favicon
+21. Custom 404 500 error page
+22. Sitemap creation
+23. RSS feed creation
+24. PWA optimization
+25. Image optimization
+26. Search feature
+27. Performance measurement with Google page insight
+28. Vscode editor settings, Eslint, Prettier
+29. GA tracking
+30. Feature acceptance check
+31. Closing thoughts
+
+I didn't stockpile drafts this year — none of the articles above are written yet QAQ. The content will be adjusted as I go, so if there's a part you're especially interested in, or you have any feedback or anything to say, feel free to leave a comment below ～～
+
+Ready? Then let's go! In the next article, we'll plan out the requirements for our "personal blog" together.

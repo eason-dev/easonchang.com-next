@@ -1,0 +1,131 @@
+---
+title: "Enhancing In-text Link Page Speed and Adding External Link Icons - Modern Next.js Blog Series #21"
+description: "Modifying the in-text CustomLink, using Next.js's <Link/> for internal links to accelerate page transitions; adding an external link icon for external links"
+slug: "post-custom-link"
+language: en
+socialImage: ""
+date: 2022-10-06
+type: Post
+isDraft: false
+---
+
+> This article is also published at [it 邦幫忙 2022 iThome Ironman Contest](https://ithelp.ithome.com.tw/articles/10305241)
+
+## TL;DR
+
+This is the 21st article in the "Modern Blog 30 Days" series. In the previous article, we added anchor points to subheadings in the text. In this article, we will modify the in-text CustomLink. For internal links, we use Next.js's `<Link/>` to speed up page transitions; for external links, we add an icon to alert users that it is an external link!
+
+Screenshot of the results:
+
+![post links](https://i.imgur.com/BILvjrj.jpg)
+
+The code changes for this article are as follows:
+
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day20-custom-heading-anchor...day21-custom-link
+
+---
+
+## Adding a Customized `<CustomLink/>` to Enhance In-text Link Page Speed and Add External Link Icons
+
+We are going to extend the `src/components/CustomLink.tsx` that we previously added during [Day 11 Site-wide Styling](/posts/blog-site-style).
+
+Move `src/components/CustomLink.tsx` to `src/components/CustomLink/CustomLink.tsx` and modify its content as follows:
+
+```tsx
+import Link from "next/link";
+
+import ExternalLinkIcon from "./external-link.svg";
+
+type Props = React.ComponentPropsWithoutRef<"a">;
+
+const CustomLink = ({ href, children, ...rest }: Props) => {
+  const isInternalLink = href && href.startsWith("/");
+  const isAnchorLink = href && href.startsWith("#");
+
+  if (isInternalLink) {
+    return (
+      <Link href={href}>
+        <a {...rest}>{children}</a>
+      </Link>
+    );
+  }
+
+  if (isAnchorLink) {
+    return (
+      <a href={href} {...rest}>
+        {children}
+      </a>
+    );
+  }
+
+  return (
+    <a target="_blank" rel="noopener noreferrer" href={href} {...rest}>
+      {children}
+      {typeof children === "string" && (
+        <ExternalLinkIcon className="ml-1 inline-block h-4 w-4" />
+      )}
+    </a>
+  );
+};
+
+export default CustomLink;
+```
+
+The above `<CustomLink/>` will determine whether a link is an internal link to another page of the blog, an anchor link, or an external link based on the `href`.
+
+For internal links, it renders as a [Next.js Link](https://nextjs.org/docs/routing/introduction#linking-between-pages) for faster client-side navigation.
+
+For anchor links, it renders a regular a link without any changes.
+
+For external links, it adds `target="_blank"` to open the link in a new tab and adds an icon to the right of the link to let readers know it's an external link.
+
+Next, add `src/components/CustomLink/external-link.svg`, which is the icon for indicating external links:
+
+```svg
+<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25" />
+</svg>
+```
+
+Add `src/components/CustomLink/index.ts` to avoid changing the import path in places where CustomLink was previously used:
+
+```ts
+import CustomLink from "./CustomLink";
+
+export default CustomLink;
+```
+
+Modify `src/lib/mdxComponents.ts` to include a custom component for links:
+
+```ts
+// ...
+import CustomLink from "@/components/CustomLink";
+
+// Custom components/renderers to pass to MDX.
+const mdxComponents = {
+  // ...
+  a: CustomLink,
+};
+
+export default mdxComponents;
+```
+
+This completes the setup!
+
+## Results
+
+Done! Use `pnpm dev`, and go into any article with links in the text to see that internal link page transitions have become smoother, and external links now have an icon indicating they will open in a new tab.
+
+Screenshot of the results:
+
+![post links](https://i.imgur.com/BILvjrj.jpg)
+
+The code changes for this article are as follows:
+
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day20-custom-heading-anchor...day21-custom-link
+
+## Next Article
+
+Congratulations on successfully customizing in-text links, making them more user-friendly and functional.
+
+The next article is the last of the three on customizing in-text components. We will customize "Images" in the text using Next.js's Image component to speed up image loading!

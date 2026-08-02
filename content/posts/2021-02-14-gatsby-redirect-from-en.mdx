@@ -1,0 +1,106 @@
+---
+title: Redirecting Old Post URLs on My Gatsby Blog with the gatsby-redirect-from Plugin
+description: 'My new Gatsby blog has its own routing setup, different from the old Hexo one. So I used the gatsby-redirect-from plugin to redirect the old post URLs.'
+slug: 'gatsby-redirect-from'
+category: 'Blog'
+tags:
+  - Blog
+  - Gatsby
+socialImage: '/images/2021-02-14-gatsby-redirect-from/gatsby-redirect-from.png'
+date: 2021-02-14 13:23
+type: Post
+language: en
+translation: ai
+---
+
+My new Gatsby blog has its own routing setup, different from the old Hexo one.
+
+For example, the URL of the [【Project】Sci-Fi Style Trophy](https://www.easonchang.com/posts/scifi-trophy/) post on the old Hexo version was:
+
+```
+https://www.easonchang.com/2018/04/04/scifi-trophy/
+```
+
+After moving the post to Gatsby, the URL became:
+
+```
+https://www.easonchang.com/posts/scifi-trophy/
+```
+
+Since I rebuilt the whole blog at the same domain, a reader who bookmarked an old URL wouldn't find the post when they came back. So the old posts need special handling, and there are two ways to do it:
+
+1. Adjust Gatsby's route generation so old posts keep their old URLs (still `/2018/04/04/scifi-trophy/`)
+2. Set up redirect rules that send the old URL `/2018/04/04/scifi-trophy/` to the new URL `/posts/scifi-trophy/`
+
+I went with the second option. The new URLs are cleaner than the old ones, and collecting all the posts under the `/posts` route just looks right to me.
+
+Plus, if I ever start a new project named **2018** and want to host it at `https://www.easonchang.com/2018/`, this avoids a path collision.
+
+## Redirecting with the gatsby-redirect-from plugin
+
+I found a Gatsby plugin called [gatsby-redirect-from](https://www.gatsbyjs.com/plugins/gatsby-redirect-from/).
+
+It lets you set multiple path aliases in each post's .md source file. When a reader enters the site through one of those other paths, they get redirected to the correct post.
+
+![](/images/2021-02-14-gatsby-redirect-from/gatsby-redirect-from.png)
+
+### Installation
+
+Run the command below in your terminal to install the node packages. I used yarn:
+
+```shell
+yarn add gatsby-redirect-from gatsby-plugin-meta-redirect
+```
+
+Then edit `gatsby-config.js` to enable the two plugins:
+
+```js
+// ...
+plugins: [
+  // ...
+  // 加入下面兩行
+  'gatsby-redirect-from',
+  'gatsby-plugin-meta-redirect', // make sure this is always the last one
+]
+// ...
+```
+
+### Setting the redirect paths for each post
+
+Next, edit the .md file of each post that needs redirects.
+
+Add a `redirect_from` key to the yaml block at the top. It holds an array, so one post can have one or more redirect paths. It ends up looking like this:
+
+```markdown
+---
+title: 【專案】科幻風造型獎盃
+redirect_from:
+  - /2018/04/04/scifi-trophy/
+---
+
+## 簡介
+
+（下略...）
+```
+
+And that's it!
+
+After running `yarn deploy` again to update the blog, readers who visit an old post URL get automatically redirected to the new link!
+
+## How it works
+
+I poked around to see how the plugin does the redirects. In the built static files, it creates multiple `index.html` files like the one below, placed at each old path that needs redirecting ( /2018/04/04/scifi-trophy/ ):
+
+```html
+<meta http-equiv="refresh" content="0; URL='/posts/scifi-trophy/'" />
+```
+
+It uses a refresh meta tag with a URL to do a client-side redirect. The 0 in content means redirect after 0 seconds — that is, immediately. Pretty clever!
+
+The keyword here is **[Meta Refresh](https://en.wikipedia.org/wiki/Meta_refresh)**, a fairly common way to implement redirects. Some browsers block the redirect for security reasons, though — that's why many sites pair their redirects with a button saying "if you're not redirected within 5 seconds, click me".
+
+## Reflections
+
+Setting up the paths for all 30 old posts in one go took real effort. Click an old post in the browser, copy the old URL, switch to the editor, paste the old URL into the md file, add the redirect_from key — and repeat the whole routine 30 times.
+
+This workflow really should be automatable, but my skills aren't there yet, so I finished it by hand for now. Next time something like this comes up, I hope to act more like an engineer and write a little script to do it automatically!

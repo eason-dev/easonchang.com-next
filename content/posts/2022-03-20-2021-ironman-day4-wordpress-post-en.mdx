@@ -1,0 +1,91 @@
+---
+title: Day4 WordPress Introduction, Basic Settings and Publishing Posts
+description: 'Going through the basic WordPress settings for our personal blog and publishing posts'
+slug: '2021-ironman-day4-wordpress-post'
+category: 'Frontend'
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+  - WordPress
+  - BlueHost
+  - YoastSEO
+socialImage: ''
+date: 2022-03-20 14:20
+type: Post
+language: en
+translation: ai
+meta:
+  title: Day4 WordPress Introduction, Basic Settings and Publishing Posts
+---
+
+In the last article we set up a WordPress environment on BlueHost, but maybe you still don't know what WordPress is. Here's a quick introduction.
+
+# WordPress, the Most Popular and Lowest-barrier Way to Build a Website
+
+![Imgur](https://i.imgur.com/TaFNT6e.png)
+
+If you've ever searched for "how to build a website", you've definitely heard of WordPress. According to wordpress.org, 42% of all websites in the world are built with WordPress, making it the most popular way to build a website.
+
+WordPress itself is a content management system (CMS) written in php, and it fits an extremely wide range of scenarios — from personal blogs and portfolio sites all the way to e-commerce platforms selling hundreds of thousands of products, all doable with WordPress. Setting it up requires no programming background and not a single line of code: find a few tutorials online, get a suitable host (or use your own), install WordPress on it, follow the on-screen instructions and click some buttons, and you're done. Really simple.
+
+For the site's look, WordPress offers a huge number of free and paid themes to choose from, so you can pick one that matches the UI you want — and if you know how to code, you can customize your own theme further.
+
+For maintaining site content, WordPress provides intuitive visual page and post editors, letting you arrange site content and edit posts by dragging and dropping — again without touching a single line of code.
+
+For features, the WordPress plugin ecosystem is also very rich. Whatever you want — RSS feed support, payment integration, file upload features — you can find a matching plugin in the WordPress plugin store, though quite a few of the good ones are paid.
+
+Overall, WordPress is a very easy way to get a website going. The first version of my own blog was built with WordPress.
+
+# Basic WordPress Settings
+
+WordPress has a huge number of settings. Depending on your hosting platform and how many plugins you've installed, the menu on the left of the admin screen will differ. If you're not familiar with WordPress, I highly recommend clicking through every item to get a feel for where everything lives.
+
+Both the public-facing frontend and the admin editing screens have all kinds of settings you can adjust to your needs.
+
+In my case, the main thing I changed was this: the Permalinks menu under Settings. This controls the URL format for post pages, category pages, and tag pages. The default is the topmost Plain option, which gives post URLs in the "mydomain/?p=123" format — I find it hard to tell what the post is about, so I switched to the Post name option. That adds a slug field before a post is published, letting me set each post's URL myself.
+
+I also set prefix paths for category and tag pages. This makes it easier to tell from the URL whether a page represents a category or a tag — by default these are blank.
+
+![Imgur](https://i.imgur.com/dTbdFaA.png)
+
+I won't go through the rest of the settings one by one — adjust them to your needs!
+
+With the settings done, let's actually publish some posts.
+
+# Publishing Posts in WordPress
+
+Since we're mainly using WordPress as a CMS content management system, the most important and most used menu is **"Posts"**. Here we can see the post list (All Posts), the category list (Categories), and the tag list (Tags) — and this is also where we publish.
+
+![Imgur](https://i.imgur.com/eIoFORW.png)
+
+At the beginning you should only have one post, "Hello World!" — the other two Chinese posts are ones I added beforehand. Here you can see each post's basic info, and clicking a post title takes you to the post editing screen.
+
+Our scenario in this series is a personal blog, and I want to put my Ironman series articles into the blog too. The Day3 article from last time isn't in there yet, so let's add a post for Day3.
+
+To publish a new post, click the **"Add New"** button at the very top of the screen — the one with the blue outline to the right of the Posts title.
+
+![Imgur](https://i.imgur.com/svxeKhN.png)
+
+The publishing screen looks like the image below. Again, depending on the plugins installed there will be various menus — as before, I recommend clicking through them all to see which properties can be configured.
+
+![Imgur](https://i.imgur.com/Ge515JF.png)
+
+The most important parts are the "Add title" area in the middle for the post title, and the "Type / to choose a block" area for the post body.
+
+The post body is organized in blocks: every paragraph, subheading, image, and so on is a block. The menu on the right lets you adjust each block's properties individually, or the properties of the whole post.
+
+The YoastSEO menu below is there because BlueHost installs the YoastSEO plugin by default. It's for setting the post's OpenGraph meta tags, letting you customize the title, thumbnail, and summary shown when the post is shared to social platforms — configure it as needed.
+
+Finally, when you finish editing, the menu at the top right has the preview, save draft, and publish buttons.
+
+Let's fill in the post content — it'll look like the image below when done. Remember to open the Post menu on the right and set the post's Category, Tag, and URL Slug. Once everything is set, click the "Publish" button at the top right to publish!
+
+![Imgur](https://i.imgur.com/KcYiXk7.png)
+
+After publishing, a View Post link will pop up. Click it and you'll be taken to the frontend to see the post:
+
+![Imgur](https://i.imgur.com/kuyovSq.png)
+
+With that, we've finished the most basic setup on the WordPress side! In the next article we'll shift our focus to Next.js, starting with an introduction to what Next.js is.
+
+> This article is also published on [iT 邦幫忙 2021 iThome Ironman](https://ithelp.ithome.com.tw/articles/10267176)

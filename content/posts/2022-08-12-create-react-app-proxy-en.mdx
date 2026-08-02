@@ -1,0 +1,201 @@
+---
+title: 'Solving CORS Cross-Origin Issues: Bypass Them with the Built-in Proxy in Create React App'
+description: 'How to set up the built-in Proxy server in Create React App to bypass Cross-Origin Resource Sharing (CORS) issues when calling APIs during development'
+slug: 'create-react-app-proxy'
+category: 'Frontend'
+tags:
+  - Frontend
+language: en
+translation: ai
+socialImage: ''
+date: 2022-08-12 20:58
+type: Post
+isDraft: false
+meta:
+  - title: 'Solving CORS Cross-Origin Issues: Bypass Them with the Built-in Proxy in Create React App'
+  - description: 'How to set up the built-in Proxy server in Create React App to bypass Cross-Origin Resource Sharing (CORS) issues when calling APIs during development'
+---
+
+When working on a [Create React App](https://create-react-app.dev/) project, have you ever happily finished building the UI, gone to hook up the backend API, and run into an error message like this:
+
+
+> Fetch API cannot load https://example.com/api/todos. No 'Access-Control-Allow-Origin' header is present on the requested resource. Origin 'http://localhost:3000' is therefore not allowed access. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+
+Congratulations, you've hit a CORS problem!
+
+## A quick intro to CORS
+
+[Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS) is a browser security mechanism that decides whether site A can use site B's resources.
+
+For example, whether site A can call site B's API, or embed site B's images.
+
+By default, no site can share resources with another — which is why you see a CORS error message when you call an external API from your React project.
+
+## The correct way to handle CORS: set CORS Headers on the backend
+
+If the situation is your site A calling site B's API, you **cannot** solve CORS by changing site A alone.
+
+You have to change site B's configuration, adding an **Access-Control-Allow-Origin** header to the API Response that allows calls to this API from site A. How to set it differs from backend to backend — that's not the focus of this article, so I won't expand on it here.
+
+---
+
+## The way to bypass CORS during development: use the Create React App Proxy!
+
+Until the backend has set up the CORS Header, you can use the [Create React App Proxy](https://create-react-app.dev/docs/proxying-api-requests-in-development/) server feature to bypass the CORS restriction!
+
+(From here on, I'll abbreviate **Create React App** as **CRA**.)
+
+This only works during local development with `npm start` — it can't be used after the site is deployed, so in the end you still need to ask the backend to set the Header.
+
+## How the CRA Proxy works
+
+Say you're developing site A at `http://localhost:3000` and need to call `https://example.com/api`.
+
+You'd probably write:
+
+```js
+fetch('https://example.com/api')
+```
+
+Calling it directly hits the CORS problem — so let's just not call it directly! This is where a Proxy server can take a turn in the middle.
+
+Once we've set up the CRA Proxy (I'll cover how below), CRA also runs a **Proxy server** at `http://localhost:3000`. Now, if you rewrite the fetch API path to call localhost:3000 instead:
+
+```js
+fetch('http://localhost:3000/api')
+// 或更簡單
+fetch('/api')
+```
+
+When the CRA Proxy server receives the API request, it takes the request untouched and calls the real API `https://example.com/api`, gets the result, and returns it to you.
+
+With the Proxy in the middle, the CORS problem is gone.
+
+Because the API you're calling is no longer `example.com` but `localhost:3000` — and your page is also on `localhost:3000` — to the browser, calling yourself is perfectly safe.
+
+And the leg where the CRA Proxy calls `example.com` happens server-side, where there's no CORS problem.
+
+---
+
+## How to set up the CRA Proxy
+
+There are two ways to enable the CRA Proxy: one simple, one more complex but more flexible.
+
+### Simple method 1: add "proxy" to package.json
+
+Same scenario — our goal is to proxy `http://localhost:3000/api` to `https://example.com/api`
+
+All you need is to **add a `proxy` property to the project's package.json**, with the target API domain as its value, like this:
+
+```json:package.json
+"proxy": "https://example.com/api"
+```
+
+Rerun `npm start` and it takes effect — any API request to `localhost:3000` gets proxied to `example.com`.
+
+So this now successfully calls `https://example.com/api`:
+
+```js
+fetch('/api')
+```
+
+### Complex but flexible method 2: add src/setupProxy.js for custom logic
+
+If you have multiple APIs to proxy at once, need to put API paths in environment variables, or have more complex needs, then you want method 2.
+
+Method 2 **doesn't change package.json**. Instead, first install the **http-proxy-middleware** package:
+
+```bash
+$ npm install http-proxy-middleware --save
+```
+
+Then add a file **src/setupProxy.js** with this content:
+
+```js:src/setupProxy.js showLineNumbers
+const { createProxyMiddleware } = require('http-proxy-middleware')
+
+module.exports = function (app) {
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'https://example.com',
+      changeOrigin: true,
+    })
+  )
+}
+```
+
+Rerun `npm start` and you're done! The effect is the same: `http://localhost:3000/api` gets proxied to `https://example.com/api`
+
+Under the hood, npm start uses Express to run the local server, and setupProxy.js lets us **slip a small piece of custom logic (middleware) into it to achieve the proxy effect**.
+
+#### Method 2 extended: proxying multiple APIs
+
+If you're calling multiple APIs at once and they all have CORS problems, method 2 can configure them all together. The extended version looks like this — edit **setupProxy.js**:
+
+```js:src/setupProxy.js showLineNumbers {12-18}
+const { createProxyMiddleware } = require('http-proxy-middleware')
+
+module.exports = function (app) {
+  app.use(
+    '/api',
+    createProxyMiddleware({
+      target: 'https://example.com',
+      changeOrigin: true,
+    })
+  )
+
+  app.use(
+    '/my-api-2',
+    createProxyMiddleware({
+      target: 'https://another-remote-api.com',
+      changeOrigin: true,
+    })
+  )
+}
+```
+
+Now, besides the original `http://localhost:3000/api` proxying to `https://example.com/api`,
+
+`http://localhost:3000/my-api-2` also proxies to `https://another-remote-api.com/my-api-2`!
+
+#### Method 2 extended: putting API paths in environment variables
+
+You may already keep your API paths in environment variables (see the [CRA environment variables docs](https://create-react-app.dev/docs/adding-custom-environment-variables/#expanding-environment-variables-in-env)), like this:
+
+**.env**
+
+```bash:.env
+REACT_APP_API_DOMAIN = 'https://example.com'
+REACT_APP_API_PATH = '/api'
+```
+
+Then in **setupProxy.js** you can use them like this:
+
+```js:src/setupProxy.js showLineNumbers {5,7}
+const { createProxyMiddleware } = require('http-proxy-middleware')
+
+module.exports = function (app) {
+  app.use(
+    process.env.REACT_APP_API_PATH,
+    createProxyMiddleware({
+      target: process.env.REACT_APP_API_DOMAIN,
+      changeOrigin: true,
+    })
+  )
+}
+```
+
+That's all! Now you know how to use the Create React App Proxy to bypass CORS problems during development!
+
+---
+
+## Trouble Shooting: making setupProxy.js support TypeScript?
+
+I tried renaming setupProxy.js to setupProxy.ts and converting the code inside to TypeScript, but could never get it to run. From what I've researched so far, the CRA Proxy doesn't support TypeScript — the bottom of the [official CRA Proxy docs](https://create-react-app.dev/docs/proxying-api-requests-in-development/#configuring-the-proxy-manually) says setupProxy.js only supports Node.js JavaScript with pre-ES5 syntax, and I found a related [issue](https://github.com/facebook/create-react-app/issues/6794) asking whether it supports TypeScript, with no resolution. If you know a way to make TypeScript work, let me know!
+
+## References
+
+- [Proxying API Requests in Development | Create React App](https://create-react-app.dev/docs/proxying-api-requests-in-development/)
+- [Cross-Origin Resource Sharing (CORS) - HTTP | MDN](https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS)
+- [CORS 完全手冊（一）：為什麼會發生 CORS 錯誤？ - Huli](https://blog.huli.tw/2021/02/19/cors-guide-1/)
