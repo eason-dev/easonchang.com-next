@@ -1,0 +1,60 @@
+---
+title: Day5 Next.js Introduction - A Production-ready React.js Framework
+description: 'Next.js is a supercharged React.js full-stack framework that supports Server Side Rendering and other rendering strategies, greatly improving DX developer experience and UX visitor experience. It is a technology well worth learning.'
+slug: '2021-ironman-day5-nextjs-intro'
+category: 'Frontend'
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+socialImage: ''
+date: 2022-03-20 14:30
+type: Post
+language: en
+meta:
+  title: Day5 Next.js Introduction - A Production-ready React.js Framework
+---
+
+This series is mainly about replacing the WordPress frontend with Next.js, so about 70% of the content will focus on developing the Next.js frontend. Today, let's start by introducing what Next.js is.
+
+# The Problems with React.js CSR
+
+React.js is great. It lets us build websites in a declarative, component-based way, assembling sites with complex state step by step like Lego bricks. But because its output is Client-side Rendered (CSR, rendered in the browser), it brings along some problems, mainly these two:
+
+1. On the first visit, it takes too long to show anything on screen (the page can't render until all the JavaScript files finish downloading)
+2. Poor SEO (since the HTML content is now computed by JS, some search engine crawlers that don't execute JS can't crawl the page content)
+
+To solve these problems, various new solutions like Server-side rendering and Static site generation were proposed later on, and Next.js is the most mature of the Server-side rendering solutions — which was also Next.js's original selling point.
+
+# What is Next.js
+
+![Imgur](https://i.imgur.com/m15mP1y.png)
+
+[Next.js](https://nextjs.org/) is an open-source React.js framework developed about five years ago by a company called [Vercel](https://vercel.com/about). The simplest way to understand it is as a supercharged React.js: every package in the React ecosystem still works, and you write components and logic exactly the same way as when building a React website — but Next.js takes care of a great many problems you'd run into when developing a React site.
+
+Next.js's biggest improvements are in "website user experience" and "developer experience".
+
+## Improvements in User Experience
+
+For "website user experience", Next.js offered Server-side rendering from the very beginning, solving the two big React problems mentioned above and improving both user experience and SEO.
+
+With more recent releases, Next.js provides even more rendering strategies, like Static Site Generation and Incremental Static Generation. Each has its own pros and cons in performance and use cases, and we can choose a different strategy for different pages of the same site. The next article will introduce the different rendering methods — CSR, SSR, SSG, ISR — in detail.
+
+Next.js also ships with many built-in performance solutions:
+
+- Image Optimization: caches images on the server, converts them into smaller file formats like webp, and handles lazy loading for you. These used to require researching the right React packages or implementing yourself — now they're built in!
+- Code Splitting: automatically splits code by page (route), so no page's JS bundle size grows too large and slows down loading
+- Font Optimization, Script Optimization: loads webfonts and external scripts in the most efficient way, also improving page load speed
+
+## Improvements in Developer Experience
+
+For developer experience, Next.js provides a project starter command similar to create-react-app, called create-next-app. It works pretty much the same and lets you spin up a Next.js project quickly — a later article will show how to use it.
+
+Vercel, the team maintaining Next.js, is also a highly professional development team. The [official documentation](https://nextjs.org/docs/getting-started) is very readable — whenever you don't understand some detail, you can usually find the answer there. The [Next.js Github repo](https://github.com/vercel/next.js/tree/canary/examples) also provides nearly a hundred examples demonstrating all kinds of Next.js use cases — like how to integrate services such as Google Analytics into your project, or how to wire up state management libraries like redux or xstate — so you can find lots of high-quality example code.
+
+Vercel also offers a website hosting service of the same name, [Vercel](https://vercel.com/), which lets you deploy Next.js sites easily and for free — super convenient!
+
+To sum up, Next.js is a technology well worth mastering. It does introduce more complexity than React.js — you have to think about how the same code runs on both the server-side and the client-side — but once you get the hang of it, Next.js lets us build much better websites.
+
+In the next article, let's actually create a Next.js project!
+
+> This article is also published on [iT 邦幫忙 2021 iThome Ironman](https://ithelp.ithome.com.tw/articles/10267910)

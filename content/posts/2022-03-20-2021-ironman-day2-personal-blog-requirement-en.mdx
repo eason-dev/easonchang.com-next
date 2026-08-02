@@ -1,0 +1,54 @@
+---
+title: Day2 Planning a Personal Blog - Next.js Frontend + Headless WordPress
+description: 'In this series we will build a personal blog, using a Next.js frontend with Headless WordPress as CMS backend. Improving DX developer experience, editor experience, UX reader experience, and SEO search engine optimization'
+slug: '2021-ironman-day2-personal-blog-requirement'
+category: 'Frontend'
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+  - WordPress
+socialImage: ''
+date: 2022-03-20 14:00
+type: Post
+language: en
+meta:
+  title: Day2 Planning a Personal Blog - Next.js Frontend + Headless WordPress
+---
+
+In this series we'll build a "personal blog", and we want it to cover all of the following:
+
+- Developer experience: version control when adding features or tweaking the UI, and access to all the latest goodies in the React and Next.js ecosystems
+- Editor experience: people who can't code can still edit posts with the WordPress admin editor
+- Reader experience: pages must load fast, with RWD support for reading on both mobile and desktop
+- SEO search engine optimization: pages must load fast, and all the meta tags must be set up properly
+
+That's why we'll go with the "Next.js Frontend + Headless WordPress as CMS" approach, which satisfies all the needs above.
+
+## Next.js Frontend Pages
+
+The frontend pages are quite simple — basically we're recreating the pages a native WordPress site would have, including:
+
+- Homepage IndexPage: lists all posts, sorted from newest to oldest, with pagination showing 10 posts per page. Each post shows its thumbnail, excerpt, categories, and publish time. The homepage also includes a search box for searching posts
+- Post detail page PostPage: the full post content, its categories, its tags, and a related posts list
+- Category page CategoryPage: lists all posts belonging to a certain Category
+- Tag page TagPage: lists all posts belonging to a certain Tag
+- Search page SearchPage: shows the list of matched posts after searching
+
+# Other Implicit Requirements
+
+Besides the pages you can obviously see, a complete website should also have the following:
+
+- Favicon: the site logo shown in the browser tab. There will be a dedicated article later on how to generate one and embed it into the site
+- 404 NotFoundPage: when readers accidentally land on a wrong page, we should show them a dedicated error page so they don't panic, and guide them back to the right place
+- Sitemap: a hidden page made for search engine crawlers like Google, telling them which pages our site has. Since we're doing SEO, we must implement sitemap generation on the Next.js frontend too
+
+# More Cool Features!
+
+Who are we? We're developers! What we love most is trying new technologies! And what better place to play with new tech than a personal blog? So in this series we'll also bring all kinds of fun technologies into the new Next.js frontend, including:
+
+- Storybook: a great UI component development environment that dramatically speeds up building UI and verifying how components look under different conditions
+- TailwindCSS: the hottest utility-first CSS framework right now, insanely fast for building layouts. We'll use it to build all the pages mentioned above
+- RSS Feed: we want readers who are familiar with RSS tools to be able to subscribe to our blog via RSS, so we'll support it too!
+- PWA: with all these cool things in place, how could we leave out PWA (Progressive Web App)? It's a new way of configuring a website that, once set up, lets readers install our site like an app on their phone or computer desktop, with an experience very close to a native app!
+
+That wraps up the requirement planning for the personal blog we'll build over these 30 days. In the next article we'll start actually setting things up — beginning with WordPress!!

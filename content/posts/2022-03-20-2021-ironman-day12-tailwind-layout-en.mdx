@@ -1,0 +1,407 @@
+---
+title: Day12 Style the Blog Homepage with TailwindCSS, Showing the WordPress Post List
+description: "Do some simple styling with Tailwind CSS to beautify the post list!"
+slug: "2021-ironman-day12-tailwind-layout"
+category: "Frontend"
+tags:
+  - 13屆IT鐵人賽
+  - Next.js
+  - TailwindCSS
+socialImage: ""
+date: 2022-03-20 15:40
+type: Post
+language: en
+meta:
+  title: Day12 Style the Blog Homepage with TailwindCSS, Showing the WordPress Post List
+---
+
+In the last article we successfully installed TailwindCSS in Next.js. Today we will actually style the homepage and display the post list!
+
+## Styling Goal
+
+This series is mainly about the many little details of using Next.js as a WordPress frontend — producing a beautiful layout is not the point. So here we mainly demo how TailwindCSS is used, following the existing [cms-wordpress](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress) example with slight modifications as our blog template.
+
+The final result looks like the two images below, with RWD support for both mobile and desktop.
+
+Desktop:
+
+![Imgur](https://i.imgur.com/sjRVqEN.jpg)
+
+Mobile:
+
+![Imgur](https://i.imgur.com/tdcd8hF.jpg)
+
+## Implementation
+
+We mainly follow the official Next.js [cms-wordpress](https://github.com/vercel/next.js/tree/canary/examples/cms-wordpress) example here. It also uses TailwindCSS as its CSS framework, and it already has example styles for the homepage and the post page.
+
+In this article we will pick out the homepage-related styles and adapt them slightly.
+
+### Before We Start
+
+The complete code changes for this article can be seen in this [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/35046f8472592c65f490a805a79f84f854f8866a).
+
+In my own oh-so-pro-blog example project, I made some design decisions and changes beforehand that affect the file structure, including:
+
+- Putting pages, components, and other page logic code under the /src directory ([Next.js official docs](https://nextjs.org/docs/advanced-features/src-directory))
+- Organizing components with Atomic Design, sorting them by granularity into atoms, molecules, organisms, and templates folders ([Atomic Design reference article](https://nextjs.org/docs/advanced-features/src-directory))
+- Setting up Absolute imports, so JS files are imported with absolute paths (e.g. `import IndexPage from '@/components/templates/IndexPage'`) instead of deeply nested relative paths (e.g. `import PostPreview from '../../organisms/PostPreview'`)
+- Installing [Storybook](https://storybook.js.org/) to develop each component in isolation, which is why you will see many XXX.stories.js files in the commit; the article below will not cover them
+
+I will explain these in detail in later articles if I get the chance. The code below follows my file structure — if your project is structured differently, you need to adjust file locations and import paths to fit your situation.
+
+### Let's Start Styling!
+
+First is the homepage entry point **/src/pages/index.js**. The return block is simplified, extracting the site-wide Layout and the homepage IndexPage into their own components. The full code:
+
+```javascript {1,3-4} showLineNumbers
+import { useMemo } from "react";
+import { useQuery } from "@apollo/client";
+
+import { initializeApollo, addApolloState } from "@/lib/apolloClient";
+import {
+  allPostsQueryVars,
+  ALL_POSTS_QUERY,
+  transformAllPostsData,
+} from "@/graphql/allPostsQuery";
+import Layout from "@/components/layout";
+import IndexPage from "@/components/templates/IndexPage";
+
+export default function Home() {
+  const { data } = useQuery(ALL_POSTS_QUERY, {
+    variables: allPostsQueryVars,
+  });
+  const allPosts = useMemo(() => transformAllPostsData(data), [data]) || [];
+
+  return (
+    <Layout>
+      <IndexPage posts={allPosts} />
+    </Layout>
+  );
+}
+
+export async function getStaticProps() {
+  const apolloClient = initializeApollo();
+
+  await apolloClient.query({
+    query: ALL_POSTS_QUERY,
+    variables: allPostsQueryVars,
+  });
+
+  return addApolloState(apolloClient, {
+    props: {},
+    revalidate: 1,
+  });
+}
+```
+
+Next, let's look at **/src/components/layout.js**, which will become the shared layout for every page on the site. The full code:
+
+```javascript
+import Head from "next/head";
+
+import Footer from "@/components/organisms/footer";
+import Meta from "@/components/meta";
+
+export default function Layout({ children }) {
+  return (
+    <>
+      <Head>
+        <title>Oh. So. Pro. blog</title>
+      </Head>
+      <div className="min-h-screen">
+        <main>{children}</main>
+      </div>
+      <Footer />
+    </>
+  );
+}
+```
+
+The Footer used in the layout lives in **/src/components/organisms/Footer.js**:
+
+```javascript
+import Container from "@/components/molecules/Container";
+
+export default function Footer() {
+  return (
+    <footer>
+      <Container>
+        <div className="flex flex-col items-center py-28 lg:flex-row">
+          <h3 className="mb-10 text-center text-4xl font-bold leading-tight tracking-tighter lg:mb-0 lg:w-1/2 lg:pr-4 lg:text-left lg:text-5xl">
+            A pro blog for productive professional programmers
+          </h3>
+        </div>
+      </Container>
+    </footer>
+  );
+}
+```
+
+The Container used by Footer is in **/src/components/molecules/Container.js**:
+
+```javascript
+export default function Container({ children }) {
+  return <div className="mx-auto w-full max-w-7xl px-5">{children}</div>;
+}
+```
+
+That completes the shared Layout. Now on to the actual homepage content, **/src/components/templates/IndexPage.js**:
+
+```javascript
+import Container from "@/components/molecules/Container";
+import Intro from "@/components/molecules/Intro";
+import HeroPost from "@/components/organisms/HeroPost";
+import PostList from "@/components/organisms/PostList";
+
+export default function IndexPage({ posts }) {
+  const heroPost = posts?.[0];
+  const morePosts = posts?.slice(1) || [];
+
+  return (
+    <Container>
+      <Intro />
+      {heroPost && (
+        <HeroPost
+          title={heroPost.title}
+          featuredImage={heroPost.featuredImage}
+          date={heroPost.date}
+          uri={heroPost.uri}
+          excerpt={heroPost.excerpt}
+        />
+      )}
+      {morePosts.length > 0 && <PostList posts={morePosts} />}
+    </Container>
+  );
+}
+```
+
+**/src/components/molecules/Intro.js**:
+
+```javascript
+export default function Intro() {
+  return (
+    <section className="mt-16 mb-16 flex flex-col items-center md:mb-12 md:flex-row md:justify-between">
+      <h1 className="text-6xl font-bold leading-tight tracking-tighter md:pr-8 md:text-8xl">
+        Oh. So. Pro.
+      </h1>
+      <h4 className="mt-5 text-center text-lg md:pl-8 md:text-left">
+        A pro blog for productive professional programmers
+      </h4>
+    </section>
+  );
+}
+```
+
+**/src/components/organisms/HeroPost.js**:
+
+```javascript
+import Link from "next/link";
+
+import CoverImage from "@/components/atoms/CoverImage/CoverImage";
+import Date from "@/components/atoms/Date/Date";
+export default function HeroPost({ title, featuredImage, date, excerpt, uri }) {
+  return (
+    <section>
+      <div className="mb-8 md:mb-16">
+        {featuredImage && (
+          <CoverImage title={title} featuredImage={featuredImage} uri={uri} />
+        )}
+      </div>
+      <div className="mb-20 gap-4 md:mb-28 md:grid md:grid-cols-2">
+        <div>
+          <h3 className="mb-4 text-4xl leading-tight line-clamp-3 lg:text-6xl">
+            <Link href={uri}>
+              <a className="hover:underline">{title}</a>
+            </Link>
+          </h3>
+          <div className="mb-4 text-lg md:mb-0">
+            <Date dateString={date} />
+          </div>
+        </div>
+        <div>
+          <p className="mb-4 text-lg leading-relaxed line-clamp-6">{excerpt}</p>
+        </div>
+      </div>
+    </section>
+  );
+}
+```
+
+**/src/components/atoms/CoverImage.js**:
+
+```javascript
+import Image from "next/image";
+import Link from "next/link";
+
+export default function CoverImage({ featuredImage, uri }) {
+  if (!uri || !featuredImage?.sourceUrl) return null;
+
+  return (
+    <div className="aspect-w-16 aspect-h-9 w-full sm:mx-0">
+      <Link href={uri}>
+        <a>
+          <Image
+            layout="fill"
+            objectFit="cover"
+            alt={featuredImage?.altText}
+            src={featuredImage?.sourceUrl}
+            className="shadow transition-shadow duration-200 hover:shadow-lg"
+          />
+        </a>
+      </Link>
+    </div>
+  );
+}
+```
+
+**/src/components/atoms/Date.js**:
+
+```javascript
+import { parseISO, format } from "date-fns";
+
+export default function Date({ dateString }) {
+  if (!dateString) return null;
+
+  const date = parseISO(dateString);
+
+  return <time dateTime={dateString}>{format(date, "LLLL	d, yyyy")}</time>;
+}
+```
+
+**/src/components/organisms/PostList.js**:
+
+```javascript
+import PostPreview from "@/components/organisms/PostPreview";
+
+export default function PostList({ posts }) {
+  return (
+    <section>
+      <h2 className="mb-8 text-6xl font-bold leading-tight tracking-tighter md:text-7xl">
+        More Stories
+      </h2>
+      <div className="mb-32 grid grid-cols-1 gap-6 md:grid-cols-2">
+        {posts.map((post) => (
+          <PostPreview
+            key={post?.id}
+            title={post?.title}
+            featuredImage={post?.featuredImage}
+            date={post?.date}
+            uri={post?.uri}
+            excerpt={post?.excerpt}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+```
+
+**/src/components/organisms/PostPreview.js**:
+
+```javascript
+import Link from "next/link";
+
+import CoverImage from "@/components/atoms/CoverImage";
+import Date from "@/components/atoms/Date";
+
+export default function PostPreview({
+  title,
+  featuredImage,
+  date,
+  excerpt,
+  uri,
+}) {
+  return (
+    <div>
+      <div className="mb-5">
+        {featuredImage && (
+          <CoverImage title={title} featuredImage={featuredImage} uri={uri} />
+        )}
+      </div>
+      <h3 className="mb-3 text-3xl leading-snug line-clamp-3">
+        <Link href={uri}>
+          <a className="hover:underline">{title}</a>
+        </Link>
+      </h3>
+      <div className="mb-4 text-lg">
+        <Date dateString={date} />
+      </div>
+      <p className="mb-4 text-lg leading-relaxed line-clamp-5">{excerpt}</p>
+    </div>
+  );
+}
+```
+
+### Install the TailwindCSS line-clamp plugin
+
+TailwindCSS has plugins too, adding more classes to support more complex CSS effects.
+
+In the post blocks I want the post title and excerpt to show at most three and five lines of text, truncated with `...` beyond that. This is a perfect fit for the line-clamp css technique, but TailwindCSS does not ship a matching class by default — it comes as a plugin you install when needed. So let's install it now.
+
+@tailwindcss/line-clamp related links:
+
+- https://tailwindcss.com/docs/plugins#line-clamp
+- https://github.com/tailwindlabs/tailwindcss-line-clamp
+
+To install, first run the command below:
+
+```
+yarn add @tailwindcss/line-clamp
+```
+
+Then modify **/tailwind.config.js**, adding this line to the plugins array:
+
+```javascript
+module.exports = {
+  mode: "jit",
+  purge: ["./src/**/*.{js,ts,jsx,tsx}"],
+  darkMode: false, // or 'media' or 'class'
+  theme: {},
+  variants: {
+    extend: {},
+  },
+  plugins: [
+    require("@tailwindcss/line-clamp"), // <=== Add this
+  ],
+};
+```
+
+Once installed, classes like `line-clamp-3` and `line-clamp-5` become available to apply directly. Super convenient!
+
+### Install the TailwindCSS aspect-ratio plugin
+
+When implementing CoverImage, I also used the TailwindCSS aspect-ratio plugin to set the image aspect ratio, so we need to install it too:
+
+```
+yarn add @tailwindcss/aspect-ratio
+```
+
+Then again modify **/tailwind.config.js**, adding one more line to the plugins array:
+
+```javascript
+module.exports = {
+  // ...
+  plugins: [
+    require("@tailwindcss/line-clamp"),
+    require("@tailwindcss/aspect-ratio"), // <=== Add this
+  ],
+};
+```
+
+After installing, more classes become available, like `aspect-w-16 aspect-h-9` to set a 16:9 aspect ratio.
+
+aspect-ratio plugin related links:
+
+- https://tailwindcss.com/docs/plugins#aspect-ratio
+- https://github.com/tailwindlabs/tailwindcss-aspect-ratio
+
+## Done! Homepage Styled!
+
+Finally run `yarn dev` again, and you should see the homepage looking much nicer! Congratulations!
+
+The complete code changes for this article can be seen in this [commit](https://github.com/eason-dev/oh-so-pro-blog/commit/35046f8472592c65f490a805a79f84f854f8866a).
+
+Today we successfully styled the homepage post list with TailwindCSS. In the next article we will move on to styling the post page!
+
+> This article is also published on [iT 邦幫忙 13th iThome Ironman](https://ithelp.ithome.com.tw/articles/10272771)
