@@ -30,7 +30,8 @@
     "toggle-language": "切換語言",
     "english": "English",
     "chinese": "中文",
-    "post-locale-not-available-notice": "正在顯示英文版內容，此文章還沒有中文版哦，敬請期待！"
+    "post-locale-not-available-notice": "正在顯示英文版內容，此文章還沒有中文版哦，敬請期待！",
+    "post-ai-translation-notice": "這篇中文版是由我的<original>英文原文</original>透過 AI 輔助翻譯而成。"
   },
   "indexPage": {
     "latest-posts": "最新文章",

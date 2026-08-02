@@ -26,13 +26,20 @@ export async function GET(
   const post =
     candidates.find((candidate) => candidate.language === locale) ??
     candidates[0];
+  const original = candidates.find(
+    (candidate) => candidate.language !== post.language
+  );
 
   const body = `# ${post.title}
 
 - Canonical: ${localizedUrl(post.language, post.path)}
 - Date: ${post.date}
 - Language: ${post.language}
-${post.description ? `- Description: ${post.description}\n` : ''}
+${post.description ? `- Description: ${post.description}\n` : ''}${
+  post.translation === 'ai'
+    ? `- Translation: AI-assisted${original ? `, from the ${original.language} original` : ''}\n`
+    : ''
+}
 ${post.raw.trim()}
 `;
 

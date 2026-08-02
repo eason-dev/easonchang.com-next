@@ -116,6 +116,33 @@ test.describe('meta routes', () => {
     const response = await request.get('/posts/not-a-real-post.md');
     expect(response.status()).toBe(404);
   });
+
+  test('marks AI-assisted translations in raw markdown', async ({
+    request,
+  }) => {
+    const response = await request.get('/posts/less-but-better.md');
+    expect(response.status()).toBe(200);
+    expect(await response.text()).toContain(
+      '- Translation: AI-assisted, from the zh-TW original'
+    );
+  });
+});
+
+test.describe('AI translation notice', () => {
+  test('shows a disclosure linking to the original on translated posts', async ({
+    page,
+  }) => {
+    await page.goto('/posts/less-but-better');
+    const notice = page.getByText('translated from my');
+    await expect(notice).toBeVisible();
+    await page.getByRole('link', { name: 'Chinese original' }).click();
+    await expect(page).toHaveURL(/\/zh-TW\/posts\/less-but-better$/);
+  });
+
+  test('does not show the disclosure on original posts', async ({ page }) => {
+    await page.goto('/zh-TW/posts/less-but-better');
+    await expect(page.getByText('AI 輔助翻譯')).toHaveCount(0);
+  });
 });
 
 test.describe('not found', () => {

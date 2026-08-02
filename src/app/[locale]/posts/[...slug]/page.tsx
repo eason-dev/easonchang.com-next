@@ -186,6 +186,7 @@ export default async function PostPage({ params }: PageProps) {
           description: post.description,
           socialImage: post.socialImage,
           raw: post.raw,
+          translation: post.translation,
         }}
         prev={prev}
         next={next}

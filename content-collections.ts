@@ -47,6 +47,9 @@ const posts = defineCollection({
     socialImage: z.string(),
     isDraft: z.boolean().default(false),
     language: z.enum(['en', 'zh-TW']).default('zh-TW'),
+    // Set on the translated half of a language pair: who produced the
+    // translation. Absent on originals.
+    translation: z.enum(['ai']).optional(),
     redirect_from: z.array(z.string()).optional(),
   }),
   transform: async (post, context) => {

@@ -17,6 +17,7 @@ Posts pair across languages by sharing a `slug`. This skill creates the missing 
    - Set `language` to the target locale
    - Keep `slug`, `date`, `socialImage`, `tags`, `category` identical
    - Do NOT copy `redirect_from` unless those legacy URLs genuinely apply to the target locale
+   - Set `translation: ai` when the translation is AI-produced (it is when you are doing it) — the site renders a disclosure notice linking to the original
 4. Translate the body **section by section, preserving structure exactly**: same headings hierarchy, same lists, same images, same links, same code blocks (code and code-fence titles stay untouched).
 
 ## Translation style — read `.claude/skills/write-post/SKILL.md` first
