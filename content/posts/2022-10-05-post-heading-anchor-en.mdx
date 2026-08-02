@@ -1,0 +1,195 @@
+---
+title: "Adding Anchor Links to In-text Subheadings - Modern Next.js Blog Series #20"
+description: "Using the rehype-slug package to add id attributes to in-text subheadings, and adding anchor links with the custom MDX component CustomHeading"
+slug: "post-heading-anchor"
+language: en
+socialImage: ""
+date: 2022-10-05
+type: Post
+isDraft: false
+---
+
+> This article is also published at [it 邦幫忙 2022 iThome Ironman Contest](https://ithelp.ithome.com.tw/articles/10304682)
+
+## TL;DR
+
+This is the 20th article in the "Modern Blog 30 Days" series. In the previous article, we finished RSS feed generation, completing all the blog features. From here on, we will keep adding more dazzling details. In this article, we start by adding anchor links to in-text headings!
+
+Screenshot of the results:
+
+![title anchor](https://i.imgur.com/paQPqU5.jpg)
+
+The code changes for this article are as follows:
+
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day19-rss-feed...day20-custom-heading-anchor
+
+---
+
+## Adding Anchor Links to In-text Subheadings
+
+### Using rehype-slug to Add id Attributes to In-text Subheadings
+
+First, we need the final rendered HTML of every in-text subheading to have an `id` attribute. We use [rehype-slug](https://github.com/rehypejs/rehype-slug) to do this for us.
+
+It adds `id` attributes to subheadings while Contentlayer converts Markdown content into HTML.
+
+For example, it can transform the following HTML:
+
+```html
+<h1 id="some-id">Lorem ipsum</h1>
+<h2>Dolor sit amet ?</h2>
+<h3>consectetur & adipisicing</h3>
+<h4>elit</h4>
+<h5>elit</h5>
+```
+
+Into this, with `id` attributes added:
+
+```html
+<h1 id="some-id">Lorem ipsum</h1>
+<h2 id="dolor-sit-amet-">Dolor sit amet ?</h2>
+<h3 id="consectetur--adipisicing">consectetur & adipisicing</h3>
+<h4 id="elit">elit</h4>
+<h5 id="elit-1">elit</h5>
+```
+
+(Example taken from the [rehype-slug README.md](https://github.com/rehypejs/rehype-slug#use))
+
+### Installing rehype-slug
+
+```shell
+pnpm add rehype-slug
+```
+
+Modify `contentlayer.config.ts` to add rehype-slug to the rehypePlugins list:
+
+```ts
+// ...
+import rehypeSlug from "rehype-slug";
+
+// ...
+
+export default makeSource({
+  // ...
+  mdx: {
+    rehypePlugins: [
+      // 加入 rehypeSlug
+      rehypeSlug, // For generating slugs for headings
+      rehypeCodeTitles, // For adding titles to code blocks
+      [rehypePrism, { ignoreMissing: true }], // For code syntax highlighting
+    ],
+  },
+});
+```
+
+### Displaying an Anchor Button with the CustomHeading Component
+
+Next, let's make each subheading show an anchor button on hover.
+
+Here we use the same technique as in Day 16 [Adding 'Copy Button' to Code Blocks Using Custom MDX Components - Modern Next.js Blog Series #16](/posts/code-copy-button), implementing it with a custom MDX component.
+
+When we implemented the copy button, we created `<CustomPre/>`. This time, we will implement `<CustomHeading/>`.
+
+Add `src/components/CustomHeading.tsx`:
+
+```tsx
+type CustomHeadingProps = React.ComponentPropsWithRef<
+  "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
+> & { Component: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" };
+
+function CustomHeading({
+  Component,
+  id,
+  children,
+  ...otherProps
+}: CustomHeadingProps) {
+  return (
+    <Component
+      id={id}
+      className="group scroll-mt-24 whitespace-pre-wrap"
+      {...otherProps}
+    >
+      <span className="mr-3">{children}</span>
+      <a
+        href={id && `#${id}`}
+        className="inline-flex h-6 w-6 items-center justify-center rounded-md text-lg text-slate-400 no-underline opacity-0 shadow-sm ring-1 ring-slate-900/5 transition-all hover:bg-slate-100 hover:text-slate-700 hover:shadow hover:ring-slate-900/10 group-hover:opacity-100 dark:text-slate-400 dark:ring-slate-400/20 dark:hover:text-slate-700"
+        aria-label="Anchor"
+      >
+        #
+      </a>
+    </Component>
+  );
+}
+
+export const CustomH1 = (props: React.ComponentPropsWithRef<"h1">) => (
+  <CustomHeading Component="h1" {...props} />
+);
+export const CustomH2 = (props: React.ComponentPropsWithRef<"h2">) => (
+  <CustomHeading Component="h2" {...props} />
+);
+export const CustomH3 = (props: React.ComponentPropsWithRef<"h3">) => (
+  <CustomHeading Component="h3" {...props} />
+);
+export const CustomH4 = (props: React.ComponentPropsWithRef<"h4">) => (
+  <CustomHeading Component="h4" {...props} />
+);
+export const CustomH5 = (props: React.ComponentPropsWithRef<"h5">) => (
+  <CustomHeading Component="h5" {...props} />
+);
+export const CustomH6 = (props: React.ComponentPropsWithRef<"h6">) => (
+  <CustomHeading Component="h6" {...props} />
+);
+```
+
+Modify `src/lib/mdxComponents.ts` to add the custom components for H1 through H6:
+
+```ts
+import {
+  CustomH1,
+  CustomH2,
+  CustomH3,
+  CustomH4,
+  CustomH5,
+  CustomH6,
+} from "@/components/CustomHeading";
+import CustomPre from "@/components/CustomPre";
+
+// Custom components/renderers to pass to MDX.
+const mdxComponents = {
+  h1: CustomH1,
+  h2: CustomH2,
+  h3: CustomH3,
+  h4: CustomH4,
+  h5: CustomH5,
+  h6: CustomH6,
+  pre: CustomPre,
+};
+
+export default mdxComponents;
+```
+
+This completes the setup!
+
+## Results
+
+Done! Use `pnpm dev`, go into any article that has subheadings, and hover over a subheading. You will see a hash anchor button appear next to it. Clicking it scrolls the page to that subheading, and the URL in the address bar changes accordingly.
+
+Share that URL with someone, and when they open it, they will land directly on the section you want them to see.
+
+Screenshot of the results:
+
+![title anchor](https://i.imgur.com/paQPqU5.jpg)
+
+The code changes for this article are as follows:
+
+https://github.com/eason-dev/nextjs-tailwind-contentlayer-blog-starter/compare/day19-rss-feed...day20-custom-heading-anchor
+
+## References
+
+- [rehypejs/rehype-slug: plugin to add \`id\` attributes to headings](https://github.com/rehypejs/rehype-slug)
+
+## Next Article
+
+Congratulations on adding anchor links to in-text subheadings, making your articles more useful!
+
+In the next article, we will modify the in-text CustomLink. For internal links, we use Next.js's `<Link/>` to speed up page transitions; for external links, we add an icon to alert users that it is an external link!
