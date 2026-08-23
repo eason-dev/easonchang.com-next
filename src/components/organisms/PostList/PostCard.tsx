@@ -40,7 +40,7 @@ export default function PostCard({ post }: Props) {
         <div className="min-w-0 flex-1">
           <dl>
             <dt className="sr-only">Published on</dt>
-            <dd className="text-sm font-medium text-gray-400 dark:text-gray-500">
+            <dd className="text-sm font-medium text-gray-500 dark:text-gray-400">
               <time dateTime={date}>{formatDate(date, locale)}</time>
             </dd>
           </dl>

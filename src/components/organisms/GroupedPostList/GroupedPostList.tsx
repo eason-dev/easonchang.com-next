@@ -27,14 +27,16 @@ function SeriesCard({ entry }: { entry: SeriesEntry }) {
     <details className="bento-card series-card group">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 p-6 [&::-webkit-details-marker]:hidden sm:p-7">
         <div>
-          <p className="text-xs font-medium uppercase tracking-wider text-primary-600 dark:text-primary-400">
+          <p className="text-xs font-medium uppercase tracking-wider text-primary-700 dark:text-primary-400">
             {t('series')} ·{' '}
             {t('series-post-count', { count: entry.items.length })}
           </p>
           <h3 className="mt-2 text-lg font-bold tracking-tight text-gray-900 dark:text-gray-100 sm:text-xl">
             {entry.name}
           </h3>
-          <p className="mt-1 text-sm text-gray-400">{seriesYearRange(entry)}</p>
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+            {seriesYearRange(entry)}
+          </p>
         </div>
         <svg
           aria-hidden="true"
@@ -43,7 +45,7 @@ function SeriesCard({ entry }: { entry: SeriesEntry }) {
           viewBox="0 0 24 24"
           stroke="currentColor"
           strokeWidth={2}
-          className="h-5 w-5 shrink-0 text-gray-400 transition-transform duration-300 group-open:rotate-180"
+          className="h-5 w-5 shrink-0 text-gray-500 transition-transform duration-300 group-open:rotate-180 dark:text-gray-400"
         >
           <path
             strokeLinecap="round"
@@ -59,15 +61,15 @@ function SeriesCard({ entry }: { entry: SeriesEntry }) {
               href={item.post.path}
               className="group/item flex items-baseline gap-3 py-2"
             >
-              <span className="w-8 shrink-0 text-sm font-medium tabular-nums text-gray-400">
+              <span className="w-8 shrink-0 text-sm font-medium tabular-nums text-gray-500 dark:text-gray-400">
                 {String(item.order).padStart(2, '0')}
               </span>
-              <span className="font-medium text-gray-700 transition-colors group-hover/item:text-primary-600 dark:text-gray-300 dark:group-hover/item:text-primary-400">
+              <span className="font-medium text-gray-700 transition-colors group-hover/item:text-primary-700 dark:text-gray-300 dark:group-hover/item:text-primary-400">
                 {item.shortTitle}
               </span>
               <time
                 dateTime={item.post.date}
-                className="ml-auto hidden shrink-0 text-sm text-gray-400 sm:block"
+                className="ml-auto hidden shrink-0 text-sm text-gray-500 sm:block dark:text-gray-400"
               >
                 {formatDate(item.post.date, locale)}
               </time>
@@ -92,7 +94,7 @@ export default function GroupedPostList({ groups }: Props) {
           key={group.year}
           className="md:grid md:grid-cols-[5.5rem_1fr] md:gap-4"
         >
-          <h2 className="top-20 self-start text-3xl font-bold tabular-nums tracking-tight text-gray-300 transition-colors md:sticky dark:text-gray-700">
+          <h2 className="top-20 self-start text-3xl font-bold tabular-nums tracking-tight text-gray-500 transition-colors md:sticky">
             {group.year}
           </h2>
           <ul className="mt-4 grid grid-cols-1 gap-4 md:mt-0">

@@ -29,7 +29,7 @@ const components = {
 // Brand-coloured hover states, keyed by kind. Written as whole class strings so
 // Tailwind's scanner can see them.
 const hoverColors: Record<keyof typeof components, string> = {
-  mail: 'hover:text-primary-600 dark:hover:text-primary-400',
+  mail: 'hover:text-primary-700 dark:hover:text-primary-400',
   github: 'hover:text-gray-500 dark:hover:text-gray-400',
   facebook: 'hover:text-[#4267B2] dark:hover:text-[#4267B2]',
   youtube: 'hover:text-[#FF0000] dark:hover:text-[#FF0000]',

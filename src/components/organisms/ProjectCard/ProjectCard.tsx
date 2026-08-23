@@ -15,7 +15,7 @@ type Props = {
 };
 
 const iconLinkClassName =
-  'rounded-full p-2 text-gray-400 transition-colors hover:bg-gray-900/5 hover:text-primary-600 dark:hover:bg-white/5 dark:hover:text-primary-400';
+  'rounded-full p-2 text-gray-500 transition-colors hover:bg-gray-900/5 hover:text-primary-700 dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-primary-400';
 
 function GlobeIcon() {
   return (
@@ -78,7 +78,7 @@ export default function ProjectCard({ project, variant = 'featured' }: Props) {
           <CustomLink
             href={href}
             aria-label={`Link to ${title}`}
-            className="transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+            className="transition-colors hover:text-primary-700 dark:hover:text-primary-400"
           >
             {title}
           </CustomLink>
@@ -126,7 +126,7 @@ export default function ProjectCard({ project, variant = 'featured' }: Props) {
           {post && (
             <CustomLink
               href={post}
-              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-700 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
             >
               {t('learn-more')}
               <span
