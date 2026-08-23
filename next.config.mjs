@@ -9,11 +9,6 @@ const withNextIntl = createNextIntlPlugin('./src/i18n/request.ts');
  **/
 const nextConfig = {
   reactStrictMode: true,
-  experimental: {
-    // TypeScript 7 dropped the programmatic compiler API Next.js links
-    // against, so Next has to shell out to the tsc CLI instead.
-    useTypeScriptCli: true,
-  },
   images: {
     formats: ['image/avif', 'image/webp'],
     // Next 16 restricts the optimizer to these quality values (default [75]).
