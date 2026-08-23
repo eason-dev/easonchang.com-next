@@ -56,7 +56,7 @@ function CustomPre({ children, className, ...props }: Props) {
               'hidden rounded-md border bg-transparent p-2 transition ease-in focus:outline-none group-hover:flex',
               {
                 'border-green-400': copied,
-                'border-gray-600 hover:border-gray-400 focus:ring-4 focus:ring-gray-200/50 dark:border-gray-700 dark:hover:border-gray-400':
+                'border-gray-600 hover:border-gray-500 focus:ring-4 focus:ring-gray-200/50 dark:border-gray-400 dark:hover:border-gray-300':
                   !copied,
               }
             )}
@@ -65,7 +65,7 @@ function CustomPre({ children, className, ...props }: Props) {
               aria-hidden="true"
               xmlns="http://www.w3.org/2000/svg"
               className={clsx('pointer-events-none h-4 w-4', {
-                'text-gray-400 dark:text-gray-400': !copied,
+                'text-gray-500 dark:text-gray-400': !copied,
                 'text-green-400': copied,
               })}
               fill="none"

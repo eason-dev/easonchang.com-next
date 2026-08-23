@@ -50,7 +50,7 @@ export default function ProjectLayout({ projects }: { projects: Project[] }) {
                 href="https://aburistudio.com"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-primary-700 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
               >
                 aburistudio.com
                 <span aria-hidden="true">↗</span>

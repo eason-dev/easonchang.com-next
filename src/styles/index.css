@@ -165,32 +165,38 @@
  * Prose (posts, about page)
  * ------------------------------------------------------------------------ */
 
-@layer components {
+/* These MUST sit in the `utilities` layer, not `components`.
+ * @tailwindcss/typography registers `.prose` as a utility, and a later cascade
+ * layer wins over an earlier one no matter how specific the selector is — in
+ * `components` every rule below is silently dead. For the same reason each
+ * selector also has to out-specify typography's own `:where()`-wrapped rules
+ * (which land at (0,1,0)), so plain `code` is used rather than `:where(code)`. */
+@layer utilities {
   .prose {
     a {
-      color: var(--color-primary-600);
-      text-decoration-color: --alpha(var(--color-primary-500) / 40%);
+      color: var(--color-primary-700);
+      text-decoration-color: --alpha(var(--color-primary-700) / 40%);
       text-underline-offset: 3px;
       transition:
         color 0.15s,
         text-decoration-color 0.15s;
 
       &:hover {
-        color: var(--color-primary-500);
-        text-decoration-color: var(--color-primary-500);
+        color: var(--color-primary-800);
+        text-decoration-color: var(--color-primary-800);
       }
     }
 
-    :where(code):not(:where(pre code)) {
+    code:not(:where(pre code)) {
       background: var(--color-gray-100);
-      color: var(--color-pink-600);
+      color: var(--color-pink-700);
       padding: 2px 6px;
       border-radius: var(--radius-md);
       font-weight: 500;
     }
 
-    :where(code)::before,
-    :where(code)::after {
+    code::before,
+    code::after {
       content: none;
     }
 
@@ -217,7 +223,7 @@
       }
     }
 
-    :where(code):not(:where(pre code)) {
+    code:not(:where(pre code)) {
       background: var(--color-gray-800);
       color: var(--color-pink-400);
     }
@@ -239,25 +245,33 @@ pre [data-line] {
   padding-inline: 1rem;
 }
 
-/* Shiki emits colors for both themes as CSS vars; switch by class on <html> */
-[data-rehype-pretty-code-figure] span {
+/* Shiki emits colors for both themes as CSS vars; switch by class on <html>.
+ * Scoped to `pre` so it only paints syntax tokens in block code: inline code is
+ * wrapped in a figure span too, and these rules are unlayered, so an unscoped
+ * `span` would repaint every inline snippet with the editor foreground and
+ * override the `.prose code` color above. */
+[data-rehype-pretty-code-figure] pre span {
   color: var(--shiki-light);
 }
 
-.dark [data-rehype-pretty-code-figure] span {
+.dark [data-rehype-pretty-code-figure] pre span {
   color: var(--shiki-dark);
 }
 
+/* Block code only. rehype-pretty-code also wraps *inline* code in a
+ * [data-rehype-pretty-code-figure] span, and these rules are unlayered, so a
+ * bare `code` here would beat the layered `.prose code` styling above and
+ * repaint every inline snippet with the editor-theme background. */
 [data-rehype-pretty-code-figure] {
   pre,
-  code {
+  pre code {
     background: var(--shiki-light-bg);
   }
 }
 
 .dark [data-rehype-pretty-code-figure] {
   pre,
-  code {
+  pre code {
     background: var(--shiki-dark-bg);
   }
 }

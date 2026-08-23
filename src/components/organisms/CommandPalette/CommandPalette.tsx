@@ -103,9 +103,9 @@ export default function CommandPalette({ posts, children }: Props) {
       >
         <Command.Input
           placeholder={t('post-search-placeholder')}
-          className="w-full border-b border-gray-900/10 bg-transparent px-5 py-4 text-base text-gray-900 outline-hidden placeholder:text-gray-400 dark:border-white/10 dark:text-gray-100"
+          className="w-full border-b border-gray-900/10 bg-transparent px-5 py-4 text-base text-gray-900 outline-hidden placeholder:text-gray-500 dark:border-white/10 dark:text-gray-100 dark:placeholder:text-gray-400"
         />
-        <Command.List className="max-h-96 overflow-y-auto overscroll-contain p-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider [&_[cmdk-group-heading]]:text-gray-400">
+        <Command.List className="max-h-96 overflow-y-auto overscroll-contain p-2 [&_[cmdk-group-heading]]:px-3 [&_[cmdk-group-heading]]:py-2 [&_[cmdk-group-heading]]:text-xs [&_[cmdk-group-heading]]:font-medium [&_[cmdk-group-heading]]:uppercase [&_[cmdk-group-heading]]:tracking-wider [&_[cmdk-group-heading]]:text-gray-500 dark:[&_[cmdk-group-heading]]:text-gray-400">
           <Command.Empty className="px-4 py-8 text-center text-sm text-gray-500 dark:text-gray-400">
             {t('search')}: 0
           </Command.Empty>

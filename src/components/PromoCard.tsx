@@ -18,7 +18,7 @@ export default function PromoCard({ title, detail, cta, href, chips }: Props) {
       rel="noreferrer"
       className="bento-card flex h-full flex-col gap-4 p-8"
     >
-      <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+      <h2 className="text-sm font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
         {title}
       </h2>
       <p className="text-gray-600 dark:text-gray-300">{detail}</p>
@@ -32,7 +32,7 @@ export default function PromoCard({ title, detail, cta, href, chips }: Props) {
           </li>
         ))}
       </ul>
-      <p className="mt-auto pt-4 text-sm font-medium text-primary-600 dark:text-primary-400">
+      <p className="mt-auto pt-4 text-sm font-medium text-primary-700 dark:text-primary-400">
         {cta}
       </p>
     </a>

@@ -94,19 +94,19 @@ export default function PostLayout({
             <div className="divide-y divide-gray-200 pt-10 pb-8 transition-colors dark:divide-gray-700 lg:col-span-3">
               <PostBody>
                 {onlyHavePostInAnotherLocale && (
-                  <div className="mb-8 rounded-lg border border-gray-300 bg-gray-100 py-2 px-4 text-center font-medium text-gray-500 transition-colors dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                  <div className="mb-8 rounded-lg border border-gray-300 bg-gray-100 py-2 px-4 text-center font-medium text-gray-600 transition-colors dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                     <Balancer>{t('post-locale-not-available-notice')}</Balancer>
                   </div>
                 )}
                 {aiNoticeKey && (
-                  <div className="mb-8 rounded-lg border border-gray-300 bg-gray-100 py-2 px-4 text-center text-sm text-gray-500 transition-colors dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
+                  <div className="mb-8 rounded-lg border border-gray-300 bg-gray-100 py-2 px-4 text-center text-sm text-gray-600 transition-colors dark:border-gray-600 dark:bg-gray-700 dark:text-gray-300">
                     <Balancer>
                       {t.rich(aiNoticeKey, {
                         original: (chunks) => (
                           <Link
                             href={pathname}
                             locale={originalLocale}
-                            className="underline transition-colors hover:text-primary-500"
+                            className="underline transition-colors hover:text-primary-700 dark:hover:text-primary-300"
                           >
                             {chunks}
                           </Link>
@@ -141,7 +141,7 @@ export default function PostLayout({
                       </p>
                       <CustomLink
                         href={prev.path}
-                        className="flex gap-1 text-primary-500 transition-colors hover:text-primary-600 dark:hover:text-primary-400"
+                        className="flex gap-1 text-primary-700 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
                       >
                         <span>&larr;</span>
                         <span className="grow">
@@ -157,7 +157,7 @@ export default function PostLayout({
                       </p>
                       <CustomLink
                         href={next.path}
-                        className="flex gap-1 text-primary-500 transition-colors hover:text-primary-600 dark:hover:text-primary-400 sm:flex-row-reverse sm:text-right"
+                        className="flex gap-1 text-primary-700 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300 sm:flex-row-reverse sm:text-right"
                       >
                         <span>&rarr;</span>
                         <span className="grow">

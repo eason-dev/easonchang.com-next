@@ -117,7 +117,7 @@ export default async function HomePage({ params }: PageProps) {
       {/* Contact */}
       <FadeIn delay={0.05}>
         <section className="bento-card flex h-full flex-col gap-5 p-8">
-          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
             {t('contact-title')}
           </h2>
           <p className="text-gray-600 dark:text-gray-300">
@@ -126,7 +126,7 @@ export default async function HomePage({ params }: PageProps) {
           <div className="flex flex-wrap gap-3">
             <a
               href={`mailto:${social.email}`}
-              className="rounded-full bg-primary-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-500"
+              className="rounded-full bg-primary-700 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary-800"
             >
               {t('email-me')}
             </a>
@@ -134,7 +134,7 @@ export default async function HomePage({ params }: PageProps) {
               href="https://fantastical.app/easonchang/chat"
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-gray-900/10 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:border-primary-500/40 hover:text-primary-600 dark:border-white/10 dark:text-gray-200 dark:hover:text-primary-400"
+              className="rounded-full border border-gray-900/10 px-5 py-2.5 text-sm font-semibold text-gray-700 transition-colors hover:border-primary-500/40 hover:text-primary-700 dark:border-white/10 dark:text-gray-200 dark:hover:text-primary-400"
             >
               {t('book-time')}
             </a>
@@ -167,7 +167,7 @@ export default async function HomePage({ params }: PageProps) {
       {/* Featured projects */}
       <FadeIn delay={0.15} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
-          <h2 className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-gray-400">
+          <h2 className="flex items-center gap-2 text-sm font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
             <Image
               src="/images/aburi-studio-logo.png"
               alt=""
@@ -199,7 +199,7 @@ export default async function HomePage({ params }: PageProps) {
                       placeholder={project.image.placeholder}
                     />
                   </div>
-                  <p className="mt-3 font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
+                  <p className="mt-3 font-semibold text-gray-900 transition-colors group-hover:text-primary-700 dark:text-gray-100 dark:group-hover:text-primary-400">
                     {project.title.split(' - ')[0]}
                   </p>
                   <p className="mt-1 line-clamp-2 text-sm text-gray-500 dark:text-gray-400">
@@ -213,7 +213,7 @@ export default async function HomePage({ params }: PageProps) {
             <CustomLink
               href="/projects"
               aria-label="all projects"
-              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-700 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
             >
               {tCommon('view-all-projects', { count: projects.length })}
               <span
@@ -230,7 +230,7 @@ export default async function HomePage({ params }: PageProps) {
       {/* Latest posts */}
       <FadeIn delay={0.2} className="md:col-span-2 lg:col-span-3">
         <section className="bento-card h-full p-8">
-          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-400">
+          <h2 className="text-sm font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">
             {t('latest-posts')}
           </h2>
           <ul className="mt-2 divide-y divide-gray-900/5 dark:divide-white/5">
@@ -243,11 +243,11 @@ export default async function HomePage({ params }: PageProps) {
                   <div className="min-w-0 flex-1">
                     <time
                       dateTime={post.date}
-                      className="block text-xs font-medium uppercase tracking-wider text-gray-400"
+                      className="block text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400"
                     >
                       {formatDate(post.date, locale)}
                     </time>
-                    <h3 className="mt-1 line-clamp-2 font-semibold text-gray-900 transition-colors group-hover:text-primary-600 dark:text-gray-100 dark:group-hover:text-primary-400">
+                    <h3 className="mt-1 line-clamp-2 font-semibold text-gray-900 transition-colors group-hover:text-primary-700 dark:text-gray-100 dark:group-hover:text-primary-400">
                       {post.title}
                     </h3>
                     {post.description && (
@@ -272,7 +272,7 @@ export default async function HomePage({ params }: PageProps) {
             <CustomLink
               href="/posts"
               aria-label="all posts"
-              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-600 transition-colors hover:text-primary-500 dark:text-primary-400"
+              className="group/link inline-flex items-center gap-1.5 text-sm font-medium text-primary-700 transition-colors hover:text-primary-800 dark:text-primary-400 dark:hover:text-primary-300"
             >
               {tCommon('view-all-posts', { count: posts.length })}
               <span
